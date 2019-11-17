@@ -4,11 +4,18 @@ from AST import *
 
 class CheckSuite(unittest.TestCase):
     def test_undeclared_function(self):
-        """Simple program: int main() {} """
-        input = """int main() {foo();}"""
-        expect = "Undeclared Function: foo"
+        input = """int a; int a;"""
+        expect = "Redeclared Variable: a"
         self.assertTrue(TestChecker.test(input,expect,400))
 
+    def test_redeclared_variable_01(self):
+        input = """
+int a;
+int b;
+        """
+        expect = ""
+        self.assertTrue(TestChecker.test(input, expect, 401))
+'''
     def test_diff_numofparam_stmt(self):
         """More complex program"""
         input = """int main () {
@@ -46,4 +53,5 @@ class CheckSuite(unittest.TestCase):
                     CallExpr(Id("putIntLn"),[])]))])
         expect = "Type Mismatch In Statement: CallExpr(Id(putIntLn),[])"
         self.assertTrue(TestChecker.test(input,expect,405))
-    
+'''
+
