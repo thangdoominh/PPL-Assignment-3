@@ -1,0 +1,13 @@
+
+void main(int a, float b){
+    return a;
+}
+float[] a(int b)
+{
+    int c;
+}
+boolean a()
+{
+    int x;
+}
+        

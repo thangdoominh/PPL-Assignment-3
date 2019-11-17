@@ -1,0 +1,11 @@
+
+void main(){
+    int a;
+}
+float y()
+{
+    boolean x;
+}
+boolean y()
+{}
+        
