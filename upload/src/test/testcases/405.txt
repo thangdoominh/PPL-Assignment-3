@@ -1,0 +1,6 @@
+
+void main(string a, string a)
+{
+    string s;
+}
+        

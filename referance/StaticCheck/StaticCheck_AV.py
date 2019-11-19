@@ -161,12 +161,6 @@ class StaticChecker(BaseVisitor,Utils):
 			self.visit(x,(params[0],params[1],'loop'))
 		return None
 
-	def visitWith(self,ast,params):
-		block_env = []
-		for x in ast.decl: self.visit(x,(block_env,Variable()))
-		updated_params = (params[0]+(block_env,),params[1],params[2])
-		return self.visitandGetReturned(ast.stmt,updated_params)
-
 	#####################
 	# Single statements #
 	#####################

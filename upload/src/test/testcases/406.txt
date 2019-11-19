@@ -1,0 +1,8 @@
+
+    void main()
+    {}
+    int thang()
+    {
+        int x;
+    }
+        

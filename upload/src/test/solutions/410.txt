@@ -1,1 +1,1 @@
-Redeclared Function: b
+Redeclared VoidType: a

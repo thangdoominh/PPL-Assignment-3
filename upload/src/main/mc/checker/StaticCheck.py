@@ -66,16 +66,18 @@ class StaticChecker(BaseVisitor,Utils):
     # c[1] is kind of the visit
     def visitProgram(self, ast, c):
         g = c[:]
+
+        # This loop will visit all of variable global and function and save it into g
         for x in ast.decl:
-            if type(x) is VarDecl:
-                self.visit(x, (g, Variable()))
-            else:
-                self.visit(x, (g, Function()))
+            self.visit(x, (g, Variable()))
 
         mainFunc = self.findSymbol('main', g)
         if mainFunc is None:
             raise NoEntryPoint();
 
+        for x in ast.decl:
+            if type(x) is FuncDecl:
+                self.visit(x, (g, 'FuncDecl'))
         #no error (Test print)
         return ['Correct']
 
@@ -95,13 +97,33 @@ class StaticChecker(BaseVisitor,Utils):
         localEnvironment = []
         check = self.findSymbol(ast.name.name, params[0])
         param = [self.visit(x, (localEnvironment, Parameter())) for x in ast.param]
+        # body = self.visit(ast.body, params)
         if check is None:
             res = Symbol(ast.name.name, MType(param, ast.returnType))
             params[0].append(res)
-
             return res
+        elif params[1] is 'FuncDecl':
+            test = self.visitAndGetReturnType(ast.body.member, (params[0], ast.returnType))
+            print("test :",ast.name.name , " + ", test)
+            if test is None:
+                raise FunctionNotReturn(ast.name.name)
         else:
             raise Redeclared(Function(), ast.name.name)
+
+    # Return the returnType if the body has return
+    # params[1]: returnType
+    # If a statement contains Return Statement in all its flow, it must return the returnType, otherwise None
+    # Since there params[1] is the returnType of the current function.
+    def visitAndGetReturnType(self, stmtList, params):
+        returnCheck = []
+        for stmt in stmtList:
+            temp = self.visit(stmt, params)
+            if temp is None:
+                returnCheck.append(temp)
+            else:
+                returnCheck.append('Returned')
+        if type(params[1]) is VoidType: return params[1]
+        return params[1] if 'Returned' in returnCheck else None
 
     def visitArrayPointerType(self, ast, params):
         pass
@@ -122,8 +144,8 @@ class StaticChecker(BaseVisitor,Utils):
         pass
 
     def visitBlock(self, ast, params):
+        # return list(reduce((lambda x: params[0] + self.visit(x, params), ast.member), [[]]))
         pass
-
     def visitIf(self, ast, params):
         pass
 

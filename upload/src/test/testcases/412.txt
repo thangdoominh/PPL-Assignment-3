@@ -1,11 +1,11 @@
 
+int x,y;
 void main(){
     int a;
 }
-float y()
+float x()
 {
-    boolean x;
+    boolean y;
+    return 1.4;
 }
-boolean y()
-{}
         
