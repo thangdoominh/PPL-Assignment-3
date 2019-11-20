@@ -18,6 +18,43 @@ int b;
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 401))
 
+    def test_redeclared_variable_02(self):
+        input = """
+int a;
+int b;
+int sum(int a, int b)
+{
+    
+}
+void main()
+{
+    int a;
+}
+        """
+        expect = "Function sum Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 402))
+
+
+    def test_redeclared_variable_03(self):
+        input = """
+int a;
+int b;
+void main()
+{
+}
+float sub(float x, float y)
+{}
+        """
+        expect = "Function sub Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 403))
+
+    def test_redeclared_variable_04(self):
+        input = """
+int main;
+        """
+        expect = "No Entry Point"
+        self.assertTrue(TestChecker.test(input, expect, 404))
+
     def test_redeclared_parameter_05(self):
         input = """
 void main(string a, string a)
@@ -30,27 +67,24 @@ void main(string a, string a)
 
     def test_function_not_return_06(self):
         input = """
+    int a;
     void main()
     {}
-    int thang()
-    {
-        int x;
-    }
+    int c()
+    {}
         """
-        expect = "Function thang Not Return"
+        expect = "Function c Not Return "
         self.assertTrue(TestChecker.test(input, expect, 406))
 
 
     def test_redeclared_function_10(self):
         input = """
-int a;
 void main(){
-    int a;
 }
 int b()
 {}
         """
-        expect = "Function b Not Return"
+        expect = "Function b Not Return "
         self.assertTrue(TestChecker.test(input, expect, 410))
 
     def test_redeclared_function_11(self):
@@ -98,14 +132,14 @@ boolean y()
 
     def test_redeclared_function_14(self):
         input = """
-void main(int a, float b){
-}
-float a(int b)
+float thang()
+{}
+void main()
 {
-    int c;
+    int a;
 }
         """
-        expect = "Redeclared Function: a"
+        expect = "Function thang Not Return "
         self.assertTrue(TestChecker.test(input, expect, 414))
 
     def test_NoEntryPoint_20(self):

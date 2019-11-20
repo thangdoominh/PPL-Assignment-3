@@ -34,9 +34,10 @@ class StaticChecker(BaseVisitor,Utils):
         Symbol("putBool", MType([BoolType()], VoidType())),
         Symbol("putBoolLn", MType([BoolType()], VoidType())),
         Symbol("putString", MType([StringType()], VoidType()))
-
     ]
 
+    # list of name function unreachable
+    unreached = []
 
     def __init__(self,ast):
         #print(ast)
@@ -58,7 +59,6 @@ class StaticChecker(BaseVisitor,Utils):
             result = self.lookup(name, env, lambda x: x.name)
         return result
 
-
     def check(self):
         return self.visit(self.ast,StaticChecker.global_envi)
 
@@ -72,7 +72,7 @@ class StaticChecker(BaseVisitor,Utils):
             self.visit(x, (g, Variable()))
 
         mainFunc = self.findSymbol('main', g)
-        if mainFunc is None:
+        if mainFunc is None or (type(mainFunc.mtype) != MType):
             raise NoEntryPoint();
 
         for x in ast.decl:
@@ -93,27 +93,30 @@ class StaticChecker(BaseVisitor,Utils):
         else:
             raise Redeclared(params[1], res.name)
 
+    # param: list of parameter type in current function
     def visitFuncDecl(self, ast, params):
         localEnvironment = []
         check = self.findSymbol(ast.name.name, params[0])
-        param = [self.visit(x, (localEnvironment, Parameter())) for x in ast.param]
-        # body = self.visit(ast.body, params)
+        param = [self.visit(x, (localEnvironment, Parameter())).mtype for x in ast.param]
+
         if check is None:
             res = Symbol(ast.name.name, MType(param, ast.returnType))
             params[0].append(res)
+            if res.name != 'main' and type(res.mtype) is MType: StaticChecker.unreached.append(res)
             return res
+
         elif params[1] is 'FuncDecl':
-            test = self.visitAndGetReturnType(ast.body.member, (params[0], ast.returnType))
-            print("test :",ast.name.name , " + ", test)
-            if test is None:
+            checkReturn = self.visitAndGetReturnType(ast.body.member, ((params[0], localEnvironment), ast.returnType, None))
+            if checkReturn is None:
                 raise FunctionNotReturn(ast.name.name)
         else:
             raise Redeclared(Function(), ast.name.name)
 
     # Return the returnType if the body has return
-    # params[1]: returnType
     # If a statement contains Return Statement in all its flow, it must return the returnType, otherwise None
     # Since there params[1] is the returnType of the current function.
+    # params[1]: returnType
+    # params[2]: can be missing or None, or set to 'loop' when visit statements inside a loop
     def visitAndGetReturnType(self, stmtList, params):
         returnCheck = []
         for stmt in stmtList:
@@ -125,32 +128,23 @@ class StaticChecker(BaseVisitor,Utils):
         if type(params[1]) is VoidType: return params[1]
         return params[1] if 'Returned' in returnCheck else None
 
-    def visitArrayPointerType(self, ast, params):
-        pass
 
-    def visitBinaryOp(self, ast, params):
-        pass
+    ######################################
+    # Statements that can contain others #
+    ######################################
 
-    def visitUnaryOp(self, ast, params):
-        pass
-
-    def visitCallExpr(self, ast, params):
-        pass
-
-    def visitId(self, ast, params):
-        pass
-
-    def visitArrayCell(self, ast, params):
-        pass
-
-    def visitBlock(self, ast, params):
-        # return list(reduce((lambda x: params[0] + self.visit(x, params), ast.member), [[]]))
-        pass
     def visitIf(self, ast, params):
         pass
 
     def visitFor(self, ast, params):
         pass
+
+    def visitDowhile(self, ast, params):
+        pass
+
+    #####################
+    # Single statements #
+    #####################
 
     def visitContinue(self, ast, params):
         pass
@@ -161,7 +155,35 @@ class StaticChecker(BaseVisitor,Utils):
     def visitReturn(self, ast, params):
         pass
 
-    def visitDowhile(self, ast, params):
+    #################################################
+    # Expressions only use params[0] as environment #
+    #################################################
+
+    def visitCallExpr(self, ast, params):
+        pass
+
+    def visitBinaryOp(self, ast, params):
+        pass
+
+    def visitUnaryOp(self, ast, params):
+        pass
+
+
+
+    def visitId(self, ast, params):
+        pass
+
+    def visitArrayCell(self, ast, params):
+        pass
+
+    def visitBlock(self, ast, params):
+        pass
+
+    ##############
+    # visit Type #
+    ##############
+
+    def visitArrayPointerType(self, ast, params):
         pass
 
     def visitIntLiteral(self, ast, params):
@@ -175,19 +197,3 @@ class StaticChecker(BaseVisitor,Utils):
 
     def visitStringLiteral(self, ast, params):
         pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

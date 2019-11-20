@@ -1,8 +1,8 @@
 
-void main(int a, float b){
-}
-float a(int b)
+float thang()
+{}
+void main()
 {
-    int c;
+    int a;
 }
         

@@ -1,8 +1,7 @@
 
+    int a;
     void main()
     {}
-    int thang()
-    {
-        int x;
-    }
+    int c()
+    {}
         

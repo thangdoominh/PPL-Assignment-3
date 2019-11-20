@@ -1,0 +1,9 @@
+
+int a;
+int b;
+void main()
+{
+}
+float sub(float x, float y)
+{}
+        
