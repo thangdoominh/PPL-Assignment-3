@@ -1,0 +1,13 @@
+
+            int a;
+
+            void main()
+            {
+                boolean x;
+                if (x)
+                {
+                    int b;
+                }
+                    
+            }
+                

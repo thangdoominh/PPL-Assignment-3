@@ -4,6 +4,21 @@ from AST import *
 
 class CheckSuite(unittest.TestCase):
 
+    def test_redeclared_variable_03(self):
+        input = """
+    int a;
+    int b;
+    void main()
+    {
+        int b;
+    }
+    float sub(float x, float y)
+    {}
+            """
+        expect = "Function sub Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 403))
+
+
     def test_undeclared_function(self):
         input = """int a; int a;
         void main(){}"""
@@ -24,7 +39,7 @@ int a;
 int b;
 int sum(int a, int b)
 {
-    
+
 }
 void main()
 {
@@ -41,6 +56,7 @@ int a;
 int b;
 void main()
 {
+    int b;
 }
 float sub(float x, float y)
 {}
@@ -75,6 +91,40 @@ void main(string a, string a)
         """
         expect = "Function c Not Return "
         self.assertTrue(TestChecker.test(input, expect, 406))
+
+    def test_undeclared_id_07(self):
+        input = """
+            int a;
+
+            void main()
+            {
+                int a
+            }
+            int sum(int a, int b)
+            {
+                return 3;
+            }
+            
+                """
+        expect = "Function sum Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 407))
+
+    def test_if_correct_08(self):
+        input = """
+            int a;
+
+            void main()
+            {
+                boolean x;
+                if (x)
+                {
+                    int b;
+                }
+                    
+            }
+                """
+        expect = "Function sum Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 408))
 
 
     def test_redeclared_function_10(self):

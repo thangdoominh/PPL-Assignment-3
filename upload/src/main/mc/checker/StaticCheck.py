@@ -7,7 +7,6 @@ from AST import *
 from Visitor import *
 from Utils import Utils
 from StaticError import *
-from functools import reduce
 
 class MType:
     def __init__(self,partype,rettype):
@@ -106,7 +105,7 @@ class StaticChecker(BaseVisitor,Utils):
             return res
 
         elif params[1] is 'FuncDecl':
-            checkReturn = self.visitAndGetReturnType(ast.body.member, ((params[0], localEnvironment), ast.returnType, None))
+            checkReturn = self.visitAndGetReturnType(ast.body.member, (localEnvironment, ast.returnType, None))
             if checkReturn is None:
                 raise FunctionNotReturn(ast.name.name)
         else:
@@ -126,15 +125,22 @@ class StaticChecker(BaseVisitor,Utils):
             else:
                 returnCheck.append('Returned')
         if type(params[1]) is VoidType: return params[1]
-        return params[1] if 'Returned' in returnCheck else None
-
+        return None if not 'Returned' in returnCheck else params[1]
 
     ######################################
     # Statements that can contain others #
     ######################################
 
     def visitIf(self, ast, params):
-        pass
+        exprIf = self.visit(ast.expr, params[0])
+        if not type(exprIf) is BoolType:
+            raise TypeMismatchInStatement(ast)
+        print("Then Stmt : " ,type(ast.thenStmt.member))
+        checkThen = self.visitAndGetReturnType(ast.thenStmt.member, params)
+        if checkThen is None:
+            checkElse = self.visitAndGetReturnType(ast.elseStmt.member, params)
+            return None if (checkThen and checkElse) is None else params[1]
+        return None if checkThen is None else params[1]
 
     def visitFor(self, ast, params):
         pass
@@ -159,24 +165,27 @@ class StaticChecker(BaseVisitor,Utils):
     # Expressions only use params[0] as environment #
     #################################################
 
-    def visitCallExpr(self, ast, params):
+    def visitCallExpr(self, ast, enviroment):
         pass
 
-    def visitBinaryOp(self, ast, params):
+    def visitBinaryOp(self, ast, enviroment):
         pass
 
-    def visitUnaryOp(self, ast, params):
+    def visitUnaryOp(self, ast, enviroment):
         pass
 
 
+    # type ast is symbol
+    def visitId(self, ast, enviroment):
+        checkId = self.findSymbol(ast.name, enviroment)
+        if checkId is None or (type(checkId.mtype) is MType):
+            raise Undeclared(Identifier(), ast.name)
+        return checkId.mtype
 
-    def visitId(self, ast, params):
+    def visitArrayCell(self, ast, enviroment):
         pass
 
-    def visitArrayCell(self, ast, params):
-        pass
-
-    def visitBlock(self, ast, params):
+    def visitBlock(self, ast, enviroment):
         pass
 
     ##############
