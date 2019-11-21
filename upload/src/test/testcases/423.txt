@@ -1,0 +1,16 @@
+
+    int a;
+    void main()
+    {
+        int a;
+        boolean xyz;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        if (xyz)
+        int thang;
+        
+
+    }
+            

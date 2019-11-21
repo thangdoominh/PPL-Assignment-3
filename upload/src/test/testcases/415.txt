@@ -1,0 +1,12 @@
+
+int a;
+void main()
+{
+    int a;
+    boolean xyz;
+    if (xyz)
+    {
+        return 3;
+    }
+}
+        

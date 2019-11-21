@@ -1,0 +1,13 @@
+
+    int a;
+    void main()
+    {
+        int a;
+        boolean xyz;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        return xyz;
+    }
+            

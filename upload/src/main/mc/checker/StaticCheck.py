@@ -111,16 +111,14 @@ class StaticChecker(BaseVisitor,Utils):
         else:
             raise Redeclared(Function(), ast.name.name)
 
-    # Return the returnType if the body has return
     # If a statement contains Return Statement in all its flow, it must return the returnType, otherwise None
     # Since there params[1] is the returnType of the current function.
-    # params[1]: returnType
     # params[2]: can be missing or None, or set to 'loop' when visit statements inside a loop
     def visitAndGetReturnType(self, stmtList, params):
         returnCheck = []
         for stmt in stmtList:
             temp = self.visit(stmt, params)
-            if temp is None:
+            if temp is None or type(temp) is Symbol:
                 returnCheck.append(temp)
             else:
                 returnCheck.append('Returned')
@@ -134,10 +132,11 @@ class StaticChecker(BaseVisitor,Utils):
     def visitIf(self, ast, params):
         exprIf = self.visit(ast.expr, params[0])
         if not type(exprIf) is BoolType:
-            raise TypeMismatchInStatement(ast)
-        print("Then Stmt : " ,type(ast.thenStmt.member))
+            raise TypeMismatchInStatement(ast.expr.name)
+        print("type ", type(ast.thenStmt))
         checkThen = self.visitAndGetReturnType(ast.thenStmt.member, params)
-        if checkThen is None:
+        print(checkThen)
+        if not ast.elseStmt is None:
             checkElse = self.visitAndGetReturnType(ast.elseStmt.member, params)
             return None if (checkThen and checkElse) is None else params[1]
         return None if checkThen is None else params[1]
@@ -196,13 +195,13 @@ class StaticChecker(BaseVisitor,Utils):
         pass
 
     def visitIntLiteral(self, ast, params):
-        pass
+        return IntType()
 
     def visitFloatLiteral(self, ast, params):
-        pass
+        return FloatType()
 
     def visitBooleanLiteral(self, ast, params):
-        pass
+        return BoolType()
 
     def visitStringLiteral(self, ast, params):
-        pass
+        return StringType()

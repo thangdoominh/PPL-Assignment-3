@@ -3,6 +3,59 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckSuite(unittest.TestCase):
+    def test_Not_Return_if_23(self):
+        input = """
+    int a;
+    void main()
+    {
+        int a;
+        boolean xyz;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        if (xyz)
+        int thang;
+        
+
+    }
+            """
+        expect = "Function haiz Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 423))
+
+'''
+    def test_Not_Return_if_18(self):
+        input = """
+    int a;
+    void main()
+    {
+        int a;
+        boolean xyz;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        return xyz;
+    }
+            """
+        expect = "Function haiz Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 418))
+
+    def test_Not_Return_if_17(self):
+        input = """
+    int a;
+    void main()
+    {
+        int a;
+        boolean xyz;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+    }
+            """
+        expect = "Function haiz Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 417))
 
     def test_redeclared_variable_03(self):
         input = """
@@ -95,16 +148,15 @@ void main(string a, string a)
     def test_undeclared_id_07(self):
         input = """
             int a;
-
             void main()
             {
-                int a
+                int a;
             }
             int sum(int a, int b)
             {
                 return 3;
             }
-            
+
                 """
         expect = "Function sum Not Return "
         self.assertTrue(TestChecker.test(input, expect, 407))
@@ -123,8 +175,22 @@ void main(string a, string a)
                     
             }
                 """
-        expect = "Function sum Not Return "
+        expect = "['Correct']"
         self.assertTrue(TestChecker.test(input, expect, 408))
+
+    def test_undeclared_identifier_09(self):
+        input = """
+        int a;
+        void main()
+        {
+            if (x)
+            {
+                int b;
+            }
+        }
+            """
+        expect = "Undeclared Identifier: x"
+        self.assertTrue(TestChecker.test(input, expect, 409))
 
 
     def test_redeclared_function_10(self):
@@ -192,6 +258,74 @@ void main()
         expect = "Function thang Not Return "
         self.assertTrue(TestChecker.test(input, expect, 414))
 
+    def test_return_in_if_15(self):
+        input = """
+int a;
+void main()
+{
+    int a;
+    boolean xyz;
+    if (xyz)
+    {
+        return 3;
+    }
+}
+        """
+        expect = "['Correct']"
+        self.assertTrue(TestChecker.test(input, expect, 415))
+
+    def test_return_in_if_16(self):
+        input = """
+int a;
+void main()
+{
+    int a;
+    boolean xyz;
+    if (xyz)
+    {
+        return 3;
+    }
+}
+boolean haiz(int a)
+{
+    int xyz;
+    if (xyz)
+    {
+        int y;
+        return true;
+    }
+}
+        """
+        expect = "Type Mismatch In Statement: xyz"
+        self.assertTrue(TestChecker.test(input, expect, 416))
+
+    def test__in_if_19(self):
+        input = """
+int a;
+void main()
+{
+    int a;
+    boolean xyz;
+    if (xyz)
+    {
+        return 3;
+    }
+}
+boolean haiz(int a)
+{
+    int xyz;
+    if (xyz)
+    {
+        int y;
+        return true;
+    }
+}
+        """
+        expect = "Type Mismatch In Statement: xyz"
+        self.assertTrue(TestChecker.test(input, expect, 419))
+
+
+
     def test_NoEntryPoint_20(self):
         input = """
 int a(int a, int b)
@@ -218,4 +352,4 @@ int MAIN(int a, int b)
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 422))
 
-
+'''

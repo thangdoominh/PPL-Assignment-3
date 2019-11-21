@@ -1,13 +1,12 @@
 
             int a;
-
             void main()
             {
-                int a
+                int a;
             }
             int sum(int a, int b)
             {
                 return 3;
             }
-            
+
                 
