@@ -3,6 +3,36 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckSuite(unittest.TestCase):
+
+    def test_Not_Return_if_24(self):
+        input = """
+    int a;
+    void main()
+    {
+        int a;
+        boolean xyz;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        if(xyz)
+            {
+                boolean abc;
+                return abc;
+            }
+            else
+            {
+                boolean qwe;
+                return qwe;
+            }
+        
+    }
+            """
+        expect = "Function haiz Not Return "
+        self.assertTrue(TestChecker.test(input, expect, 424))
+
+
+'''
     def test_Not_Return_if_23(self):
         input = """
     int a;
@@ -14,16 +44,15 @@ class CheckSuite(unittest.TestCase):
     boolean haiz(int a)
     {
         boolean xyz;
-        if (xyz)
-        int thang;
-        
-
+        if(xyz)
+            {
+                int thang;
+            }
     }
             """
         expect = "Function haiz Not Return "
         self.assertTrue(TestChecker.test(input, expect, 423))
 
-'''
     def test_Not_Return_if_18(self):
         input = """
     int a;
@@ -351,5 +380,4 @@ int MAIN(int a, int b)
         """
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 422))
-
 '''

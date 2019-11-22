@@ -10,7 +10,14 @@
         boolean xyz;
         if(xyz)
             {
-                int thang;
+                boolean abc;
+                return abc;
             }
+            else
+            {
+                boolean qwe;
+                return qwe;
+            }
+        
     }
             

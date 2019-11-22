@@ -1,279 +1,220 @@
-#
-#   Student's Name    : Do Minh Thang
-#   Student's ID      : 1713217
-#
+# 1711947 - Hy Pham Ngoc Linh
 
 from MCVisitor import MCVisitor
 from MCParser import MCParser
 from AST import *
 
+
 class ASTGeneration(MCVisitor):
-    def visitProgram(self,ctx:MCParser.ProgramContext):
-        list_declaration = [self.visit(ctx.getChild(i)) for i in range(ctx.getChildCount()-1)]
-        declarations = []
-        for x in list_declaration:
-            if isinstance(x, list):
-                declarations += x
-            else:
-                declarations += [x]
-        return Program(declarations)
+	def visitProgram(self, ctx: MCParser.ProgramContext):
+		return Program([j for i in ctx.decl() for j in self.visit(i)])
 
-    # ------------  Vardeclaration  ------------------
-    def visitDeclaration(self, ctx:MCParser.DeclarationContext):
-        return self.visit(ctx.getChild(0))
+	def visitDecl(self, ctx: MCParser.DeclContext):
+		return self.visit(ctx.var_decl()) if ctx.var_decl() \
+			else [self.visit(ctx.func_decl())]
 
-    def visitVardeclaration(self, ctx:MCParser.VardeclarationContext):
-        listVardec = []
-        typeVariable =  self.visit(ctx.singletype())
-        list_id = self.visit(ctx.idlist())
-        for x in list_id:
-            if not isinstance(x, list):
-                listVardec += [VarDecl(x, typeVariable)]
-            else:
-                listVardec += [VarDecl(x[0], ArrayType(x[1], typeVariable))]
-        return listVardec
+	def visitVar_decl(self, ctx: MCParser.Var_declContext):
+		type = self.visit(ctx.primi_type())
+		vardecls = []
+		for i in ctx.id_list().identifier():
+			if i.id_single():
+				vardecls += [VarDecl(i.id_single().ID().getText(), type)]
+			else:
+				vardecls += [
+					VarDecl(i.id_array().ID().getText(), ArrayType(int(i.id_array().INTLIT().getText()), type))]
+		return vardecls
 
-    def visitSingletype(self, ctx:MCParser.SingletypeContext):
-        if ctx.INTTYPE():
-            return IntType()
-        elif ctx.FLOATTYPE():
-            return FloatType()
-        elif ctx.BOOLTYPE():
-            return BoolType()
-        else:
-            return StringType()
+	def visitPrimi_type(self, ctx: MCParser.Primi_typeContext):
+		if ctx.INTTYPE():
+			return IntType()
+		if ctx.BOOLTYPE():
+			return BoolType()
+		if ctx.FLOATTYPE():
+			return FloatType()
+		if ctx.STRINGTYPE():
+			return StringType()
 
-    def visitIdlist(self, ctx:MCParser.IdlistContext):
-        return [self.visit(x) for x in ctx.idtail()]
+	def visitFunc_decl(self, ctx: MCParser.Func_declContext):
+		name = Id(ctx.ID().getText())
+		if ctx.primi_type():
+			returnType = self.visit(ctx.primi_type())
+		else:
+			if ctx.VOIDTYPE():
+				returnType = VoidType()
+			else:
+				returnType = self.visit(ctx.array_pointer_type())
+		param = [] if ctx.param_list() == None else self.visit(ctx.param_list())
+		body = self.visit(ctx.block_stmt())
+		return FuncDecl(name, param, returnType, body)
 
-    def visitIdtail(self, ctx:MCParser.IdtailContext):
-        return self.visit(ctx.getChild(0))
+	def visitArray_pointer_type(self, ctx: MCParser.Array_pointer_typeContext):
+		return ArrayPointerType(self.visit(ctx.primi_type()))
 
-    # # idarray: ID LSB INTLIT RSB;
-    def visitIdarray(self, ctx:MCParser.IdarrayContext):
-        return [ctx.ID().getText(), int(ctx.INTLIT().getText())]
+	def visitParam_list(self, ctx: MCParser.Param_listContext):
+		return [self.visit(i) for i in ctx.param_decl()]
 
-    def visitIdsingle(self, ctx:MCParser.IdsingleContext):
-        return ctx.ID().getText()
+	def visitParam_decl(self, ctx: MCParser.Param_declContext):
+		type = ArrayPointerType(self.visit(ctx.primi_type())) if ctx.LSB() else self.visit(ctx.primi_type())
+		return VarDecl(ctx.ID().getText(), type)
 
-    # ------------  Funcdeclaration  ------------------
-    def visitFuncdeclaration(self,ctx:MCParser.FuncdeclarationContext):
-        if ctx.VOIDTYPE():
-            returnType = VoidType()
-        else:
-            returnType = self.visit(ctx.getChild(0))
-        name = ctx.ID().getText()
-        listParam = []
-        if ctx.paralist_decla():
-            params = self.visit(ctx.paralist_decla())
-            for x in params:
-                if len(x) == 2:
-                    listParam += [VarDecl(x[1], x[0])]
-                else:
-                    listParam += [VarDecl(x[1], ArrayPointerType(x[0]))]
-        body = self.visit(ctx.block())
-        return FuncDecl(Id(name),listParam, returnType, body)
+	def visitStatement(self, ctx: MCParser.StatementContext):
+		return self.visit(ctx.getChild(0))
 
-    # ---- Array Pointer Type  -----
-    def visitArraypointertype(self,ctx:MCParser.ArraypointertypeContext):
-        return ArrayPointerType(self.visit(ctx.singletype()))
+	def visitIf_stmt(self, ctx: MCParser.If_stmtContext):
+		expr = self.visit(ctx.expression())
+		thenStmt = self.visit(ctx.getChild(4))
+		elseStmt = self.visit(ctx.getChild(6)) if ctx.ELSE() else None
+		return If(expr, thenStmt, elseStmt)
 
-    # ----- List Parameter Declaration -------
-    def visitParalist_decla(self, ctx:MCParser.Paralist_declaContext):
-        return [self.visit(x) for x in ctx.paradecla()]
+	def visitDowhile_stmt(self, ctx: MCParser.Dowhile_stmtContext):
+		sl = [self.visit(i) for i in ctx.statement()]
+		exp = self.visit(ctx.expression())
+		return Dowhile(sl, exp)
 
-    # ----- Parameter Declaration ------
-    def visitParadecla(self, ctx:MCParser.ParadeclaContext):
-        if ctx.getChildCount() == 2:
-            return [self.visit(ctx.singletype()), self.visit(ctx.idsingle())]
-        else:
-            return [self.visit(ctx.singletype()), self.visit(ctx.idsingle()),'[',']']
+	def visitFor_stmt(self, ctx: MCParser.For_stmtContext):
+		expr1 = self.visit(ctx.getChild(2))
+		expr2 = self.visit(ctx.getChild(4))
+		expr3 = self.visit(ctx.getChild(6))
+		loop = self.visit(ctx.statement())
+		return For(expr1, expr2, expr3, loop)
 
-	# ----- Block in function declaration ---------
-    def visitBlock(self, ctx:MCParser.BlockContext):
-        listBlock = []
-        if ctx.vardeclaration():
-            listBlock += [self.visit(x) for x in ctx.vardeclaration()]
-        elif ctx.statement():
-            listBlock += [self.visit(x) for x in ctx.statement()]
+	def visitBreak_stmt(self, ctx: MCParser.Break_stmtContext):
+		return Break()
 
-        list_element = [self.visit(ctx.getChild(i+1)) for i in range(ctx.getChildCount() - 2)]
-        element = []
-        for x in list_element:
-            if isinstance(x, list):
-                element += x
-            else:
-                element += [x]
+	def visitContinue_stmt(self, ctx: MCParser.Continue_stmtContext):
+		return Continue()
 
-        return Block(element)
+	def visitReturn_stmt(self, ctx: MCParser.Return_stmtContext):
+		expr = self.visit(ctx.expression()) if ctx.expression() else None
+		return Return(expr)
 
-    # ----- Statement -----------
-    def visitStatement(self, ctx:MCParser.StatementContext):
-        return self.visit(ctx.getChild(0))
+	def visitExpression_stmt(self, ctx: MCParser.Expression_stmtContext):
+		return self.visit(ctx.expression())
 
-    # ----- If Statenment --------
-    def visitIfstmt(self, ctx:MCParser.IfstmtContext):
-        exp = self.visit(ctx.expression())
-        listStatement = [self.visit(x) for x in ctx.statement()]
-        thenStmt = listStatement[0]
-        elseStmt = None
-        if len(listStatement) != 1:
-            elseStmt = listStatement[1]
+	def visitBlock_stmt(self, ctx: MCParser.Block_stmtContext):
+		return Block([j for i in ctx.blockmem() for j in self.visit(i)])
 
-        return If(exp,thenStmt) if elseStmt is None else If(exp, thenStmt, elseStmt)
+	def visitBlockmem(self, ctx: MCParser.BlockmemContext):
+		return self.visit(ctx.var_decl()) if ctx.var_decl() else [self.visit(ctx.statement())]
 
-    # ----- Do While Statenment --------
-    def visitDowhilestmt(self,ctx:MCParser.DowhilestmtContext):
-        list_stmt = []
-        exp = self.visit(ctx.expression())
-        if ctx.statement():
-            list_stmt += [self.visit(x) for x in ctx.statement()]
-        return Dowhile(list_stmt, exp)
+	def visitExpression(self, ctx: MCParser.ExpressionContext):
+		if ctx.ASSIGNOP():
+			op = ctx.ASSIGNOP().getText()
+			left = self.visit(ctx.expression1())
+			right = self.visit(ctx.expression())
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression1())
 
-    # ----- For Statenment --------
-    def visitForstmt(self,ctx:MCParser.ForstmtContext):
-        list_exp = [self.visit(x) for x in ctx.expression()]
-        exp1 = list_exp[0]
-        exp2 = list_exp[1]
-        exp3 = list_exp[2]
-        loop = self.visit(ctx.statement())
-        return For(exp1, exp2, exp3, loop)
+	def visitExpression1(self, ctx: MCParser.Expression1Context):
+		if ctx.OROP():
+			op = ctx.OROP().getText()
+			left = self.visit(ctx.expression1())
+			right = self.visit(ctx.expression2())
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression2())
 
-    # ----- Breakstmt ------
-    def visitBreakstmt(self,ctx:MCParser.BreakstmtContext):
-        return Break()
+	def visitExpression2(self, ctx: MCParser.Expression2Context):
+		if ctx.ANDOP():
+			op = ctx.ANDOP().getText()
+			left = self.visit(ctx.expression2())
+			right = self.visit(ctx.expression3())
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression3())
 
-    # ----- Continuestmt ------
-    def visitContinuestmt(self,ctx:MCParser.ContinuestmtContext):
-        return Continue()
+	def visitExpression3(self, ctx: MCParser.Expression3Context):
+		if ctx.EQUALOP() or ctx.NOTEQUALOP():
+			op = ctx.getChild(1).getText()
+			left = self.visit(ctx.expression4()[0])
+			right = self.visit(ctx.expression4()[1])
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression4()[0])
 
-    # ----- Returnstmt -------
-    def visitReturnstmt(self,ctx:MCParser.ReturnstmtContext):
-        return Return() if ctx.expression() is None else Return(self.visit(ctx.expression()))
+	def visitExpression4(self, ctx: MCParser.Expression4Context):
+		if ctx.LESSOP() or ctx.GREATEROP() or ctx.LEOP() or ctx.GEOP():
+			op = ctx.getChild(1).getText()
+			left = self.visit(ctx.expression5()[0])
+			right = self.visit(ctx.expression5()[1])
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression5()[0])
 
-    # ----- Expressionstmt ------
-    def visitExpressionstmt(self, ctx:MCParser.ExpressionContext):
-        return self.visit(ctx.expression())
+	def visitExpression5(self, ctx: MCParser.Expression5Context):
+		if ctx.ADDOP() or ctx.SUBOP():
+			op = ctx.getChild(1).getText()
+			left = self.visit(ctx.expression5())
+			right = self.visit(ctx.expression6())
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression6())
 
-    # ----- Expression ------
-    def visitExpression(self,ctx:MCParser.ExpressionContext):
-        if ctx.ASSIGN_OP():
-            op = ctx.ASSIGN_OP().getText()
-            left = self.visit(ctx.exp1())
-            right = self.visit(ctx.expression())
-            return BinaryOp(op, left, right)
-        else:
-            return self.visit(ctx.exp1())
+	def visitExpression6(self, ctx: MCParser.Expression6Context):
+		if ctx.DIVOP() or ctx.MULOP() or ctx.MODOP():
+			op = ctx.getChild(1).getText()
+			left = self.visit(ctx.expression6())
+			right = self.visit(ctx.expression7())
+			return BinaryOp(op, left, right)
+		else:
+			return self.visit(ctx.expression7())
 
+	def visitExpression7(self, ctx: MCParser.Expression7Context):
+		if ctx.SUBOP() or ctx.NOTOP():
+			op = ctx.getChild(0).getText()
+			body = self.visit(ctx.expression7())
+			return UnaryOp(op, body)
+		else:
+			return self.visit(ctx.expression8())
 
-    # ----- exp1 ------
-    def visitExp1(self, ctx:MCParser.Exp1Context):
-        if ctx.OR_OP():
-            op = ctx.OR_OP().getText()
-            left = self.visit(ctx.exp1())
-            right = self.visit(ctx.exp2())
-            return BinaryOp(op, left, right)
-        else:
-            return self.visit(ctx.exp2())
+	def visitExpression8(self, ctx: MCParser.Expression8Context):
+		if ctx.LSB():
+			arr = self.visit(ctx.expression8())
+			idx = self.visit(ctx.expression())
+			return ArrayCell(arr, idx)
+		else:
+			return self.visit(ctx.expression9())
 
+	def visitExpression9(self, ctx: MCParser.Expression9Context):
+		if ctx.LB():
+			return self.visit(ctx.expression())
+		else:
+			return self.visit(ctx.operand())
 
-    def visitExp2(self, ctx:MCParser.Exp2Context):
-        if ctx.AND_OP():
-            op = ctx.AND_OP().getText()
-            left = self.visit(ctx.exp2())
-            right = self.visit(ctx.exp3())
-            return BinaryOp(op, left, right)
-        else:
-            return self.visit(ctx.exp3())
+	def visitOperand(self, ctx: MCParser.OperandContext):
+		return self.visit(ctx.getChild(0))
 
-    def visitExp3(self, ctx:MCParser.Exp3Context):
-        if ctx.EQUAL_OP():
-            op = ctx.EQUAL_OP().getText()
-            [left, right] = [self.visit(exp) for exp in ctx.exp4()]
-            return BinaryOp(op, left, right)
-        elif ctx.NOT_EQUAL_OP():
-            op = ctx.NOT_EQUAL_OP().getText()
-            [left,right] = [self.visit(exp) for exp in ctx.exp4()]
-            return BinaryOp(op, left, right)
-        else:
-            return self.visit(ctx.exp4(0))
+	def visitLiteral(self, ctx: MCParser.LiteralContext):
+		if ctx.INTLIT():
+			return IntLiteral(int(ctx.INTLIT().getText()))
+		if ctx.FLOATLIT():
+			return FloatLiteral(float(ctx.FLOATLIT().getText()))
+		if ctx.STRINGLIT():
+			return StringLiteral(ctx.STRINGLIT().getText())
+		if ctx.BOOLLIT():
+			if (ctx.BOOLLIT().getText() == 'true'):
+				boollit = True
+			else:
+				boollit = False
+			return BooleanLiteral(boollit)
 
-    def visitExp4(self, ctx:MCParser.Exp4Context):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp5(0))
-        else:
-            op = ctx.getChild(1).getText()
-            [left, right] = [self.visit(exp) for exp in ctx.exp5()]
-            return BinaryOp(op, left, right)
+	def visitFunc_call(self, ctx: MCParser.Func_callContext):
+		method = Id(ctx.ID().getText())
+		param = self.visit(ctx.param_list_call()) if ctx.param_list_call() else []
+		return CallExpr(method, param)
 
-    def visitExp5(self,ctx:MCParser.Exp5Context):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp6())
-        else:
-            op = ctx.getChild(1).getText()
-            left = self.visit(ctx.exp5())
-            right = self.visit(ctx.exp6())
-            return BinaryOp(op, left, right)
+	def visitParam_list_call(self, ctx: MCParser.Param_list_callContext):
+		return [self.visit(i) for i in ctx.param_call()]
 
-    def visitExp6(self, ctx: MCParser.Exp6Context):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp7())
-        else:
-            op = ctx.getChild(1).getText()
-            left = self.visit(ctx.exp6())
-            right = self.visit(ctx.exp7())
-            return BinaryOp(op, left, right)
+	def visitParam_call(self, ctx: MCParser.Param_callContext):
+		return self.visit(ctx.getChild(0))
 
-    def visitExp7(self,ctx:MCParser.Exp7Context):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp8())
-        else:
-            op = ctx.getChild(0).getText()
-            body = self.visit(ctx.exp7())
-            return UnaryOp(op, body)
+	def visitIdentifier(self, ctx: MCParser.IdentifierContext):
+		return self.visit(ctx.getChild(0))
 
-    def visitExp8(self, ctx: MCParser.Exp8Context):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp9())
-        else:
-            arr = self.visit(ctx.exp9())
-            idx = self.visit(ctx.expression())
-            return ArrayCell(arr, idx)
+	def visitId_array(self, ctx: MCParser.Id_arrayContext):
+		return ArrayCell(Id(ctx.ID().getText()), IntLiteral(int(ctx.INTLIT().getText())))
 
-    def visitExp9(self,ctx:MCParser.Exp9Context):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp10())
-        else:
-            return self.visit(ctx.expression())
-
-    def visitExp10(self, ctx:MCParser.Exp10Context):
-        return self.visit(ctx.getChild(0))
-
-    def visitOperand(self, ctx:MCParser.OperandContext):
-        value = ctx.getChild(0).getText()
-        if ctx.INTLIT():
-            return IntLiteral(int(value))
-        elif ctx.FLOATLIT():
-            return FloatLiteral(float(value))
-        elif ctx.STRINGLIT():
-            return StringLiteral(value)
-        elif ctx.BOOLLIT():
-            if value == "true":
-                return BooleanLiteral(True)
-            else:
-                return BooleanLiteral(False)
-        else:
-            return Id(ctx.ID().getText())
-
-    def visitFunccall(self, ctx:MCParser.FunccallContext):
-        method = ctx.ID().getText()
-        param = []
-        if ctx.paralist_call():
-            param = self.visit(ctx.paralist_call())
-        return CallExpr(Id(method), param)
-
-    def visitParalist_call(self, ctx:MCParser.Paralist_callContext):
-        return [self.visit(param) for param in ctx.para_call()]
-
-    def visitPara_call(self, ctx:MCParser.Para_callContext):
-        return self.visit(ctx.getChild(0))
+	def visitId_single(self, ctx: MCParser.Id_singleContext):
+		return Id(ctx.ID().getText())

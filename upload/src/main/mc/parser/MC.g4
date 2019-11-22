@@ -1,8 +1,4 @@
-/**
-*   Student's Name    : Do Minh Thang
-*   Student's ID      : 1713217
-**/
-
+//1711947 - Hy Pham Ngoc Linh
 grammar MC;
 
 @lexer::header {
@@ -11,252 +7,220 @@ from lexererr import *
 
 @lexer::member {
 def emit(self):
-	tk = self.type
-	if tk == UNCLOSE_STRING:
-		result = super.emit();
-		raise UncloseString(result.text[1:]);
-	elif tk == ILLEGAL_ESCAPE:
-		result = super.emit();
-		raise IllegalEscape(result.text[1:]);
-	elif tk == ERROR_CHAR:
-		result = super.emit();
-		raise ErrorToken(result.text);
-	else:
-		return super.emit();
+    tk = self.type
+    if tk == UNCLOSE_STRING:
+        result = super.emit();
+        raise UncloseString(result.text);
+    elif tk == ILLEGAL_ESCAPE:
+        result = super.emit();
+        raise IllegalEscape(result.text);
+    elif tk == ERROR_CHAR:
+        result = super.emit();
+        raise ErrorToken(result.text);
+    else:
+        return super.emit();
 }
 
 options{
 	language=Python3;
 }
 
-program : declaration+ EOF
-		;
+program: decl+ EOF;
 
-declaration
-		: vardeclaration
-		| funcdeclaration
-		;
-// vardeclaration
-vardeclaration
-		: singletype idlist SEMI
-        ;
-singletype
-		: INTTYPE
-		| FLOATTYPE
-		| BOOLTYPE
-		| STRINGTYPE
-		;
-idlist
-		: idtail (COMMA idtail)*
-		;
-idtail
-		: idarray
-		| idsingle
-		;
-idarray
-		: ID LSB INTLIT RSB
-		;
-idsingle
-		: ID
-		;
+decl: var_decl | func_decl;
 
-// funcdeclaration
-funcdeclaration
-		: (singletype | VOIDTYPE | arraypointertype) ID LB paralist_decla? RB  block
-		;
-paralist_decla
-		: paradecla (COMMA paradecla)*
-		;
-paradecla
-		: singletype idsingle (LSB RSB)?
-		;
-arraypointertype
-		: singletype LSB RSB ;
-block
-		: LP (vardeclaration | statement)* RP
-		;
+var_decl: primi_type id_list SEMI;
+
+primi_type: INTTYPE | BOOLTYPE | FLOATTYPE | STRINGTYPE;
+
+id_list: identifier (COMMA identifier)*;
+
+identifier: id_array | id_single;
+
+id_array: ID LSB INTLIT RSB;
+
+id_single: ID;
+
+func_decl: (primi_type | VOIDTYPE | array_pointer_type) ID LB param_list? RB block_stmt;
+
+array_pointer_type: primi_type LSB RSB;
+
+param_list: param_decl (COMMA param_decl)*;
+
+param_decl: primi_type (ID | ID LSB RSB);
+
 statement
-		: ifstmt
-		| dowhilestmt
-		| forstmt
-		| breakstmt
-		| continuestmt
-		| returnstmt
-		| expressionstmt
-		| block
-		;
-ifstmt
-		: IF LB expression RB statement (ELSE statement)?
-		;
-dowhilestmt
-		: DO statement+ WHILE expression SEMI
-		;
-forstmt
-		: FOR LB expression SEMI expression SEMI expression RB statement
-		;
-// BREAK chỉ xuất hiện trong vòng lập for và do while
-breakstmt
-		: BREAK SEMI
-		;
-// CONTINUE chỉ xuất hiện trong vòng lập for và do while
-continuestmt
-		: CONTINUE SEMI
-		;
-returnstmt
-		: RETURN expression? SEMI
-		;
-expressionstmt
-		: expression SEMI
-		;
-expression
-		: exp1 ASSIGN_OP expression
-		| exp1
-		;
-exp1
-		: exp1 OR_OP exp2
-		| exp2
-		;
-exp2
-		: exp2 AND_OP exp3
-		| exp3
-		;
-exp3
-		: exp4 (EQUAL_OP | NOT_EQUAL_OP) exp4
-		| exp4
-		;
-exp4
-		: exp5 (LESS_OP | LESS_EQUAL_OP | GREATER_OP | GREATER_EQUAL_OP) exp5
-		| exp5
-		;
-exp5
-		: exp5 (ADD_OP | SUB_OP) exp6
-		| exp6
-		;
-exp6
-		: exp6 (DIV_OP | MUL_OP | MOD_OP) exp7
-		| exp7
-		;
-exp7
-		: (SUB_OP | NOT_OP) exp7
-		| exp8
-		;
-exp8
-		: exp9 LSB expression RSB
-		| exp9
-		;
-exp9
-		: LB expression RB
-		| exp10
-		;
-exp10
-		: operand
-		| funccall
-		;
-operand
-		: INTLIT
-		| FLOATLIT
-		| STRINGLIT
-		| BOOLLIT
-		| ID
-		;
-funccall
-		: ID LB paralist_call? RB
-		;
-paralist_call
-		: para_call (COMMA para_call)*
-		;
-para_call
-		: operand
-		| expression
-		;
-BOOLLIT     : TRUE
-			| FALSE
-			;
-INTLIT      : [0-9]+;
+    : if_stmt
+    | dowhile_stmt
+    | for_stmt
+    | break_stmt
+    | continue_stmt
+    | return_stmt
+    | expression_stmt
+    | block_stmt
+    ;
 
-FLOATLIT    : FRAC
-			| EXPONENT
-			;
+if_stmt: IF LB expression RB statement (ELSE statement)?;
 
-FRAC        : INTLIT?'.'INTLIT
-			| INTLIT'.'INTLIT?
-			;
+dowhile_stmt: DO statement+ WHILE expression SEMI;
 
-EXPONENT    : (FRAC|INTLIT)[eE][-]?INTLIT ;
-// Type value
-INTTYPE     : 'int';
-BOOLTYPE    : 'boolean';
-STRINGTYPE  : 'string';
-FLOATTYPE   : 'float';
-VOIDTYPE    : 'void';
+for_stmt : FOR LB expression SEMI expression SEMI expression RB statement;
 
-// 3.3 Token Set
-// a. Identifiers
+break_stmt: BREAK SEMI;
 
-// b. Keywords
-BREAK       : 'break';
-CONTINUE    : 'continue';
-RETURN      : 'return';
-ELSE        : 'else';
-FOR         : 'for';
-IF          : 'if';
-DO          : 'do';
-WHILE       : 'while';
-TRUE        : 'true';
-FALSE       : 'false';
+continue_stmt: CONTINUE SEMI;
 
-ID          : [_a-zA-Z][_a-zA-Z0-9]*;
+return_stmt: RETURN expression? SEMI;
 
-// c. Operators
-ADD_OP              : '+';
-SUB_OP              : '-';
-MUL_OP              : '*';
-DIV_OP              : '/';
-NOT_OP              : '!';
-MOD_OP              : '%';
-OR_OP               : '||';
-AND_OP              : '&&';
-NOT_EQUAL_OP        : '!=';
-EQUAL_OP            : '==';
-LESS_OP             : '<';
-GREATER_OP          : '>';
-LESS_EQUAL_OP       : '<=';
-GREATER_EQUAL_OP    : '>=';
-ASSIGN_OP           : '=';
+expression_stmt: expression SEMI;
 
-// 3.4 Separators
-LSB     : '[';
-RSB     : ']';
-LP      : '{';
-RP      : '}';
-LB      : '(';
-RB      : ')';
-SEMI    : ';';
-COMMA   : ',';
+block_stmt: LP blockmem* RP;
 
-// 3.5 Literals
+blockmem: var_decl | statement;
 
+expression: expression1 ASSIGNOP expression | expression1;
 
-WS          : [ \b\f\t\r\n] -> skip ;
-STRINGLIT   :'"' ('\\' [bfrnt"\\] | ~[\b\f\r\n\t"\\] )* '"'
-			{
-				self.text = self.text[1:-1]
-			}
-			;
-COMMENTS_LINE   : '//' ~[\n\r\t\f]* -> skip;
-COMMENTS_BLOCK  : '/*' .*? '*/' -> skip;
-ILLEGAL_ESCAPE  : '"'(~[\n"\\] | '\\' [bfrtn"\\])* ('\\' ~[bnrft"])
-				{
-					raise IllegalEscape(self.text[1:])
-				}
-				;
-UNCLOSE_STRING  : '"' ( ~[\b\f\r\t\n"\\] | '\\' [bfrnt"\\])*
-				{
-					raise UncloseString(self.text[1:])
-				}
-				;
-ERROR_CHAR      :.
-				{
-					raise ErrorToken(self.text)
-				}
-				;
+expression1: expression1 OROP expression2 | expression2;
+
+expression2: expression2 ANDOP expression3 | expression3;
+
+expression3: expression4 (EQUALOP | NOTEQUALOP) expression4 | expression4;
+
+expression4: expression5 (LESSOP | GREATEROP | LEOP | GEOP) expression5 | expression5;
+
+expression5: expression5 (ADDOP | SUBOP) expression6 | expression6;
+
+expression6: expression6 (DIVOP | MULOP | MODOP) expression7 | expression7;
+
+expression7: (SUBOP | NOTOP) expression7 | expression8;
+
+expression8: expression8 LSB expression RSB | expression9;
+
+expression9 : LB expression RB | operand;
+
+operand: literal | identifier | func_call;
+
+literal: INTLIT | FLOATLIT | STRINGLIT | BOOLLIT;
+
+func_call: ID LB param_list_call? RB;
+
+param_list_call: param_call (COMMA param_call)*;
+
+param_call : literal | identifier | expression;
+
+// Literals
+INTLIT: DIGIT+;
+
+FLOATLIT: (DIGIT+ ('.'DIGIT*)?|('.'DIGIT+)) EXPONENT?;
+
+BOOLLIT: TRUE | FALSE;
+
+// Keywords
+BOOLTYPE: 'boolean';
+
+BREAK: 'break';
+
+CONTINUE: 'continue';
+
+ELSE: 'else';
+
+FOR: 'for';
+
+FLOATTYPE: 'float';
+
+IF: 'if';
+
+INTTYPE: 'int';
+
+RETURN: 'return';
+
+VOIDTYPE: 'void';
+
+STRINGTYPE: 'string';
+
+DO: 'do';
+
+WHILE: 'while';
+
+TRUE: 'true';
+
+FALSE: 'false';
+
+fragment LETTER: [a-zA-Z];
+
+fragment DIGIT: [0-9];
+
+fragment QUOTE: '"';
+
+fragment EXPONENT: [Ee] '-'? DIGIT+;
+
+// Character Set
+WHITESPACE_CHARACTER: [ \b\t\f\r\n]+ -> skip;
+
+// Comment
+BLOCK_COMMENT: '/*' .*? '*/' -> skip;
+
+LINE_COMMENT: '//' (~'\n')* -> skip;
+
+// Operators
+ADDOP: '+';
+
+SUBOP: '-';
+
+MULOP: '*';
+
+DIVOP: '/';
+
+NOTOP: '!';
+
+MODOP: '%';
+
+OROP: '||';
+
+ANDOP: '&&';
+
+NOTEQUALOP: '!=';
+
+EQUALOP: '==';
+
+LESSOP: '<';
+
+GREATEROP: '>';
+
+LEOP: '<=';
+
+GEOP: '>=';
+
+ASSIGNOP: '=';
+
+// Separators
+LSB: '[';
+
+RSB: ']';
+
+LP: '{';
+
+RP: '}';
+
+LB: '(';
+
+RB: ')';
+
+SEMI: ';';
+
+COMMA: ',';
+
+// Identifier
+ID: (LETTER|'_') (DIGIT|LETTER|'_')*;
+
+STRINGLIT: QUOTE ( '\\' [bfnrt"'\\] | ~[\b\f\n\r\t"'\\] )* QUOTE
+    {self.text = self.text[1:-1]};
+
+ILLEGAL_ESCAPE: QUOTE ( '\\' [bfnrt"'\\] | ~[\b\f\n\r\t"'\\] )* ('\\' ~[bfnrt"'\\] | [\b\f\t"'\\])
+    {raise IllegalEscape(self.text[1:])};
+
+UNCLOSE_STRING: QUOTE ( '\\' [bfnrt"'\\] | ~[\b\f\n\r\t"'\\] )*
+    {raise UncloseString(self.text[1:])};
+
+ERROR_CHAR: .
+    {raise ErrorToken(self.text)};

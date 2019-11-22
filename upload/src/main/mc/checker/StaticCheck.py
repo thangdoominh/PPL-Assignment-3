@@ -106,6 +106,7 @@ class StaticChecker(BaseVisitor,Utils):
 
         elif params[1] is 'FuncDecl':
             checkReturn = self.visitAndGetReturnType(ast.body.member, (localEnvironment, ast.returnType, None))
+            print("Check return ", checkReturn)
             if checkReturn is None:
                 raise FunctionNotReturn(ast.name.name)
         else:
@@ -116,12 +117,21 @@ class StaticChecker(BaseVisitor,Utils):
     # params[2]: can be missing or None, or set to 'loop' when visit statements inside a loop
     def visitAndGetReturnType(self, stmtList, params):
         returnCheck = []
-        for stmt in stmtList:
-            temp = self.visit(stmt, params)
+
+        if type(stmtList) == list:
+            for stmt in stmtList:
+                temp = self.visit(stmt, params)
+                if temp is None or type(temp) is Symbol:
+                    returnCheck.append(temp)
+                else:
+                    returnCheck.append('Returned')
+        else:
+            temp = self.visit(stmtList, params)
             if temp is None or type(temp) is Symbol:
                 returnCheck.append(temp)
             else:
                 returnCheck.append('Returned')
+        print(" abc ", returnCheck)
         if type(params[1]) is VoidType: return params[1]
         return None if not 'Returned' in returnCheck else params[1]
 
@@ -131,13 +141,17 @@ class StaticChecker(BaseVisitor,Utils):
 
     def visitIf(self, ast, params):
         exprIf = self.visit(ast.expr, params[0])
+
         if not type(exprIf) is BoolType:
             raise TypeMismatchInStatement(ast.expr.name)
-        print("type ", type(ast.thenStmt))
-        checkThen = self.visitAndGetReturnType(ast.thenStmt.member, params)
-        print(checkThen)
+
+        print("then Stmt ", type(ast.thenStmt))
+
+        checkThen = self.visitAndGetReturnType(ast.thenStmt, params)
+        print("check then ", checkThen)
         if not ast.elseStmt is None:
-            checkElse = self.visitAndGetReturnType(ast.elseStmt.member, params)
+            checkElse = self.visitAndGetReturnType(ast.elseStmt, params)
+            print("Check else ", type(checkThen))
             return None if (checkThen and checkElse) is None else params[1]
         return None if checkThen is None else params[1]
 
