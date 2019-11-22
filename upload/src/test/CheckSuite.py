@@ -3,8 +3,84 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckSuite(unittest.TestCase):
+    def test_Correct_Return_if_26(self):
+        input = """
+    int a;
+    void main()
+    {
+        int i;
+        int a;
+        boolean xyz;
+        do
+        {
+            float temp;
+        }
+        while(xyz);
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        int i;
+        for (a; xyz; i)
+        {
+            if(xyz)
+            {
+                float thang;
+            }
+        }
+        if(xyz)
+            {
+                boolean abc;
+                return abc;
+            }
+            else
+            {
+                boolean qwe;
+                return qwe;
+            }
 
-    def test_Not_Return_if_24(self):
+    }
+            """
+        expect = "Type Mismatch In Statement: "
+        self.assertTrue(TestChecker.test(input, expect, 426))
+
+    '''
+    def test_Correct_Return_if_25(self):
+        input = """
+    int a;
+    void main()
+    {
+        int i;
+        int a;
+        boolean xyz;
+        for (xyz; xyz; i)
+        {
+            if(xyz)
+            {
+                float thang;
+            }
+        }
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        if(xyz)
+            {
+                boolean abc;
+                return abc;
+            }
+            else
+            {
+                boolean qwe;
+                return qwe;
+            }
+
+    }
+            """
+        expect = "Type Mismatch In Statement: For(Id(xyz);Id(xyz);Id(i);Block([If(Id(xyz),Block([VarDecl(thang,FloatType)]))]))"
+        self.assertTrue(TestChecker.test(input, expect, 425))
+
+    def test_Correct_Return_if_24(self):
         input = """
     int a;
     void main()
@@ -28,11 +104,10 @@ class CheckSuite(unittest.TestCase):
         
     }
             """
-        expect = "Function haiz Not Return "
+        expect = "['Correct']"
         self.assertTrue(TestChecker.test(input, expect, 424))
 
-
-'''
+  
     def test_Not_Return_if_23(self):
         input = """
     int a;

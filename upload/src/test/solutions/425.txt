@@ -1,0 +1,1 @@
+Type Mismatch In Statement: For(Id(xyz);Id(xyz);Id(i);Block([If(Id(xyz),Block([VarDecl(thang,FloatType)]))]))

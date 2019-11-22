@@ -106,7 +106,7 @@ class StaticChecker(BaseVisitor,Utils):
 
         elif params[1] is 'FuncDecl':
             checkReturn = self.visitAndGetReturnType(ast.body.member, (localEnvironment, ast.returnType, None))
-            print("Check return ", checkReturn)
+            # print("Check return ", checkReturn)
             if checkReturn is None:
                 raise FunctionNotReturn(ast.name.name)
         else:
@@ -127,11 +127,11 @@ class StaticChecker(BaseVisitor,Utils):
                     returnCheck.append('Returned')
         else:
             temp = self.visit(stmtList, params)
-            if temp is None or type(temp) is Symbol:
+            if temp is None:
                 returnCheck.append(temp)
             else:
                 returnCheck.append('Returned')
-        print(" abc ", returnCheck)
+        # print(" returnCheck ------------ ", returnCheck)
         if type(params[1]) is VoidType: return params[1]
         return None if not 'Returned' in returnCheck else params[1]
 
@@ -145,21 +145,33 @@ class StaticChecker(BaseVisitor,Utils):
         if not type(exprIf) is BoolType:
             raise TypeMismatchInStatement(ast.expr.name)
 
-        print("then Stmt ", type(ast.thenStmt))
-
         checkThen = self.visitAndGetReturnType(ast.thenStmt, params)
-        print("check then ", checkThen)
         if not ast.elseStmt is None:
             checkElse = self.visitAndGetReturnType(ast.elseStmt, params)
-            print("Check else ", type(checkThen))
-            return None if (checkThen and checkElse) is None else params[1]
+            return params[1] if (checkThen and checkElse) is None else None
         return None if checkThen is None else params[1]
 
     def visitFor(self, ast, params):
-        pass
+        expr1 = self.visit(ast.expr1, params)
+        expr2 = self.visit(ast.expr2, params)
+        expr3 = self.visit(ast.expr3, params)
+
+        if type(expr1) is IntType and type(expr3) is IntType and type(expr2) is BoolType:
+            return self.visit(ast.loop, (params[0], params[1], 'loop'))
+        else:
+            raise TypeMismatchInStatement(ast)
 
     def visitDowhile(self, ast, params):
-        pass
+        exp = self.visit(ast.exp, params[0])
+
+        if not type(exp) is BoolType:
+            raise TypeMismatchInStatement(ast)
+
+        for stmt in ast.sl:
+            self.visit(stmt, (params[0], params[1], 'loop'))
+        return None
+
+
 
     #####################
     # Single statements #

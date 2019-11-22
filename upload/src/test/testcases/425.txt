@@ -5,7 +5,7 @@
         int i;
         int a;
         boolean xyz;
-        for (1.2; xyz; i)
+        for (xyz; xyz; i)
         {
             if(xyz)
             {
