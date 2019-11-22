@@ -3,7 +3,98 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckSuite(unittest.TestCase):
-    def test_Correct_Return_if_26(self):
+
+    def test_break_not_in_loop_28(self):
+        input = """
+    int a;
+    void main()
+    {
+        int i;
+        int a;
+        boolean xyz;
+        do
+        {
+            float temp;
+            
+        }
+        while(xyz);
+        
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        int i;
+        
+        for (a; xyz; i)
+        {
+        
+            if(xyz)
+            {
+                float thang;
+            }
+
+        }
+        if(xyz)
+            {
+                boolean abc;
+                return abc;
+                break;
+            }
+            else
+            {
+                boolean qwe;
+                return qwe;
+                
+            }
+    }
+            """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input, expect, 428))
+'''
+    def test_continue_not_in_loop_27(self):
+        input = """
+    int a;
+    void main()
+    {
+        int i;
+        int a;
+        boolean xyz;
+        do
+        {
+            float temp;
+            
+        }
+        while(xyz);
+        continue;
+    }
+    boolean haiz(int a)
+    {
+        boolean xyz;
+        int i;
+        for (a; xyz; i)
+        {
+            if(xyz)
+            {
+                float thang;
+            }
+        }
+        if(xyz)
+            {
+                boolean abc;
+                return abc;
+            }
+            else
+            {
+                boolean qwe;
+                return qwe;
+            }
+    }
+            """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input, expect, 427))
+
+
+    def test_do_while_26(self):
         input = """
     int a;
     void main()
@@ -15,7 +106,7 @@ class CheckSuite(unittest.TestCase):
         {
             float temp;
         }
-        while(xyz);
+        while(a);
     }
     boolean haiz(int a)
     {
@@ -41,10 +132,10 @@ class CheckSuite(unittest.TestCase):
 
     }
             """
-        expect = "Type Mismatch In Statement: "
+        expect = "Type Mismatch In Statement: Dowhile([Block([VarDecl(temp,FloatType)])],Id(a))"
         self.assertTrue(TestChecker.test(input, expect, 426))
 
-    '''
+
     def test_Correct_Return_if_25(self):
         input = """
     int a;

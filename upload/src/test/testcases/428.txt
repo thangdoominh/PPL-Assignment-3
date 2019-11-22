@@ -8,30 +8,36 @@
         do
         {
             float temp;
+            
         }
-        while(a);
+        while(xyz);
+        
     }
     boolean haiz(int a)
     {
         boolean xyz;
         int i;
+        
         for (a; xyz; i)
         {
+        
             if(xyz)
             {
                 float thang;
             }
+
         }
         if(xyz)
             {
                 boolean abc;
                 return abc;
+                break;
             }
             else
             {
                 boolean qwe;
                 return qwe;
+                
             }
-
     }
             

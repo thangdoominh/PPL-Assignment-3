@@ -121,12 +121,14 @@ class StaticChecker(BaseVisitor,Utils):
         if type(stmtList) == list:
             for stmt in stmtList:
                 temp = self.visit(stmt, params)
+                print("params list :   ", params)
                 if temp is None or type(temp) is Symbol:
                     returnCheck.append(temp)
                 else:
                     returnCheck.append('Returned')
         else:
             temp = self.visit(stmtList, params)
+            print("params single :   ", params)
             if temp is None:
                 returnCheck.append(temp)
             else:
@@ -172,16 +174,18 @@ class StaticChecker(BaseVisitor,Utils):
         return None
 
 
-
     #####################
     # Single statements #
     #####################
 
     def visitContinue(self, ast, params):
-        pass
+        if len(params) < 3 or params[2] != 'loop': raise ContinueNotInLoop()
+        return None
 
     def visitBreak(self, ast, params):
-        pass
+        print("vao break neeeee")
+        if len(params) < 3 or params[2] != 'loop': raise BreakNotInLoop()
+        return None
 
     def visitReturn(self, ast, params):
         pass

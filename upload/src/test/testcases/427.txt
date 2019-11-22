@@ -8,8 +8,10 @@
         do
         {
             float temp;
+
         }
-        while(a);
+        while(xyz);
+        continue;
     }
     boolean haiz(int a)
     {
@@ -26,12 +28,12 @@
             {
                 boolean abc;
                 return abc;
+                break;
             }
             else
             {
                 boolean qwe;
                 return qwe;
             }
-
     }
             
