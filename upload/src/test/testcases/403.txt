@@ -1,10 +1,4 @@
 
-int a;
-int b;
-void main()
-{
-    int b;
-}
-float sub(float x, float y)
-{}
-        
+        boolean x, a;
+        void a() {}
+        void main() {}

@@ -1,5 +1,11 @@
 
-float x;
-int Main(int a, int b)
-{}
-        
+        string sherlock() {
+            string ret;
+            sher = "sher";
+            ret = sher + lock;
+            return ret;
+        }
+        void main() {
+            sherlock();
+        }
+        string sher;

@@ -1,0 +1,15 @@
+
+        void main() {
+            float i;
+            i = 1e-3;
+            do {}
+            {
+                if (true) {
+                        boolean flag[2];
+                        flag[1] = true;
+                    i = i * 10.8;
+                    putFloatLn(i);
+                }
+            }
+            do {} while 1; while true;
+        }

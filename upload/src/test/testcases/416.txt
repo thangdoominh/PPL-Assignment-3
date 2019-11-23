@@ -1,22 +1,6 @@
 
-int a;
-void main()
-{
-    int a;
-    boolean xyz;
-    if (xyz)
-    {
-        
-    }
-}
-boolean haiz(int a)
-{
-    boolean xyz;
-    if (xyz)
-    {
-        int y;
-        return true;
-    }
-    
-}
-        
+        string str, happy;
+        void main() {
+            int a[5], b, c;
+            PPL();
+        }

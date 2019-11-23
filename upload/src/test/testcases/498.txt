@@ -1,0 +1,32 @@
+
+        //Check if a number is prime number
+
+		boolean isPrime(int n)
+        {
+            boolean flag;
+            flag = true;
+            int j;
+            for (j = 2; j <= n/2; j = j + 1)
+            {
+                if (n % j == 0)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
+        }
+
+		int main() {
+			int n;
+			n = getInt();
+			if (isPrime(n)) {
+                putInt(n);
+                putString(" is a prime number.");
+            }
+			else {
+                putInt(n);
+                putString(" is not a prime number.");
+            }
+			return 0;
+		}

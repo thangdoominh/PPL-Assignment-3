@@ -1,0 +1,14 @@
+
+        void notReturnStmt() {
+            if (7.5 < 1e2) {
+                putString("(y)");
+            }
+        }
+        int main() {
+            returnStmt();
+            return 0;
+        }
+        void returnStmt() {
+            notReturnStmt();
+            return;
+        }

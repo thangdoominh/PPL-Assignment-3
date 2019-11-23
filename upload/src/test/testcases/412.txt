@@ -1,11 +1,7 @@
 
-int x,y;
-void main(){
-    int a;
-}
-float x()
-{
-    boolean y;
-    return 1.4;
-}
-        
+        int a, b, c;
+        float d;
+        void main() {
+            int a, b, c;
+        }
+        string d;

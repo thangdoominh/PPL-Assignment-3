@@ -1,0 +1,29 @@
+
+        int f1() {
+            if (true) return 9;
+            else return 10; 
+        }
+        float f2() {
+            if (true) return f1();
+            return 200;
+        }
+        int main() {
+            a[0] = a[1] = 5;
+            int temp;
+            temp = arr(a)[0];
+            putString(g2());
+            return 0;
+        }
+        int a[2];
+        int[] arr(int a[]) {
+            f2();
+            return a;
+        }
+        boolean g1() {
+            return 2 * 3 < 18 * 9;
+        }
+        string g2() {
+            if (g1()) return "Yes";
+            do return "No";
+            while !g1();
+        }

@@ -1,12 +1,10 @@
 
-    int a;
-    void main()
-    {
-        int a;
-        boolean xyz;
-    }
-    boolean haiz(int a)
-    {
-        boolean xyz;
-    }
-            
+        float a;
+        int func() {return 1;}
+        void main() {
+            int a;
+            c = 3;
+            a = func() + c;
+            a + d;
+        }
+        int c;

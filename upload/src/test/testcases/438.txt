@@ -1,0 +1,13 @@
+
+        int plus(int a, int b) {
+            return a + b;
+        }
+        float minus(float a, float b) {
+            return a - b;
+        }
+        float main() {
+            int a[2];
+            a[0] = 6;
+            a[1] = 7;
+            return plus(a[0], a[1]) * minus(a[0], a[1]);
+        }

@@ -1,0 +1,12 @@
+
+        void main() {
+            boolean a, b, flag[3];
+            a = b = true;
+            if (!!a) flag[0] = a || b && (a != b);
+            else if (a == b) {
+                flag[1] = flag[2] = !(3 > 4);
+            }
+            else putBoolLn(a);
+            -(a || b);
+        }
+        

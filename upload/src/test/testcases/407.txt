@@ -1,13 +1,9 @@
 
-            int a;
-            void main()
+        void a(int a, int b) {
+            int c;
             {
-                int a;
+                float a, b, c, d;
+                int d;
             }
-            int sum(int a, int b)
-            {
-                boolean thang
-                return thang;
-            }
-
-                
+        }
+        int main() {}

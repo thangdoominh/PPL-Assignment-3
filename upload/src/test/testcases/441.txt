@@ -1,0 +1,11 @@
+
+        int main() {
+            int c;
+            c = 0;
+            float b, a[4];
+            b = 9e-3;
+            a[c];
+            a[b];
+            return 0;
+        }
+        

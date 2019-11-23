@@ -1,7 +1,4 @@
 
-    int a;
-    void main()
-    {}
-    int c()
-    {}
-        
+        float test;
+        void __test(int test, int fail) {int fail;}
+        void main() {}

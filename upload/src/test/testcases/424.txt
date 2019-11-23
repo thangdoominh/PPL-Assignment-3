@@ -1,24 +1,16 @@
 
-    int a;
-    void main()
-    {
-        int a;
-        boolean xyz;
-    }
-    boolean haiz(int a)
-    {
-        boolean xyz;
-        return xyz;
-        if(xyz)
-            {
-                boolean abc;
-                return abc;
-            }
-            else
-            {
-                boolean qwe;
-                return qwe;
-            }
-        
-    }
-            
+        float arr[10];
+        void main() {
+            int a, b, c;
+            a = b = c = 100;
+            arr[1] = func(a); 
+            d = func(b);
+            test(c);
+        }
+        float func(int a) {
+            return a * 0.2 - 3;
+        }
+        float d;
+        int test(int a) {
+            return a + 1;
+        }

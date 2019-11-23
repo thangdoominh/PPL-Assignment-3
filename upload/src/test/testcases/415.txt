@@ -1,13 +1,5 @@
 
-int a;
-void main()
-{
-    int a;
-    boolean xyz;
-    if (xyz)
-    {
-        return 3;
-    }
-    
-}
-        
+        int a, b[2], c;
+        void main() {
+            d;
+        }

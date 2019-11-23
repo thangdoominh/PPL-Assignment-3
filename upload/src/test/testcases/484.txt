@@ -1,0 +1,8 @@
+
+        int a, b;
+        int main() {
+            a = b = 3;
+            foo(b);
+            return 0;
+        }
+        void foo(int a) {putIntLn(a);}

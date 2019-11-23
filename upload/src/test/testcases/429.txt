@@ -1,15 +1,10 @@
 
-    boolean thang(boolean a)
-    {
-        if(a)
-        {
-            continue;
+        void foo() {}
+        void goo() {
+            return;
         }
-        return a;
-    }
-    void main()
-        {
-            float y[10];
-            y[1];
+        void main() {
+            foo();
+            goo();
+            return 0;
         }
-                

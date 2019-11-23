@@ -1,0 +1,9 @@
+
+        string amIStupid(string name) {
+            putString("You are so stupid!");
+            return "idiot";
+        }
+        string main() {
+            amIStupid("Me");
+            return;
+        }

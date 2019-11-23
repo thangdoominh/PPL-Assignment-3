@@ -1,31 +1,8 @@
 
-    int a;
-    void main()
-    {
-        int i;
-        int a;
-        boolean xyz;
-        for (xyz; xyz; i)
-        {
-            if(xyz)
-            {
-                float thang;
-            }
+        boolean a;
+        void main() {
+            a = true;
+            int a;
+            a = 5;
+            if (a) {}
         }
-    }
-    boolean haiz(int a)
-    {
-        boolean xyz;
-        if(xyz)
-            {
-                boolean abc;
-                return abc;
-            }
-            else
-            {
-                boolean qwe;
-                return qwe;
-            }
-
-    }
-            

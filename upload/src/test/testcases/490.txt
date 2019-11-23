@@ -1,0 +1,7 @@
+
+        int main() {
+            n = getInt();
+            a = -b = -(5 - 6 * n);
+            return 0;
+        }
+        int a, b, n;

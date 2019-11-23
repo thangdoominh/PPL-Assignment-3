@@ -1,0 +1,10 @@
+
+        int main() {
+            foo();
+            return 0;
+        }
+        void foo() {hoo(100);}
+        void goo() {foo();}
+        int hoo(int a) {
+            return a % 2;
+        }

@@ -1,0 +1,40 @@
+
+        int main()
+		{
+    		float a, b, c, discriminant, root1, root2, realPart, imaginaryPart;
+    		putString("Enter coefficients a, b and c: ");
+    		a = getFloat();
+            b = getFloat();
+            c = getFloat();
+    		discriminant = b*b - 4*a*c;
+    		//condition for real and different roots
+    		if (discriminant > 0)
+    		{
+    			//sqrt() function returns square root
+        		root1 = (-b+sqrt(discriminant))/(2*a);
+        		root2 = (-b-sqrt(discriminant))/(2*a);
+        		putFloatLn(root1);
+                putFloatLn(root2);
+    		}
+    		//condition for real and equal roots
+    		else if (discriminant <= 0)
+    		{
+        		root1 = root2 = -b/(2*a);
+        		putString("root1 = root2 = ");
+                putFloatLn(root1);
+    		}
+    		//if roots are not real 
+    		else
+    		{
+        		realPart = -b/(2*a);
+        		imaginaryPart = sqrt(-discriminant)/(2*a);
+        		putFloat(realPart);
+                putString("+-");
+                putFloat(imaginaryPart);
+                putString("i");
+    		}
+    		return 0;
+		}
+        float sqrt(float sqrt) {
+            return 1.1;
+        }

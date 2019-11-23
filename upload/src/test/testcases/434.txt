@@ -1,0 +1,16 @@
+
+        int func(int a) {
+            if (a > 3) return a * 2;
+            return a / 2;
+        }
+        void main() {
+            int a[3];
+            a[0] = func(3);
+            a[1] = func(7);
+            for (i = 0; i < 77; i = i * 2) {
+                if (true) {
+                    a[2] = i;
+                }
+            }
+        }
+        int i;

@@ -1,0 +1,11 @@
+
+        int a[10], m[100];
+        float _main(int a) {
+            __main(2);
+            return a * 2;
+        }
+        float main;
+        boolean __main(int a) {
+            _main(2);
+            return a == 100;
+        }

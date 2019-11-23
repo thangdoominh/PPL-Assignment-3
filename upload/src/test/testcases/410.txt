@@ -1,6 +1,7 @@
 
-void main(){
-}
-int b()
-{}
-        
+        void foo(boolean _a, string _b) {}
+        void goo(int z, boolean _a, string _b, int z) {}
+        void main() {
+            foo();
+            goo();
+        }

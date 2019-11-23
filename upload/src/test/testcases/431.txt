@@ -12,6 +12,7 @@
             int b;
             int c;
             boolean d;
+            thang(d);
              a= a + a;
         }
                 

@@ -1,0 +1,11 @@
+
+        boolean b[5];
+        int main() {
+            b[2] = ret(b)[0];
+            true && (3 > 4) = b[2];
+            return 0;
+        }
+        boolean[] ret(boolean b[]) {
+            b[0] = true;
+            return b;
+        }

@@ -1,0 +1,7 @@
+
+        void main() {
+            int str;
+            str = getInt();
+            putIntLn();
+        }
+        

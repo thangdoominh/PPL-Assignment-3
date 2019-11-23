@@ -1,0 +1,23 @@
+
+        int main()
+		{
+    		int n, reversedInteger, remainder, originalInteger;
+			reversedInteger = 0;
+    		putString("Enter an integer: ");
+    		n = getInt();
+    		originalInteger = n;
+    		//reversed integer is stored in variable 
+			do
+        		remainder = n%10;
+        		reversedInteger = reversedInteger*10 + remainder;
+        		n = n / 10;
+    		while (n != 0);
+
+    		//palindrome if orignalInteger and reversedInteger are equal
+    		if (originalInteger == reversedInteger)
+        		putString("Is a palindrome.");
+    		else
+        		putString("Is not a palindrome.");
+
+    		return 0;
+		}

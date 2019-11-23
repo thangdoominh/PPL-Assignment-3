@@ -1,15 +1,12 @@
 
-    boolean thang(boolean a)
-    {
-        if(a)
-        {
+        int a;
+        float main() {
+            float a;
+            a = func();
+            return a;
         }
-        return a;
-    }
-    void main()
-        {
-            float qwe;
-            int zxc;
-            zxc = qwe;
+        float func() {
+            a = 9;
+            return a;
         }
-                
+        

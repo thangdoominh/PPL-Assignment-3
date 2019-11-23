@@ -1,0 +1,8 @@
+
+        void main() {
+            string C, M, theBest;
+            C = "Conan";
+            M = "Mai-K";
+            theBest = C + M;
+        }
+        

@@ -1,0 +1,7 @@
+
+        void foo() {foo();}
+        int main() {
+            goo();
+            return 0;
+        }
+        void goo() {}

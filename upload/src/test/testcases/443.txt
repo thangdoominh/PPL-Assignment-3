@@ -1,0 +1,14 @@
+
+        int main() {
+            int a, b, c[3];
+            a = b = 5;
+            if (a > 3) {
+                c[0] = -(a * b / 3); 
+            }
+            else if (a == 3) c[1] = a % b;
+            else if (a != 1) c[2] = a = b + 3 - a;
+            else putInt(-a);
+            a && b;
+            return 0;
+        }
+        

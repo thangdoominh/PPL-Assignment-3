@@ -1,0 +1,5 @@
+
+        void func1() {__func2();}
+        void __func2() {mainfunc();}
+        void mainfunc() {__main();}
+        void __main() {func1();}

@@ -1,0 +1,18 @@
+
+        int a;
+        int foo() {
+            a = hoo();
+            return a;
+        }
+        float goo() {
+            a = foo();
+            return a * 8;
+        }
+        void main() {
+            goo();
+            return;
+        }
+        int hoo() {
+            goo();
+            return 100;
+        }

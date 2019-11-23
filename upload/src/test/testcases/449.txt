@@ -1,0 +1,9 @@
+
+        void main() {
+            boolean a;
+            a = true;
+            int i;
+            i = - 9;
+            i = a;
+        }
+        

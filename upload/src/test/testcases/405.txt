@@ -1,6 +1,3 @@
 
-void main(string a, string a)
-{
-    string s;
-}
-        
+        void foo(int a, int b, int a) {}
+        void main() {}

@@ -1,1 +1,1 @@
-['Correct']
+Redeclared Function: __str

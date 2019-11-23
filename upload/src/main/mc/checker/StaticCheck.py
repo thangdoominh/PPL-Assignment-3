@@ -92,7 +92,7 @@ class StaticChecker(BaseVisitor,Utils):
         if len(self.unreached) > 0:
             raise UnreachableFunction(self.unreached[0].name)
         #no error (Test print)
-        return ['Correct']
+        return ""
 
     # param[0] is the environment
     # param[1] can be anything,
@@ -217,7 +217,7 @@ class StaticChecker(BaseVisitor,Utils):
 
     def visitCallExpr(self, ast, enviroment):
         method = self.findSymbol(ast.method.name, enviroment)
-        if method is None or method.mtype != MType:
+        if (method is None or method.mtype != MType) and method.name != "main":
             raise Undeclared(Function(),ast.method.name)
 
         if method in StaticChecker.unreached:
@@ -236,10 +236,49 @@ class StaticChecker(BaseVisitor,Utils):
 
 
     def visitBinaryOp(self, ast, enviroment):
-        left = type(self.visit(ast.left, enviroment))
-        right = type(self.visit(ast.right, enviroment))
+        left = self.visit(ast.left, enviroment)
+        right = self.visit(ast.right, enviroment)
         if type(ast.left) not in (Id, ArrayCell) and ast.op == "=":
              raise NotLeftValue(ast.left)
+
+        if type(left) != type(right):
+            if type(left) is IntType and type(right) is FloatType:
+                left, right = right, left
+            elif type(left) is FloatType and type(right) is IntType: pass
+            else:
+                raise TypeMismatchInExpression(ast)
+
+        if type(left) is BoolType:
+            if ast.op in ("==", "!=", "&&", "||", "="):
+                return BoolType()
+            raise TypeMismatchInExpression(ast)
+
+        if type(left) is IntType:
+            if ast.op == "/":
+                return FloatType()
+            if ast.op in ("+", "-", "*", "%"):
+                return IntType()
+            if ast.op in ("<", "<=", ">", ">=", "==", "!="):
+                return BoolType()
+            raise TypeMismatchInExpression(ast)
+
+        if type(left) is FloatType:
+            if ast.op in ("+", "-", "*", "/", "="):
+                return IntType()
+            if ast.op in ("<", "<=", ">", ">="):
+                return BoolType()
+            raise TypeMismatchInExpression(ast)
+
+        if type(left) is StringType:
+            if ast.op == "=":
+                return StringType()
+            raise TypeMismatchInExpression(ast)
+        raise TypeMismatchInExpression(ast)
+
+
+
+
+
         if (left and right) in (IntType, FloatType):
             if ast.op == "/":
                 return FloatType()

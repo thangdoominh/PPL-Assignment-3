@@ -1,0 +1,19 @@
+
+        void main() {
+            int i;
+            for (i = 0; i < 100; i = i + 2) {
+                int a;
+                a = 5;
+                if (i * i > 1e3) {
+                    break;
+                }
+                if (i * i < 5e2) {
+                    continue;
+                }
+                for (a = 0; a < 12; a = a + 1) {
+                    do {} while true;
+                    continue;
+                }
+                break;
+            }
+        }

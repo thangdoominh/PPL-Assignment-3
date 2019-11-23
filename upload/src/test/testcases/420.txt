@@ -1,4 +1,9 @@
 
-int a(int a, int b)
-{}
-        
+        int test(int a, int b) {
+            return a + b;
+        }
+        void main() {
+            int a[1], b;
+            test(a[0], b);
+            test(b, fail);
+        }

@@ -1,2 +1,4 @@
-int a; int a;
-        void main(){}
+
+        int a, b;
+        int a;
+        void main() {}

@@ -1,3 +1,9 @@
 
-int main;
-        
+        string s;
+        void main() {
+            int s, t;
+            {
+                boolean t, u;
+                float u;
+            }
+        }

@@ -1,0 +1,6 @@
+
+        int a, b, c;
+        float __main;
+        int main(string argv) {
+            return 0;
+        }

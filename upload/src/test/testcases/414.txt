@@ -1,8 +1,19 @@
 
-float thang()
-{}
-void main()
-{
-    int a;
-}
-        
+        int a[5], b[2], c;
+        void func(int a, int b) {}
+        float d;
+        void main() {
+            string a[2], b, c[2];
+            {
+                boolean a, b[2];
+                {
+                    string a, b, c;
+                }
+                int c;
+            }
+            int main;
+            func(main, main);
+            notFail();
+        }
+        string success;
+        void notFail() {}

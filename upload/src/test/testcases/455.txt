@@ -1,0 +1,14 @@
+
+        int func1(int a[]) {
+            return a[0] + a[1];
+        }
+        void main() {
+            int main[2], a;
+            a = 3;
+            func1(main);
+            func2(a);
+        }
+        int func2(int a[]) {
+            return a[0] * a[1];
+        }
+        

@@ -1,0 +1,33 @@
+
+        /*Function convert binary to Octal */
+		int convertBinarytoOctal(int binaryNumber)
+		{
+    		int octalNumber, decimalNumber, i;
+			octalNumber = decimalNumber = i = 0;
+			do {
+        		decimalNumber = decimalNumber + (binaryNumber%10) * pow(2,i);
+        		i = i + 1;
+        		binaryNumber = binaryNumber / 10;
+    		}
+    		while (binaryNumber != 0);
+    		i = 1;
+			do {
+        		octalNumber = octalNumber + (decimalNumber % 8) * i;
+        		decimalNumber = decimalNumber / 8;
+        		i = i * 10;
+    		}
+    		while (decimalNumber != 0);
+
+    		return octalNumber;
+		}
+        void main() {
+            putIntLn(convertBinarytoOctal(100000000111110));
+            return;
+        }
+        int pow(int a, int b) {
+            int i, result;
+            result = 1;
+            for (i = 0; i < b; i = i + 1)
+                result = result*a;
+            return result;
+        }

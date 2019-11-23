@@ -1,38 +1,4 @@
 
-    int a;
-    void main()
-    {
-        int i;
-        int a;
-        boolean xyz;
-        do
-        {
-            float temp;
-            
+        void main() {
+            for ("Edogawa"; true; "Conan") {}
         }
-        while(xyz);
-        continue;
-    }
-    boolean haiz(int a)
-    {
-        boolean xyz;
-        int i;
-        for (a; xyz; i)
-        {
-            if(xyz)
-            {
-                float thang;
-            }
-        }
-        if(xyz)
-            {
-                boolean abc;
-                return abc;
-            }
-            else
-            {
-                boolean qwe;
-                return qwe;
-            }
-    }
-            

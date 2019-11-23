@@ -1,9 +1,7 @@
 
-void main(){
-    int a;
-}
-void a()
-{}
-int a()
-{ return 0;}
-        
+        int a[5], b, c;
+        void main() {
+            int a, main[10], fail;
+            int fail[5];
+        }
+        string d;

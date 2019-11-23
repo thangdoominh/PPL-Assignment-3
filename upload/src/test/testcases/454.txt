@@ -1,0 +1,9 @@
+
+        boolean a;
+        void main() {
+            int a;
+            a = getInt();
+            putInt(a);
+            putBool(a);
+        }
+        

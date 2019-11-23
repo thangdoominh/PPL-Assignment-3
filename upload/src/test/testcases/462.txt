@@ -1,0 +1,13 @@
+
+        int testIQ(int IQ) {
+            if (IQ > 150) {
+                putString("Woww");
+                return IQ;
+            }
+            else
+                putString("Meh");
+        }
+        void main() {
+            testIQ(100);
+            return;
+        }

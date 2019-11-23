@@ -1,0 +1,15 @@
+
+        int main() {
+            float a;
+            a = getFloat();
+            {
+                if (a > 5) {
+                    {
+                        return 0;
+                    }
+                }
+                else {
+                    return 1;
+                }
+            }
+        }

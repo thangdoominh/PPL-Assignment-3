@@ -1,20 +1,13 @@
 
-int a;
-void main()
-{
-    int a;
-    boolean xyz;
-    if (xyz)
-    {
-    }
-}
-boolean haiz(int a)
-{
-    boolean xyz;
-    if (xyz)
-    {
-        int y;
-        return true;
-    }
-}
-        
+        int a;
+        float b[2];
+        void main() {
+            foo() + goo();
+            notFound(a);
+        }
+        int foo() {
+            return 1;
+        }
+        float goo() {
+            return 2.5;
+        }

@@ -1,13 +1,5 @@
 
-            int a;
-
-            void main()
-            {
-                boolean x;
-                if (x)
-                {
-                    int b;
-                }
-                    
-            }
-                
+        int __init, __str;
+        void foo(int __init) {}
+        void __str() {}
+        void main() {}

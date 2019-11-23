@@ -1,0 +1,29 @@
+
+        int a[5];
+        float b;
+        boolean c;
+        string str[5];
+        string[] __str(boolean f[]) {return str;}
+        void main() {
+            string str;
+            boolean flag[2];
+            {
+                int i, c;
+                c = 5;
+                for (i = 0; i < c; i = i + 1) {
+                    a[i] = i * 2;
+                    putIntLn(a[i]);
+                } 
+            }
+            c = true;
+            putBool(c);
+            {
+                b = a[2] + a[1];
+            }
+            str = "Shinjitsu wa Itsumo Hitotsu";
+            putString(str);
+            int a[5];
+            __str(flag);                            //Okay
+            __str(a);                               //Fail
+        }
+        

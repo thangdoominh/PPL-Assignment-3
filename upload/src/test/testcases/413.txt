@@ -1,11 +1,14 @@
 
-void main(){
-    int a;
-}
-float y()
-{
-    boolean x;
-}
-boolean y()
-{}
-        
+        int a;
+        void foo(int a){}
+        boolean b;
+        void goo(int b){}
+        string c;
+        float d[3];
+        void main() {
+            int a, b, c;
+            foo(a);
+            goo(b);
+            a();
+        }
+        float[] a() {return d;}

@@ -1,0 +1,13 @@
+
+        int main() {
+            num = getInt();
+            int a[3], ind;
+            float b[2];
+            ind = getInt();
+            float result;
+            result = -(getFloat() + 5) * b[ind] / a[num];
+            b[0] = b[1] = a[1] + a[2] * num % 4;
+            return 0; 
+        }
+        int num;
+        

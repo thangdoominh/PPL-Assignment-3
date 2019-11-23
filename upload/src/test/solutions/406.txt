@@ -1,1 +1,1 @@
-Function c Not Return 
+Redeclared VoidType: fail

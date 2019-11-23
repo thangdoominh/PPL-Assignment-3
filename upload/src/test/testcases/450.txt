@@ -1,0 +1,9 @@
+
+        boolean a[4];
+        void main() {
+            a[1] = true;
+            a[2] = false || (4 > 3.5);
+            a = a[1] && a[2];
+            return;
+        }
+        

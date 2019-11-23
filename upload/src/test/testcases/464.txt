@@ -1,0 +1,17 @@
+
+        int main() {
+            int a;
+            do {
+                a = getInt();
+            }
+            putInt(a + 1);
+            a = a * 2;
+            putIntLn(a + 1);
+            a = a * a;
+            {
+                putFloatLn(a + 7);
+                {
+                    return 0;
+                }
+            } while true;
+        }
