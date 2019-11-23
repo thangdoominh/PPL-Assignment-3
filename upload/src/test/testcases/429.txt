@@ -1,0 +1,15 @@
+
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+            continue;
+        }
+        return a;
+    }
+    void main()
+        {
+            float y[10];
+            y[1];
+        }
+                

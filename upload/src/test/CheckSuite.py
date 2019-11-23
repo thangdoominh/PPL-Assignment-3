@@ -4,11 +4,31 @@ from AST import *
 
 class CheckSuite(unittest.TestCase):
 
+    def test_break_not_in_loop_2(self):
+        input = """
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+            continue;
+        }
+        return a;
+    }
+    void main()
+        {
+            float y[10];
+            y[1];
+        }
+                """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input, expect, 429))
+
     def test_break_not_in_loop_28(self):
         input = """
 void main()
     {
         float y[10];
+        
         y[1.4];
     }
             """
@@ -429,9 +449,10 @@ void main()
     {
         return 3;
     }
+    
 }
         """
-        expect = "['Correct']"
+        expect = "Type Mismatch In Statement: Return(IntLiteral(3))"
         self.assertTrue(TestChecker.test(input, expect, 415))
 
     def test_return_in_if_16(self):
@@ -443,20 +464,21 @@ void main()
     boolean xyz;
     if (xyz)
     {
-        return 3;
+        
     }
 }
 boolean haiz(int a)
 {
-    int xyz;
+    boolean xyz;
     if (xyz)
     {
         int y;
         return true;
     }
+    
 }
         """
-        expect = "Type Mismatch In Statement: xyz"
+        expect = "Function haiz Not Return "
         self.assertTrue(TestChecker.test(input, expect, 416))
 
     def test__in_if_19(self):
@@ -468,12 +490,11 @@ void main()
     boolean xyz;
     if (xyz)
     {
-        return 3;
     }
 }
 boolean haiz(int a)
 {
-    int xyz;
+    boolean xyz;
     if (xyz)
     {
         int y;
@@ -481,7 +502,7 @@ boolean haiz(int a)
     }
 }
         """
-        expect = "Type Mismatch In Statement: xyz"
+        expect = "Function haiz Not Return "
         self.assertTrue(TestChecker.test(input, expect, 419))
 
 
@@ -511,4 +532,3 @@ int MAIN(int a, int b)
         """
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 422))
-

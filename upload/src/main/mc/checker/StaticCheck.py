@@ -121,14 +121,14 @@ class StaticChecker(BaseVisitor,Utils):
         if type(stmtList) == list:
             for stmt in stmtList:
                 temp = self.visit(stmt, params)
-                print("params list :   ", stmt)
+                # print("params list :   ", stmt)
                 if temp is None or type(temp) is Symbol:
                     returnCheck.append(temp)
                 else:
                     returnCheck.append('Returned')
         else:
             temp = self.visit(stmtList, params)
-            print("params single :   ", stmtList)
+            # print("params single :   ", stmtList)
             if temp is None:
                 returnCheck.append(temp)
             else:
@@ -143,7 +143,6 @@ class StaticChecker(BaseVisitor,Utils):
 
     def visitIf(self, ast, params):
         exprIf = self.visit(ast.expr, params[0])
-        # print("type in IF: ", ast)
         if not type(exprIf) is BoolType:
             raise TypeMismatchInStatement(ast.expr.name)
 
@@ -232,7 +231,8 @@ class StaticChecker(BaseVisitor,Utils):
             return array.eleType
 
     def visitBlock(self, ast, enviroment):
-        pass
+        [self.visit(x, enviroment) for x in ast.member]
+        return None
 
     ##############
     # visit Type #

@@ -6,16 +6,17 @@ void main()
     boolean xyz;
     if (xyz)
     {
-        return 3;
+        
     }
 }
 boolean haiz(int a)
 {
-    int xyz;
+    boolean xyz;
     if (xyz)
     {
         int y;
         return true;
     }
+    
 }
         
