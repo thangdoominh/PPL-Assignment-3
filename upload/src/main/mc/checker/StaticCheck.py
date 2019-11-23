@@ -61,6 +61,18 @@ class StaticChecker(BaseVisitor,Utils):
     def check(self):
         return self.visit(self.ast,StaticChecker.global_envi)
 
+    def typeCheck(self, x, y):
+        if type(x) == type(y):
+            if type(x) is ArrayType and x.eleType != y.eleType:
+                return False
+            else:
+                return True
+        else:
+            if type(x) is FloatType and type(y) is IntType:
+                return True
+            else:
+                return False
+
     # c[0] is the environment or tuple of environment
     # c[1] is kind of the visit
     def visitProgram(self, ast, c):
@@ -77,6 +89,8 @@ class StaticChecker(BaseVisitor,Utils):
         for x in ast.decl:
             if type(x) is FuncDecl:
                 self.visit(x, (g, 'FuncDecl'))
+        if len(self.unreached) > 0:
+            raise UnreachableFunction(self.unreached[0].name)
         #no error (Test print)
         return ['Correct']
 
@@ -193,7 +207,7 @@ class StaticChecker(BaseVisitor,Utils):
             return None
         else:
             exp = self.visit(ast.expr, params[0])
-            if type(params[1]) != type(exp):
+            if self.typeCheck(params[1], exp) is None:
                 raise TypeMismatchInStatement(ast)
             return exp
 
@@ -202,7 +216,24 @@ class StaticChecker(BaseVisitor,Utils):
     #################################################
 
     def visitCallExpr(self, ast, enviroment):
-        pass
+        method = self.findSymbol(ast.method.name, enviroment)
+        if method is None or method.mtype != MType:
+            raise Undeclared(Function(),ast.method.name)
+
+        if method in StaticChecker.unreached:
+            StaticChecker.unreached.remove(method)
+
+        def_parameter = method.mtype.partype
+        use_parameter = [self.visit(x, enviroment) for x in ast.param]
+        if len(def_parameter) != len(use_parameter):
+            raise TypeMismatchInExpression(ast)
+
+        for index in range(0, len(def_parameter)):
+            if self.typeCheck(def_parameter[index], use_parameter[index]) is None:
+                raise TypeMismatchInExpression(ast)
+        return method.mtype.rettype
+
+
 
     def visitBinaryOp(self, ast, enviroment):
         left = type(self.visit(ast.left, enviroment))
@@ -227,7 +258,11 @@ class StaticChecker(BaseVisitor,Utils):
         raise TypeMismatchInExpression(ast)
 
     def visitUnaryOp(self, ast, enviroment):
-        pass
+        exp = self.visit(ast.body, enviroment)
+        if (ast.op == "!" and type(exp) is BoolType)\
+            or (ast.op == "-" and type(exp) in (IntType, FloatType)):
+            return exp
+        raise TypeMismatchInExpression
 
 
     # type ast is symbol

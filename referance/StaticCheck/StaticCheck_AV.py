@@ -134,6 +134,10 @@ class StaticChecker(BaseVisitor,Utils):
 	######################################
 	# Statements that can contain others #
 	######################################
+	def asf(self):
+		if (a):
+			return None;
+
 
 	def visitIf(self,ast,params):
 		if not type(self.visit(ast.expr,params[0])) is BoolType:
