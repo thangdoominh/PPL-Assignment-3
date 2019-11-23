@@ -179,12 +179,10 @@ class StaticChecker(BaseVisitor,Utils):
     #####################
 
     def visitContinue(self, ast, params):
-        print("vao continue neeeee")
         if len(params) < 3 or params[2] != 'loop': raise ContinueNotInLoop()
         return None
 
     def visitBreak(self, ast, params):
-        print("vao break neeeee")
         if len(params) < 3 or params[2] != 'loop': raise BreakNotInLoop()
         return None
 
@@ -207,7 +205,28 @@ class StaticChecker(BaseVisitor,Utils):
         pass
 
     def visitBinaryOp(self, ast, enviroment):
-        pass
+        left = self.visit(ast.left, enviroment)
+        right = self.visit(ast.right, enviroment)
+        print("left ", left)
+        print("right ", right)
+        if type(ast.left) not in (Id, ArrayCell) and ast.op == "=":
+             raise NotLeftValue(ast.left)
+        if (type(left) and type(right)) in (IntType, FloatType):
+            print("ooooooooo test")
+            if ast.op == "/":
+                return FloatType()
+            if ast.op in ("+", "-", "*"):
+                return FloatType() if FloatType in (left, right) else IntType()
+            if ast.op in ("<", "<=", ">", ">=", "==", "!="):
+                return BoolType()
+            if ast.op == "=":
+                if type(left) is FloatType:
+                    return FloatType()
+
+        if ast.op in ("==", "!", "=!", "&&", "||","=") and (type(left) and type(right)) is BoolType:
+            return BoolType()
+        if type(left) and type(right) is StringType: return StringType()
+        raise TypeMismatchInExpression(ast)
 
     def visitUnaryOp(self, ast, enviroment):
         pass

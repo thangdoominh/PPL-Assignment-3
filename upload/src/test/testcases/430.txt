@@ -1,0 +1,15 @@
+
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+        }
+        return a;
+    }
+    void main()
+        {
+            float qwe;
+            int zxc;
+            zxc = qwe;
+        }
+                

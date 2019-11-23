@@ -3,8 +3,68 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckSuite(unittest.TestCase):
+    def test_Type_mismatch_expression_31(self):
+        input = """
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+        }
+        return a;
+    }
+    void main()
+        {
+            float a;
+            int b;
+            int c;
+            boolean d;
+             a= a + a;
+        }
+                """
+        expect = "Type Mismatch In Expression: BinaryOp(=,Id(zxc),Id(qwe))"
+        self.assertTrue(TestChecker.test(input, expect, 431))
 
-    def test_break_not_in_loop_2(self):
+    '''
+    def test_Type_mismatch_expression_31(self):
+        input = """
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+        }
+        return a;
+    }
+    void main()
+        {
+            float qwe;
+            int zxc;
+            zxc = qwe;
+        }
+                """
+        expect = "Type Mismatch In Expression: Id(zxc)"
+        self.assertTrue(TestChecker.test(input, expect, 431))
+
+    def test_not_left_value_30(self):
+        input = """
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+            continue;
+        }
+        return a;
+    }
+    void main()
+        {
+            float qwe;
+            int zxc;
+            zxc = qwe;
+        }
+                """
+        expect = "Continue Not In Loop"
+        self.assertTrue(TestChecker.test(input, expect, 430))
+
+    def test_break_not_in_loop_29(self):
         input = """
     boolean thang(boolean a)
     {
@@ -532,3 +592,4 @@ int MAIN(int a, int b)
         """
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 422))
+'''

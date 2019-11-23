@@ -1,0 +1,17 @@
+
+    boolean thang(boolean a)
+    {
+        if(a)
+        {
+        }
+        return a;
+    }
+    void main()
+        {
+            float a;
+            int b;
+            int c;
+            boolean d;
+             a= a + a;
+        }
+                
