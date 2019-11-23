@@ -205,14 +205,11 @@ class StaticChecker(BaseVisitor,Utils):
         pass
 
     def visitBinaryOp(self, ast, enviroment):
-        left = self.visit(ast.left, enviroment)
-        right = self.visit(ast.right, enviroment)
-        print("left ", left)
-        print("right ", right)
+        left = type(self.visit(ast.left, enviroment))
+        right = type(self.visit(ast.right, enviroment))
         if type(ast.left) not in (Id, ArrayCell) and ast.op == "=":
              raise NotLeftValue(ast.left)
-        if (type(left) and type(right)) in (IntType, FloatType):
-            print("ooooooooo test")
+        if (left and right) in (IntType, FloatType):
             if ast.op == "/":
                 return FloatType()
             if ast.op in ("+", "-", "*"):
@@ -220,12 +217,13 @@ class StaticChecker(BaseVisitor,Utils):
             if ast.op in ("<", "<=", ">", ">=", "==", "!="):
                 return BoolType()
             if ast.op == "=":
-                if type(left) is FloatType:
+                if left is FloatType:
                     return FloatType()
 
-        if ast.op in ("==", "!", "=!", "&&", "||","=") and (type(left) and type(right)) is BoolType:
+
+        if ast.op in ("==", "!", "=!", "&&", "||","=") and (left and right) is BoolType:
             return BoolType()
-        if type(left) and type(right) is StringType: return StringType()
+        if left and right is StringType: return StringType()
         raise TypeMismatchInExpression(ast)
 
     def visitUnaryOp(self, ast, enviroment):
