@@ -8,6 +8,5 @@
     boolean haiz(int a)
     {
         boolean xyz;
-        return xyz;
     }
             

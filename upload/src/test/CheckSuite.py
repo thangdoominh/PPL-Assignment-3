@@ -6,52 +6,13 @@ class CheckSuite(unittest.TestCase):
 
     def test_break_not_in_loop_28(self):
         input = """
-    int a;
-    void main()
+void main()
     {
-        int i;
-        int a;
-                                            
-
-        boolean xyz;
-        do
-        {
-            float temp;
-
-        }
-        while(xyz);
-    }
-    boolean haiz(int a)
-    {
-        boolean xyz;
-        boolean xyz1;
-        int i;
-        
-        for (a; xyz; i)
-        {
-        
-            if(xyz)
-            {
-                float thang;
-            }
-
-        }
-
-        if(xyz1)
-            {
-
-                boolean abc;
-                return abc;
-            }
-            else
-            {
-                boolean qwe;
-                return qwe;              
-            }
-        return xyz;
+        float y[10];
+        y[1.4];
     }
             """
-        expect = "Continue Not In Loop"
+        expect = "Type Mismatch In Expression: ArrayCell(Id(y),FloatLiteral(1.4))"
         self.assertTrue(TestChecker.test(input, expect, 428))
 
     def test_continue_not_in_loop_27(self):
@@ -234,7 +195,6 @@ class CheckSuite(unittest.TestCase):
     boolean haiz(int a)
     {
         boolean xyz;
-        return xyz;
     }
             """
         expect = "Function haiz Not Return "
@@ -551,3 +511,4 @@ int MAIN(int a, int b)
         """
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 422))
+

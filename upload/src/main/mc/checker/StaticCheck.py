@@ -222,7 +222,14 @@ class StaticChecker(BaseVisitor,Utils):
         return checkId.mtype
 
     def visitArrayCell(self, ast, enviroment):
-        pass
+        index = self.visit(ast.idx, enviroment)
+        if not type(index) is IntType:
+            raise TypeMismatchInExpression(ast)
+        array = self.visit(ast.arr, enviroment)
+        if not type(array) is ArrayType:
+            raise TypeMismatchInStatement(ast)
+        else:
+            return array.eleType
 
     def visitBlock(self, ast, enviroment):
         pass
