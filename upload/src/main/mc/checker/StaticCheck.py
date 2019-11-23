@@ -121,14 +121,14 @@ class StaticChecker(BaseVisitor,Utils):
         if type(stmtList) == list:
             for stmt in stmtList:
                 temp = self.visit(stmt, params)
-                print("params list :   ", params)
+                print("params list :   ", stmt)
                 if temp is None or type(temp) is Symbol:
                     returnCheck.append(temp)
                 else:
                     returnCheck.append('Returned')
         else:
             temp = self.visit(stmtList, params)
-            print("params single :   ", params)
+            print("params single :   ", stmtList)
             if temp is None:
                 returnCheck.append(temp)
             else:
@@ -143,14 +143,14 @@ class StaticChecker(BaseVisitor,Utils):
 
     def visitIf(self, ast, params):
         exprIf = self.visit(ast.expr, params[0])
-
+        # print("type in IF: ", ast)
         if not type(exprIf) is BoolType:
             raise TypeMismatchInStatement(ast.expr.name)
 
         checkThen = self.visitAndGetReturnType(ast.thenStmt, params)
         if not ast.elseStmt is None:
             checkElse = self.visitAndGetReturnType(ast.elseStmt, params)
-            return params[1] if (checkThen and checkElse) is None else None
+            return None if checkThen is None and checkElse is None else params[1]
         return None if checkThen is None else params[1]
 
     def visitFor(self, ast, params):
@@ -158,10 +158,11 @@ class StaticChecker(BaseVisitor,Utils):
         expr2 = self.visit(ast.expr2, params)
         expr3 = self.visit(ast.expr3, params)
 
-        if type(expr1) is IntType and type(expr3) is IntType and type(expr2) is BoolType:
-            return self.visit(ast.loop, (params[0], params[1], 'loop'))
-        else:
+        if not type(expr1) is IntType or not type(expr3) is IntType or not type(expr2) is BoolType:
             raise TypeMismatchInStatement(ast)
+        else:
+            self.visit(ast.loop, (params[0], params[1], 'loop'))
+        return None
 
     def visitDowhile(self, ast, params):
         exp = self.visit(ast.exp, params[0])
@@ -179,6 +180,7 @@ class StaticChecker(BaseVisitor,Utils):
     #####################
 
     def visitContinue(self, ast, params):
+        print("vao continue neeeee")
         if len(params) < 3 or params[2] != 'loop': raise ContinueNotInLoop()
         return None
 
@@ -188,7 +190,15 @@ class StaticChecker(BaseVisitor,Utils):
         return None
 
     def visitReturn(self, ast, params):
-        pass
+        if ast.expr is None:
+            if not type(params[1]) is VoidType:
+                raise TypeMismatchInStatement(ast)
+            return None
+        else:
+            exp = self.visit(ast.expr, params[0])
+            if type(params[1]) != type(exp):
+                raise TypeMismatchInStatement(ast)
+            return exp
 
     #################################################
     # Expressions only use params[0] as environment #

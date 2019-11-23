@@ -11,18 +11,20 @@ class CheckSuite(unittest.TestCase):
     {
         int i;
         int a;
+                                            
+
         boolean xyz;
         do
         {
             float temp;
-            
+
         }
         while(xyz);
-        
     }
     boolean haiz(int a)
     {
         boolean xyz;
+        boolean xyz1;
         int i;
         
         for (a; xyz; i)
@@ -34,23 +36,24 @@ class CheckSuite(unittest.TestCase):
             }
 
         }
-        if(xyz)
+
+        if(xyz1)
             {
+
                 boolean abc;
                 return abc;
-                break;
             }
             else
             {
                 boolean qwe;
-                return qwe;
-                
+                return qwe;              
             }
+        return xyz;
     }
             """
         expect = "Continue Not In Loop"
         self.assertTrue(TestChecker.test(input, expect, 428))
-'''
+
     def test_continue_not_in_loop_27(self):
         input = """
     int a;
@@ -182,6 +185,7 @@ class CheckSuite(unittest.TestCase):
     boolean haiz(int a)
     {
         boolean xyz;
+        return xyz;
         if(xyz)
             {
                 boolean abc;
@@ -340,7 +344,7 @@ void main(string a, string a)
         expect = "Function c Not Return "
         self.assertTrue(TestChecker.test(input, expect, 406))
 
-    def test_undeclared_id_07(self):
+    def test_return_mismatch_id_07(self):
         input = """
             int a;
             void main()
@@ -349,11 +353,12 @@ void main(string a, string a)
             }
             int sum(int a, int b)
             {
-                return 3;
+                boolean thang
+                return thang;
             }
 
                 """
-        expect = "Function sum Not Return "
+        expect = "Type Mismatch In Statement: Return(Id(thang))"
         self.assertTrue(TestChecker.test(input, expect, 407))
 
     def test_if_correct_08(self):
@@ -546,4 +551,3 @@ int MAIN(int a, int b)
         """
         expect = "No Entry Point"
         self.assertTrue(TestChecker.test(input, expect, 422))
-'''

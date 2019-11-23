@@ -8,7 +8,7 @@
         do
         {
             float temp;
-
+            
         }
         while(xyz);
         continue;
@@ -28,7 +28,6 @@
             {
                 boolean abc;
                 return abc;
-                break;
             }
             else
             {

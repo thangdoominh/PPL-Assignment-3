@@ -4,18 +4,20 @@
     {
         int i;
         int a;
+                                            
+
         boolean xyz;
         do
         {
             float temp;
-            
+
         }
         while(xyz);
-        
     }
     boolean haiz(int a)
     {
         boolean xyz;
+        boolean xyz1;
         int i;
         
         for (a; xyz; i)
@@ -27,17 +29,18 @@
             }
 
         }
-        if(xyz)
+
+        if(xyz1)
             {
+
                 boolean abc;
                 return abc;
-                break;
             }
             else
             {
                 boolean qwe;
-                return qwe;
-                
+                return qwe;              
             }
+        return xyz;
     }
             

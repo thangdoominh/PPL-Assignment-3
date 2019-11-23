@@ -2,20 +2,13 @@
     int a;
     void main()
     {
-        int i;
         int a;
         boolean xyz;
-        for (1.2; xyz; i)
-        {
-            if(xyz)
-            {
-                float thang;
-            }
-        }
     }
     boolean haiz(int a)
     {
         boolean xyz;
+        return xyz;
         if(xyz)
             {
                 boolean abc;
@@ -26,6 +19,6 @@
                 boolean qwe;
                 return qwe;
             }
-
+        
     }
             
