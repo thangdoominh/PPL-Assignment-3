@@ -1,5 +1,13 @@
 
-        void main() {
-            putIntLn(getInt(4));
-        }
+            int main(){
+                {
+                    func()[a+3];
+                    return 1;
+                }
+            }
+            int a;
+            int[] func(){
+                int a[5];
+                return a;
+            }
         

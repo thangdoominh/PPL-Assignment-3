@@ -1,7 +1,14 @@
 
-        int main() {
-            n = getInt();
-            a = -b = -(5 - 6 * n);
-            return 0;
-        }
-        int a, b, n;
+		            int a, aa[5], b, bb[5];
+            int foo(){
+                    do 
+                        a=30 ;
+                        if(true) a= bb[1];
+                        else b=aa[1]= 30;
+                    while (a!=b) ;
+                return 3;
+            }
+            void main(){
+                //foo();
+            }
+        

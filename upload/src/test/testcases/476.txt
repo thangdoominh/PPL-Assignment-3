@@ -1,5 +1,13 @@
 
-        void func1() {__func2();}
-        void __func2() {mainfunc();}
-        void mainfunc() {__main();}
-        void __main() {func1();}
+            int a;
+            int main(){
+                if (true){
+                    {
+                        {{{return a;}}}
+                    }
+                }
+                else{
+                    return 1;
+                }
+            }
+        

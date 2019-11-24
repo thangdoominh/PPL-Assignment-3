@@ -1,8 +1,15 @@
 
-        void main() {
             int a;
-            a = 5 * -6;
-            if (a < -29) {
-                break;
+            int main(){
+                for (a;true;3){
+                    {
+                        if (true){
+                            return 0;
+                        }
+                        else{
+                            return 1;
+                        }
+                    }
+                }
             }
-        }
+        

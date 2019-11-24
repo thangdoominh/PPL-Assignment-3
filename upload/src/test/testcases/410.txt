@@ -1,7 +1,12 @@
 
-        void foo(boolean _a, string _b) {}
-        void goo(int z, boolean _a, string _b, int z) {}
-        void main() {
-            foo();
-            goo();
-        }
+            int var;
+            int main(){
+                foo(3);
+                return 2;
+            }
+            void foo(float arg){
+                //abcd
+            }
+            float var;
+
+        

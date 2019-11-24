@@ -1,9 +1,21 @@
 
-        string amIStupid(string name) {
-            putString("You are so stupid!");
-            return "idiot";
-        }
-        string main() {
-            amIStupid("Me");
-            return;
-        }
+            int var, var2[4];
+            int main(){
+                    for (1;condition();1){
+                        foo();
+                        for (1;true;str3){
+                            for (1;false;1){
+                                s = "Fighting!";
+                            }
+                        }
+                        foo();
+
+                    } 
+                return 1;
+            }
+            void foo(){}
+            boolean condition(){
+                    return true;
+                }
+            string s, str1[3], str2[5], str3[2];
+        

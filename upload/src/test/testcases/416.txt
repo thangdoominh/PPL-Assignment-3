@@ -1,6 +1,6 @@
 
-        string str, happy;
-        void main() {
-            int a[5], b, c;
-            PPL();
-        }
+            int foo(int a){return 1;}
+            void main(){
+                foo(b(1));
+            }
+            

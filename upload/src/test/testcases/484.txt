@@ -1,8 +1,15 @@
 
-        int a, b;
-        int main() {
-            a = b = 3;
-            foo(b);
-            return 0;
-        }
-        void foo(int a) {putIntLn(a);}
+            int a,aa[5],b,bb[5];
+            float foo(){
+                do 
+                        a=30 ;
+                        if(true) a= bb[1];
+                        else b=aa[1]= 30;
+                        break;
+                    while (a!=b) ;
+                return 3;
+            }
+            void main(){
+                foo();
+            }
+        

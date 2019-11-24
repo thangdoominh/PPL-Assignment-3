@@ -1,1 +1,1 @@
-Type Mismatch In Expression: BinaryOp(=,ArrayCell(Id(a),IntLiteral(0)),IntLiteral(6))
+Type Mismatch In Statement: Dowhile([BinaryOp(=,Id(a),IntLiteral(30)),If(BooleanLiteral(true),BinaryOp(=,Id(a),ArrayCell(Id(bb),IntLiteral(1))),BinaryOp(=,Id(b),BinaryOp(=,ArrayCell(Id(aa),IntLiteral(1)),IntLiteral(30))))],IntLiteral(1))

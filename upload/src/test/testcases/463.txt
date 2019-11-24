@@ -1,10 +1,9 @@
 
-        int main() {
-            {
-                {
-                    {
-                        return 0; //Are u okay?
-                    }
-                }
+            int fus[55];
+            float[] foo(int par[]){
+                return par;
             }
-        }
+            void main(){
+                foo(fus);
+            }
+        

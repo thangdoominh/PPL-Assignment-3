@@ -1,8 +1,12 @@
 
-        boolean a;
-        void main() {
-            a = true;
-            int a;
-            a = 5;
-            if (a) {}
-        }
+                int a;
+                void main(){
+                    if (check(3)) a = 1;
+                    else a = 0;
+                }
+                int check(int abc){
+                    if (false) return 1;
+                    return 0;
+                }
+
+            

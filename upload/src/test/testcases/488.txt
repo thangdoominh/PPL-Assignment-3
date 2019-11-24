@@ -1,6 +1,10 @@
 
-        int foo() {return 0;}
-        int main() {
-            foo() = 22/12/1999;
-            return 0;
-        }
+            int var;
+            /*int main(){
+                foo(3);
+                return 2;
+            }*/
+            void foo(float arg){
+                //abcd
+            }
+        

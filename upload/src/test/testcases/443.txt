@@ -1,14 +1,10 @@
 
-        int main() {
-            int a, b, c[3];
-            a = b = 5;
-            if (a > 3) {
-                c[0] = -(a * b / 3); 
+            int arr[555];
+            void foo(){
+                return arr;
             }
-            else if (a == 3) c[1] = a % b;
-            else if (a != 1) c[2] = a = b + 3 - a;
-            else putInt(-a);
-            a && b;
-            return 0;
-        }
+            void main(){
+                foo();
+                return;
+            }
         

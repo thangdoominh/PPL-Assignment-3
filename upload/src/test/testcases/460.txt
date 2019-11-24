@@ -1,5 +1,8 @@
 
-        int main() {
-            putFloat(1.5);
-            putString("Hello World!");
-        }
+            void main(){
+                float f1;
+                int f2;
+                int res;
+                res = f1/f2;
+            }
+        

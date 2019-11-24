@@ -1,12 +1,9 @@
 
-        void print(int n) {
-            int i;
-            for (i = 0; i < n; i = i + 1) {
-                if (i * i < 10e4) putFloat(i * i);
-                else return;
+            void main(){
+                func();
             }
-            return;
-        }
-        void main() {
-            print(7);
-        }
+            int[] func(){
+                int a[5];
+                return a;
+            }
+        

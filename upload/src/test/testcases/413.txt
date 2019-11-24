@@ -1,14 +1,6 @@
 
-        int a;
-        void foo(int a){}
-        boolean b;
-        void goo(int b){}
-        string c;
-        float d[3];
-        void main() {
-            int a, b, c;
-            foo(a);
-            goo(b);
-            a();
-        }
-        float[] a() {return d;}
+            int foo(int a){return 1;}
+            void main(){
+                foo(c);
+            }
+        

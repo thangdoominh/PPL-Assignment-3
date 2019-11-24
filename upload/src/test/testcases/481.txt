@@ -1,7 +1,16 @@
 
-        void foo() {}
-        int main() {
-            foo();
-            return 0;
-        }
-        void goo() {foo();}
+            float foo(){
+                return 3.5;
+            }
+            void main(){
+                if (false){
+                    foo();
+                }
+                else{
+                    foo();
+                    int a;
+                    a = 3;
+                    continue;
+                }
+            }
+        

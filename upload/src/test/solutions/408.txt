@@ -1,1 +1,1 @@
-Redeclared Function: __str
+Redeclared Function: check

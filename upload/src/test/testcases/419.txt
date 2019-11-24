@@ -1,13 +1,12 @@
 
-        int a;
-        float b[2];
-        void main() {
-            foo() + goo();
-            notFound(a);
-        }
-        int foo() {
-            return 1;
-        }
-        float goo() {
-            return 2.5;
-        }
+	            void foo(){
+	                int foo;
+	                foo();
+	            }
+
+	            void main(){
+	                int foo1;
+	                foo();
+	            }
+
+	        

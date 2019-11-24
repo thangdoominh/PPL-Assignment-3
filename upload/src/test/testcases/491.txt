@@ -1,16 +1,10 @@
 
-        int[] func() {
-            return a;
-        }
-        int main() {
-            int a[5];
-            a[2] = 9;
-            a[4] = 12;
-            float b;
-            a[1] = a[2] * a[4];
-            b = a[1] * 9.5;
-            a[3] = a[4] = -(9 * 8 + 5) * 5;
-            func()[2] = 1;
-            return a[2] % a[3];
-        }
-        int a[3];
+            int foo(){
+                main();
+                foo();
+                return 1;
+            }
+            void main(){
+
+            }
+        

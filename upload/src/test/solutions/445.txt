@@ -1,1 +1,1 @@
-Unreachable Function: isPrime
+Unreachable Function: foo

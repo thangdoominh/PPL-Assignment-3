@@ -1,6 +1,6 @@
 
-        int a, b;
-        void main() {
-            int a, b, c;
-            int c;
-        }
+            int a;
+            void main() {}
+            int a;
+            void foo(){}
+        

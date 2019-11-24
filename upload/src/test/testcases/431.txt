@@ -1,18 +1,24 @@
 
-    boolean thang(boolean a)
-    {
-        if(a)
-        {
-        }
-        return a;
-    }
-    void main()
-        {
-            float a;
-            int b;
-            int c;
-            boolean d;
-            thang(d);
-             a= a + a;
-        }
-                
+            int var, var2[4];
+            int main(){
+                    for (1;condition();1){
+                        foo();
+                    } 
+                return 1;
+            }
+            void goo(){
+                    for (1;true;condition()){}
+                    foo();
+            }
+            float _vi,_int[6];
+            int foo(){
+                    for (1;false;1){
+                        s = "Fighting!";}
+                goo();
+                return 2;
+            }
+            boolean condition(){
+                    return true;
+                }
+            string s, str1[3], str2[5], str3[2];
+        

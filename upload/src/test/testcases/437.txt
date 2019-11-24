@@ -1,15 +1,14 @@
 
-        void main() {
-            float i;
-            i = 1e-3;
-            do {}
-            {
-                if (true) {
-                        boolean flag[2];
-                        flag[1] = true;
-                    i = i * 10.8;
-                    putFloatLn(i);
-                }
+            int foo(){
+                    do 
+                        a=30 ;
+                        if(true) a= bb[1];
+                        else b=aa[1]= 30;
+                    while (a!=b) ;
+                return 3;
             }
-            do {} while 1; while true;
-        }
+            void main(){
+                foo();
+            }
+            int a, aa[5], b, bb[5];
+        

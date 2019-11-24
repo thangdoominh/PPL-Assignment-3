@@ -1,7 +1,12 @@
 
-        int a, b[2], c;
-        void foo(int a) {}
-        void main() {
-            foo(b[0]);
-            foo(d);
-        }
+            int var;
+            int main(){
+                foo(3);
+                return 2;
+            }
+            void foo(float arg){
+                putInt(var);
+                //abcd
+            }
+
+        

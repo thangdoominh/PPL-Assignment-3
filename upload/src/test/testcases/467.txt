@@ -1,7 +1,19 @@
 
-        void foo() {goo();}
-        int main() {
-            goo();
-            return 0;
+        int main(){
+            func();
+            func1(func(), 2);
+            return 1;
         }
-        void goo() {foo();}
+        int[] func(){
+            int a[5];
+            return a;
+        }
+        void func1(int param1[], int param2){
+            coerCheck();
+        }
+        int aa;
+        float coerCheck(){
+            func(2);
+            return aa;
+        }
+        

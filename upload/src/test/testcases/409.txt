@@ -1,17 +1,15 @@
 
-        string x, y, z;
-        void _x(int x) {
-            float _x, y;
-            int z;
-            {
-                int x;
-                {
-                    int x;
-                    {
-                        int x;
-                    }
-                }
+            float main(){
+                int a;
+                foo3();
+                return 1.5;
             }
-            boolean z;
-        }
-        void main() {}
+
+            void func11(int a1, int a2){}
+            int foo3(){
+                func11(5,2);
+                return 3;
+            }
+            float func11(){}
+
+        

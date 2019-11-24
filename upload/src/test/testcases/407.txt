@@ -1,9 +1,20 @@
 
-        void a(int a, int b) {
-            int c;
-            {
-                float a, b, c, d;
-                int d;
+            int a;
+            void main(){
+                func(a);
+                func2();
             }
-        }
-        int main() {}
+            void func(int hello){
+                int var;
+                {
+                    {
+                        {
+                            int hello;
+                        }
+                    }
+                }
+            }
+            void func2(){
+                int var;
+            }
+        

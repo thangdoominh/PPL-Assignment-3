@@ -1,10 +1,12 @@
 
-        int plus(int a, int b) {
-            return a + b;
-        }
-        int minus(float a, float b) {
-            return a - b;
-        }
-        void main() {
-            plus(a[0], a[1]) * minus(a[0], a[1]);
-        }
+            void foo(int foo){
+                int goo;
+                foo();
+            }
+
+            void main(){
+                int foo1;
+                foo();
+            }
+
+        

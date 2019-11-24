@@ -1,9 +1,9 @@
 
-        boolean a;
-        void main() {
-            int a;
-            a = getInt();
-            putInt(a);
-            putBool(a);
-        }
+            boolean b_a;
+            boolean b_b;
+            void main(){
+                boolean a;
+                a = b_a + b_b;
+            }
+
         

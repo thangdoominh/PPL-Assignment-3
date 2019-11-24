@@ -1,17 +1,9 @@
 
-        int main() {
-            int a;
-            do {
-                a = getInt();
+            int fus[55];
+            float[] foo(float par[]){
+                return par;
             }
-            putInt(a + 1);
-            a = a * 2;
-            putIntLn(a + 1);
-            a = a * a;
-            {
-                putFloatLn(a + 7);
-                {
-                    return 0;
-                }
-            } while true;
-        }
+            void main(){
+                foo(fus,3);
+            }
+        

@@ -1,18 +1,15 @@
 
-        int a;
-        int foo() {
-            a = hoo();
-            return a;
-        }
-        float goo() {
-            a = foo();
-            return a * 8;
-        }
-        void main() {
-            goo();
-            return;
-        }
-        int hoo() {
-            goo();
-            return 100;
-        }
+            int a,aa[5],b,bb[5];
+            float foo(){
+                do 
+                        a=30 ;
+                        if(true) a= bb[1];
+                        else b=aa[1]= 30;
+                        continue;
+                    while (a!=b) ;
+                return 3;
+            }
+            void main(){
+                foo();
+            }
+        

@@ -1,1 +1,1 @@
-Type Mismatch In Expression: BinaryOp(=,Id(a),IntLiteral(4))
+Unreachable Function: foo

@@ -1,13 +1,19 @@
 
-        int testIQ(int IQ) {
-            if (IQ > 150) {
-                putString("Woww");
-                return IQ;
+            int fus[55];
+            int[] foo(int param){
+                int par[5];
+                return par;
             }
-            else
-                putString("Meh");
-        }
-        void main() {
-            testIQ(100);
-            return;
-        }
+            int[] _main(boolean f, int _id[], int a[]){
+                    int x;
+                    foo(2)[3+x] = a[_id[2]] +3;
+                    int _is;
+                    _is = 1234 ;
+                    boolean aa[3000];
+                    return a;
+                }
+
+            void main(){
+                _main(true, foo(2), foo(2));
+            }
+        

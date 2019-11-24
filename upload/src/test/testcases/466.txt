@@ -1,14 +1,9 @@
 
-        int main() {
-            do {
-                int i;
-                for (i = 55; i <= 180; i = i + 5) {
-                    putBoolLn(JLPT(i));
-                    return 0;
-                }
-            } while true;
-        }
-        boolean JLPT(int point) {
-            if (point >= 90) return true;
-            else return false;
-        }
+            int fus[55];
+            float[] foo(float par[]){
+                return par;
+            }
+            void main(){
+                foo(55);
+            }
+        

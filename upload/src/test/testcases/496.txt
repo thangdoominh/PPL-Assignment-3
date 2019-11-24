@@ -1,24 +1,8 @@
 
-        int main()
-		{
-    		int year;
-    		putString("Enter a year: ");
-    		year = getInt();
-    		if (year % 4 == 0)
-    		{
-        		if (year % 100 == 0)
-        		{
-            	//Year is divisible by 400, hence the year is a leap year
-            	if (year % 400 == 0)
-                	putString("Leap year.");
-            	else
-                	putString("Not leap year.");
-        		}
-        		else
-            		putString("Leap year.");
-    		}
-    		else
-        		putString("Not leap year.");
-
-    		return 0;
-		}
+            boolean foo(int param){return true;}
+            int a_var,m,n,b[13],a[13];
+            int main(){
+                foo(a[3]) = 3;
+                return 0;
+            }
+        

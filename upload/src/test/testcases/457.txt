@@ -1,21 +1,8 @@
 
-        float[] func(float a[], int n) {
-            int i;
-            for (i = 0; i < n; i = i + 1) {
-                int j;
-                j = getInt();
-                a[i] = j * a[i];
-                putFloat(a[i]);
+            string str;
+            void main(){
+                string substr;
+                substr = str;
+                putString(str);
             }
-            return a;
-        }
-        void main() {
-            int num;
-            num = getInt();
-            float arr[2];
-            arr[0] = arr[1] = -----5;
-            arr[0] = func(arr, num)[0];
-            arr = func(arr, num);
-            return;
-        }
         

@@ -1,5 +1,13 @@
 
-        int a, b, c, d[100];
-        float e, f, g[50];
-        boolean flag;
-        string str;
+            int a;
+            int main(){
+                if (true){
+                    {
+                        {{{}}}
+                    }
+                }
+                else{
+                    return 1;
+                }
+            }
+        

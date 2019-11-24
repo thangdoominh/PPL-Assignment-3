@@ -1,9 +1,14 @@
 
-        int test(int a, int b) {
-            return a + b;
-        }
-        void main() {
-            int a[1], b;
-            test(a[0], b);
-            test(b, fail);
-        }
+            float main(){
+                int a;
+                foo3();
+                return 1.5;
+            }
+
+            void func1(int a1, int a2){}
+            int foo3(){
+                func11(5,2);
+                return 3;
+            }
+
+        

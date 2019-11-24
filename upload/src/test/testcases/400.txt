@@ -1,4 +1,5 @@
 
-        int a, b;
-        int a;
-        void main() {}
+            int hi;
+            int hi;
+            void main() {}
+        

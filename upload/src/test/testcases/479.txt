@@ -1,6 +1,14 @@
 
-        int a, b, c;
-        float __main;
-        int main(string argv) {
-            return 0;
-        }
+            float foo(){
+                return 3.5;
+            }
+            void main(){
+                if (false){
+                    foo();
+                    int a;
+                    a = 3;
+                    break;
+                }
+                else{}
+            }
+        

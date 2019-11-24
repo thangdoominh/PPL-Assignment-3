@@ -1,12 +1,18 @@
 
-        void main() {
-            boolean a, b, flag[3];
-            a = b = true;
-            if (!!a) flag[0] = a || b && (a != b);
-            else if (a == b) {
-                flag[1] = flag[2] = !(3 > 4);
+            int[] func(){
+                int a[5];
+                return a;
             }
-            else putBoolLn(a);
-            -(a || b);
-        }
+            void func1(int param1[], int param2){
+                coerCheck();
+            }
+            int aa;
+            float coerCheck(){
+                return "abc";
+            }
+            int main(){
+                func();
+                func1(func(), 2);
+                return 1;
+            }
         

@@ -1,14 +1,21 @@
 
-        void notReturnStmt() {
-            if (7.5 < 1e2) {
-                putString("(y)");
+        void main(){
+                foo1(foo1(foo1(foo1(1))));
+                _main(true, foo(aaa), foo(aaa));
             }
-        }
-        int main() {
-            returnStmt();
-            return 0;
-        }
-        void returnStmt() {
-            notReturnStmt();
-            return;
-        }
+            int aaa[55];
+            int[] foo(int par[]){
+                return par;
+            }
+            int[] _main(boolean f, int _id[], int a[]){
+                    int x;
+                    foo(2)[3+x] = a[_id[2]] +3;
+                    int _is;
+                    _is = 9e7 ;
+                    boolean aa[3000];
+                    return a;
+                }
+            int foo1(int a){
+                return 1;
+            };
+        

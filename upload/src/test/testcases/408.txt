@@ -1,5 +1,7 @@
 
-        int __init, __str;
-        void foo(int __init) {}
-        void __str() {}
-        void main() {}
+            void check(){}
+            void main(){
+                check();
+            }
+            int check(){return3;}
+        

@@ -1,12 +1,7 @@
 
-        void main() {
-            int a;
-            a = 100;
-            def(a, a);
-            def(a);
-        }
-        void def(int a, int b) {
-            putInt(a);
-            putIntLn(b);
-        }
+            int x[100];
+            void main(){
+                x = 2;
+            }
+
         

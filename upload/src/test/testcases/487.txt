@@ -1,7 +1,8 @@
 
-        int main() {
-            int a;
-            7 = a = 8;
-            return 0;
-        }
-        void goo() {foo();}
+            void func(){
+                int var_check;
+            }
+            void func2(){
+                int var_check;
+            }
+        

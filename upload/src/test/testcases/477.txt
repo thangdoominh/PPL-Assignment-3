@@ -1,4 +1,6 @@
 
-        int a, b, c;
-        boolean main;
-        string str;
+            float foo(){
+
+            }
+            void main(){}
+        

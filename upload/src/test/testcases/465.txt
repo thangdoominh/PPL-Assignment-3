@@ -1,15 +1,9 @@
 
-        int main() {
-            float a;
-            a = getFloat();
-            {
-                if (a > 5) {
-                    {
-                        return 0;
-                    }
-                }
-                else {
-                    return 1;
-                }
+            int fus[55];
+            float[] foo(float par[]){
+                return par;
             }
-        }
+            void main(){
+                foo();
+            }
+        

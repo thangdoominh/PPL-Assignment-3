@@ -1,12 +1,24 @@
 
-        int a;
-        float main() {
-            float a;
-            a = func();
-            return a;
-        }
-        float func() {
-            a = 9;
-            return a;
-        }
+            int a,b[5],c;
+            float _vi,_int[6];
+            string s, str1[3], str2[5], str3[2];
+            int main(){
+                    for (1;condition();1)
+                        s = "Fighting!";
+                    main1();
+                return 1;
+            }
+            void main1(){
+                    for ("1";true;1)
+                        s = "Fighting!";
+                    main2();
+            }
+            int main2(){
+                    for (1;false;1)
+                        s = "Fighting!";
+                    return 2;
+            }
+            boolean condition(){
+                    return true;
+                }
         

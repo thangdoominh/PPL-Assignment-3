@@ -1,32 +1,27 @@
 
-        //Check if a number is prime number
-
-		boolean isPrime(int n)
-        {
-            boolean flag;
-            flag = true;
-            int j;
-            for (j = 2; j <= n/2; j = j + 1)
-            {
-                if (n % j == 0)
-                {
-                    flag = false;
-                    break;
+            int a;
+            string s;
+            void main(){
+                if (true){
+                    if (true){
+                        for (a;true;1)
+                            s = "Fighting!";
+                        if(true){
+                            if(true) a = 1;
+                        }
+                    }
+                } 
+                else {
+                    if (funbool()){
+                        if(true){
+                            if(funbool()) a = 1;
+                        }
+                    }
                 }
             }
-            return flag;
-        }
+            boolean funbool(){
+                int True;
+                return True;
+            }
 
-		int main() {
-			int n;
-			n = getInt();
-			if (isPrime(n)) {
-                putInt(n);
-                putString(" is a prime number.");
-            }
-			else {
-                putInt(n);
-                putString(" is not a prime number.");
-            }
-			return 0;
-		}
+        

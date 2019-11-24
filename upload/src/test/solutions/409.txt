@@ -1,1 +1,1 @@
-Redeclared VoidType: x
+Redeclared Function: func11

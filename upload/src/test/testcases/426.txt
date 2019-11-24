@@ -1,8 +1,9 @@
 
-        void main() {
-            putString("LOADING...");
-            int i;
-            for (i = 0; i = i; i = i + 1) {
-                putString("Hello My Luv!");
-            }
-        }
+                void foo(){}
+
+                void main(){
+                    int foo;
+                    foo();
+                }
+
+            

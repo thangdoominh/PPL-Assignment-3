@@ -1,1 +1,1 @@
-Redeclared VoidType: fail
+Redeclared Variable: check

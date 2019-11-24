@@ -1,1 +1,1 @@
-Redeclared VoidType: fail
+Redeclared VoidType: var_check

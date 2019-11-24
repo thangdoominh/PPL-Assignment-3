@@ -1,7 +1,12 @@
 
-        int a;
-        void main() {
-            a = 3;
-            a[3];
-        }
+            int main(){
+                func();
+                func1(func(), 2);
+                return 1;
+            }
+            int[] func(){
+                int a[5];
+                return a;
+            }
+            void func1(int param1[], int param2){}
         

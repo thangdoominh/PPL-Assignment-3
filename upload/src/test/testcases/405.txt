@@ -1,3 +1,14 @@
 
-        void foo(int a, int b, int a) {}
-        void main() {}
+            int a;
+            void main(){foo(a,a);}
+            int foo(int b, float c){
+                float var_check;
+                {
+                    b = 5;
+                    int var_check;
+                    var_check = 2;
+                    putInt(a);
+                }
+                return 3;
+        }
+        

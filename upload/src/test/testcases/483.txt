@@ -1,10 +1,11 @@
 
-        int main() {
-            foo();
-            return 0;
-        }
-        void foo() {hoo(100);}
-        void goo() {foo();}
-        int hoo(int a) {
-            return a % 2;
-        }
+            int main(){
+                int i;
+                for (1; i <= 5; i+1){
+                    if (i == 3) {break;}
+                    else {continue;}
+                }
+                continue;
+                return 2;
+            }
+        

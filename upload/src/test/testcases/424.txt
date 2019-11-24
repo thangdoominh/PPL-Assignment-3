@@ -1,16 +1,14 @@
 
-        float arr[10];
-        void main() {
-            int a, b, c;
-            a = b = c = 100;
-            arr[1] = func(a); 
-            d = func(b);
-            test(c);
-        }
-        float func(int a) {
-            return a * 0.2 - 3;
-        }
-        float d;
-        int test(int a) {
-            return a + 1;
-        }
+            int check(int abc){
+                if (abc) return 1;
+                return 0;
+            }
+            void main(){
+                check2();
+            }
+            int check2(){
+                string s;
+                s = "hello";
+                return check(3);
+            }
+        

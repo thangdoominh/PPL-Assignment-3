@@ -1,4 +1,12 @@
 
-        float test;
-        void __test(int test, int fail) {int fail;}
-        void main() {}
+            void main(){
+                func();
+                func2();
+            }
+            void func(){
+                int var_check;
+            }
+            void func2(){
+                int var_check;
+            }
+        

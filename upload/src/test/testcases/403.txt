@@ -1,4 +1,7 @@
 
-        boolean x, a;
-        void a() {}
-        void main() {}
+            int a;
+            void main(){}
+            int foo(int b, float b){
+                return 3;
+        }
+        

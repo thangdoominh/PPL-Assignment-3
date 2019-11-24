@@ -1,1 +1,1 @@
-No Entry Point
+Function foo Not Return 

@@ -1,7 +1,9 @@
 
-        void foo() {foo();}
-        int main() {
-            goo();
-            return 0;
-        }
-        void goo() {}
+            int main(){
+                int i;
+                for (1; i <= 5; i+1){
+                    if (i == 3) {break;}
+                }
+                return 2;
+            }
+        

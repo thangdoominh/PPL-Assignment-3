@@ -1,9 +1,8 @@
 
-        void main() {
-            boolean a;
-            a = true;
-            int i;
-            i = - 9;
-            i = a;
-        }
+            int main(){
+                int a[5];
+                a[5] = 3;
+                a[2.5] = 3;
+                return 1;
+            }
         

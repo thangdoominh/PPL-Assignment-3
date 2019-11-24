@@ -1,9 +1,9 @@
 
-        string s;
-        void main() {
-            int s, t;
-            {
-                boolean t, u;
-                float u;
-            }
+            int a;
+            void main(){}
+            int foo(int b, float c){
+                float b;
+                {}
+                return 3;
         }
+        

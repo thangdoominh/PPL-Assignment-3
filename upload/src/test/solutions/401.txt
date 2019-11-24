@@ -1,1 +1,1 @@
-Redeclared VoidType: c
+Redeclared Variable: a

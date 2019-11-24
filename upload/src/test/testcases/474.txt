@@ -1,11 +1,10 @@
 
-        void main() {
-            do {
-                if (!true) break;
+            int a;
+            int main(){
+                if (true){
+                    return 0;
+                }
+                else{
+                }
             }
-            if (false) continue;
-            {
-                {{{break;}}}
-            }
-            while true;
-        }
+        

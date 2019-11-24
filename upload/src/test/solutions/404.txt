@@ -1,1 +1,1 @@
-Redeclared VoidType: t
+Unreachable Function: foo

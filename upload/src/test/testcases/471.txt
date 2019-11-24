@@ -1,8 +1,16 @@
 
-        void main() {
-            {
-                {
-                    continue;
-                }
-            }
+        int a,b,c;
+        float[] foo(){
+            float a[5];
+            return a;
         }
+        int func1(float param1[], int param2){
+            return a*2+3;
+        }
+         void main(){
+            foo();
+            func1(foo(), 2);
+            boolean b;
+            b = (1+2*3)==(c*8*3) || true && (func1(foo(),88) == 0);
+        }
+        
