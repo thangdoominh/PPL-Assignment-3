@@ -1,11 +1,11 @@
 
-        int main() {
-            int i;
-            i = 10;
-            for (getFloat()*1-getInt(); i < 11; 1+i)
-            {
-                putString("%d i");
-            }
-            return 0;
-        }
-        
+	        int main() {
+	            int i;
+	            i = 10;
+	            for (getFloat()*1-getInt(); i < 11; 1+i)
+	            {
+	                putString("%d i");
+	            }
+	            return 0;
+	        }
+	        

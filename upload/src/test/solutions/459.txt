@@ -1,1 +1,1 @@
-Type Mismatch In Statement: Return(Id(arr))
+Unreachable Function: foo

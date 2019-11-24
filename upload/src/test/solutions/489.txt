@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(check),[BooleanLiteral(true)])
+Unreachable Function: check

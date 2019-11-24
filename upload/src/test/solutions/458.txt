@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(printRes),[Id(x),Id(y),IntLiteral(2)])
+Unreachable Function: swap

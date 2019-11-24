@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(printRes),[FloatLiteral(0.5),FloatLiteral(49.7),IntLiteral(4)])
+Unreachable Function: printRes

@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(power),[Id(remainder),Id(digits)])
+Unreachable Function: check_armstrong

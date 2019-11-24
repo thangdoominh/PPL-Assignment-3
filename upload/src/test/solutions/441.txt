@@ -1,0 +1,1 @@
+Type Mismatch In Expression: BinaryOp(||,IntLiteral(2),ArrayCell(Id(arr),IntLiteral(9)))

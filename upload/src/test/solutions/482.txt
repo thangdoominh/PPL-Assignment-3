@@ -1,1 +1,1 @@
-Function foo Not Return 
+Unreachable Function: foo

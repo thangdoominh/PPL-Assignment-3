@@ -1366,20 +1366,6 @@ class CheckSuite(unittest.TestCase):
 		expect = ""
 		self.assertTrue(TestChecker.test(input, expect, 416))
 
-	def test_type_mismatch_stmt_in_for_expr1(self):
-		input = """
-        int main() {
-            int i;
-            i = 10;
-            for (getFloat()*1-getInt(); i < 11; 1+i)
-            {
-                putString("%d i");
-            }
-            return 0;
-        }
-        """
-		expect = "Type Mismatch In Statement: For(BinaryOp(-,BinaryOp(*,CallExpr(Id(getFloat),[]),IntLiteral(1)),CallExpr(Id(getInt),[]));BinaryOp(<,Id(i),IntLiteral(11));BinaryOp(+,IntLiteral(1),Id(i));Block([CallExpr(Id(putString),[StringLiteral(%d i)])]))"
-		self.assertTrue(TestChecker.test(input, expect, 417))
 
 	def test_type_mismatch_stmt_in_for_expr2(self):
 		input = """
@@ -1533,25 +1519,6 @@ class CheckSuite(unittest.TestCase):
 		expect = "Type Mismatch In Statement: Return(ArrayCell(Id(arr),Id(idx)))"
 		self.assertTrue(TestChecker.test(input, expect, 427))
 
-	def test_type_mismatch_stmt_return_array(self):
-		input = """
-        float base;
-        void main(int argc, float argv[])
-        {
-            greater(argv, argc);
-            return ;
-        }
-        float[] greater(float arr[], int idx) {
-            if (arr[idx] >= base)
-                return arr;
-            else {
-                float tmp[10];
-                return tmp;  
-            }          
-        }
-        """
-		expect = ""
-		self.assertTrue(TestChecker.test(input, expect, 428))
 
 	def test_type_mismatch_stmt_return_array2(self):
 		input = """
@@ -2020,7 +1987,8 @@ class CheckSuite(unittest.TestCase):
         void printf(string str, string num) {
             putString(str);
             pointer();
-        }
+            } 
+        
 
         int pointer() {
             int tmp;
@@ -2251,30 +2219,6 @@ class CheckSuite(unittest.TestCase):
 		expect = "Unreachable Function: foo"
 		self.assertTrue(TestChecker.test(input, expect, 459))
 
-	def test_unreachable_func2(self):
-		input = """
-        int[] foo() {
-            int arr[10];
-            return arr;
-        }
-        int[] main(int x, int y)
-        {
-            int tmp;
-            tmp = 0;
-            tmp = x;
-            x = y;
-            y = tmp;
-            return foo();
-        }
-
-        void printRes(float var1, float var2, int num) {
-            putFloat(var1);
-            putFloat(var2);
-            printRes(0.e25,999,3);
-        }
-        """
-		expect = "Unreachable Function: printRes"
-		self.assertTrue(TestChecker.test(input, expect, 460))
 
 	def test_not_left_value_literal(self):
 		input = """
@@ -2479,27 +2423,7 @@ class CheckSuite(unittest.TestCase):
 		expect = ""
 		self.assertTrue(TestChecker.test(input, expect, 483))
 
-	def test_type_mismatch_in_compare_string(self):
-		input = """
-        string str[100];
-        string[] main ()
-        {
-            int c; c = 0;
-            string ch, s[1000];
 
-        do 
-            ch = s[c];
-            if (ch >= "A" && ch <= Z)
-                s[c] = s[c] + 32;
-            else if (ch >= a && ch <= char[z])
-                s[c] = s[c] - 32;  
-            c+1;  
-        while (s[c] != 0);
-        return "completed";
-        }
-        """
-		expect = "Type Mismatch In Expression: BinaryOp(>=,Id(ch),StringLiteral(A))"
-		self.assertTrue(TestChecker.test(input, expect, 484))
 
 	def test_error_use_var_ass_func(self):
 		input = """

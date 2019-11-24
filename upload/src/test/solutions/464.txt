@@ -1,0 +1,1 @@
+Not Left Value: BinaryOp(&&,BooleanLiteral(true),UnaryOp(!,BinaryOp(>,IntLiteral(9),IntLiteral(4))))

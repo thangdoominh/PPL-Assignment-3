@@ -3,6 +3,28 @@ from TestUtils import TestChecker
 from AST import *
 
 class CheckSuite(unittest.TestCase):
+    def test_type_mismatch_in_compare_string(self):
+        input = """
+            string str[100];
+            string[] main ()
+            {
+                int c; c = 0;
+                string ch, s[1000];
+
+            do
+                ch = s[c];
+                if (ch >= "A" && ch <= Z)
+                    s[c] = s[c] + 32;
+                else if (ch >= a && ch <= char[z])
+                    s[c] = s[c] - 32;
+                c+1;
+            while (c != 0);
+            return "completed";
+            }
+            """
+        expect = "Type Mismatch In Expression: BinaryOp(>=,Id(ch),StringLiteral(A))"
+        self.assertTrue(TestChecker.test(input, expect, 484))
+        
     def test_Type_mismatch_expression_31(self):
         input = """
     boolean thang(boolean a)

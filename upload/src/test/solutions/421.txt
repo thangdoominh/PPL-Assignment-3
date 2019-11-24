@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(printf),[StringLiteral(Error here),IntLiteral(1)])
+Unreachable Function: printf

@@ -24,22 +24,23 @@ class StaticChecker(BaseVisitor,Utils):
     global_envi = [
 
     #Built in Function
-        Symbol("getInt", MType([], IntType())),
-        Symbol("putInt", MType([IntType()], VoidType())),
-        Symbol("putIntLn", MType([IntType()], VoidType())),
-        Symbol("getFloat", MType([], FloatType())),
-        Symbol("putFloat", MType([FloatType()], VoidType())),
-        Symbol("putFloatLn",MType([FloatType()], VoidType())),
-        Symbol("putBool", MType([BoolType()], VoidType())),
-        Symbol("putBoolLn", MType([BoolType()], VoidType())),
-        Symbol("putString", MType([StringType()], VoidType()))
+        Symbol("getInt", MType([], IntType()), 0),
+        Symbol("putInt", MType([IntType()], VoidType()),0),
+        Symbol("putIntLn", MType([IntType()], VoidType()), 0),
+        Symbol("getFloat", MType([], FloatType()), 0),
+        Symbol("putFloat", MType([FloatType()], VoidType()), 0),
+        Symbol("putFloatLn",MType([FloatType()], VoidType()), 0),
+        Symbol("putBool", MType([BoolType()], VoidType()), 0),
+        Symbol("putBoolLn", MType([BoolType()], VoidType()), 0),
+        Symbol("putString", MType([StringType()], VoidType()), 0)
     ]
 
     # list of name function unreachable
     unreached = []
-    __currentFunction = 0
+    __currentFunction = None
     __funcType = None
-
+    __curTypeFunc = None
+    __currentInLoop = 0
     def __init__(self,ast):
         self.ast = ast
 
@@ -84,23 +85,28 @@ class StaticChecker(BaseVisitor,Utils):
                 g[0] += [self.visit(x, g)]
             else:
                 if self.lookup(x.name,g[0], lambda x: x.name):
-                # if self.findSymbol(x, g):
                     raise Redeclared(Function(), x.name.name)
-                g[0] += [Symbol(x.name.name, MType([j for j in x.param], x.returnType),False)]
+                g[0] += [Symbol(x.name.name, MType([j.varType for j in x.param], x.returnType))]
 
-        # mainFunc = self.findSymbol('main', g)
-        # if mainFunc is None or (type(mainFunc.mtype) != MType):
-        #     raise NoEntryPoint();
+        for i in g[0]:
+            if type(i.mtype) is MType:
+                if i.value is None:
+                    if i.name != "main":
+                        raise UnreachableFunction(i.name)
 
+        cMain = False
+        for i in g[0]:
+            if i.name == "main":
+                if type(i.mtype) is not MType:
+                    raise NoEntryPoint()
+                cMain = True
+        if not cMain:
+            raise NoEntryPoint()
         for x in ast.decl:
             if type(x) is FuncDecl:
                 self.visit(x, g)
-        mainFunc = self.lookup('main', g, lambda x: x.name)
-        if mainFunc is None or (type(mainFunc.mtype) != MType):
-            raise NoEntryPoint();
-        if len(self.unreached) > 0:
-            raise UnreachableFunction(self.unreached[0].name)
-        return ""
+
+        return None
 
     # param is a list of list
     # param[0] is the environment
@@ -120,41 +126,23 @@ class StaticChecker(BaseVisitor,Utils):
         for i in ast.param:
             if self.lookup(i.variable, localEnvironment[0], lambda x: x.name):
                 raise Redeclared(Parameter(), i.variable)
-            localEnvironment[0] += [Symbol(i.variable, i.varType)]
+            localEnvironment[0] += [self.visit(i, localEnvironment)]
         self.__funcType = ast.returnType
+        self.__currentFunction = ast.name.name
+        self.__curTypeFunc = Symbol(ast.name.name, MType([ast.param], ast.returnType),False)
         checkReturn = False
         for i in ast.body.member:
             if type(i) is VarDecl:
                 localEnvironment[0] += [self.visit(i, localEnvironment)]
             else:
-                checkReturn = self.visit(i, localEnvironment) or checkReturn
-        if checkReturn is False:
-            raise FunctionNotReturn(ast.name.name)
+                checkReturn = (self.visit(i, localEnvironment) or checkReturn)
 
-    # If a statement contains Return Statement in all its flow, it must return the returnType, otherwise None
-    # Since there params[1] is the returnType of the current function.
-    # params[2]: can be missing or None, or set to 'loop' when visit statements inside a loop
-    def visitAndGetReturnType(self, stmtList, params):
-        returnCheck = []
+        if type(ast.returnType) is not VoidType:
+            if checkReturn is not True:
 
-        if type(stmtList) == list:
-            for stmt in stmtList:
-
-                temp = self.visit(stmt, params)
-
-                if temp is None or type(temp) is Symbol:
-                    returnCheck.append(temp)
-                else:
-                    returnCheck.append('Returned')
-
-        else:
-            temp = self.visit(stmtList, params)
-            if temp is None:
-                returnCheck.append(temp)
-            else:
-                returnCheck.append('Returned')
-        if type(params[1]) is VoidType: return params[1]
-        return None if not 'Returned' in returnCheck else params[1]
+                raise FunctionNotReturn(ast.name.name)
+        self.__funcType = None
+        self.__currentFunction = None
 
     ######################################
     # Statements that can contain others #
@@ -162,33 +150,37 @@ class StaticChecker(BaseVisitor,Utils):
 
     def visitIf(self, ast, params):
         exprIf = self.visit(ast.expr, params)
-        if not type(exprIf) is BoolType:
+        if type(exprIf) is not BoolType:
             raise TypeMismatchInStatement(ast.expr.name)
         checkThen = False
         checkElse = False
-        # checkThen = self.visitAndGetReturnType(ast.thenStmt, params)
         checkThen = self.visit(ast.thenStmt, params) or checkThen
-        if not ast.elseStmt is None:
-            # checkElse = self.visitAndGetReturnType(ast.elseStmt, params)
+        print("check Then", checkThen)
+        if ast.elseStmt is not None:
             checkElse = self.visit(ast.elseStmt, params) or checkElse
+            print("check Else", checkElse)
             if checkElse is True and checkThen is True:
                 return True
-            return False
-            # return None if checkThen is None and checkElse is None else params[1]
-        # return None if checkThen is None else params[1]
+            else:
+                return False
         return False
 
     def visitFor(self, ast, params):
+        self.__currentInLoop += 1
         expr1 = self.visit(ast.expr1, params)
         expr2 = self.visit(ast.expr2, params)
         expr3 = self.visit(ast.expr3, params)
 
-        if not type(expr1) is IntType or not type(expr3) is IntType or not type(expr2) is BoolType:
+        if type(expr1) is IntType and type(expr3) is IntType and type(expr2) is BoolType:
+            pass
+        else:
             raise TypeMismatchInStatement(ast)
         loop = self.visit(ast.loop, params)
+        self.__currentInLoop -= 1
         return False
 
     def visitDowhile(self, ast, params):
+        self.__currentInLoop += 1
         exp = self.visit(ast.exp, params)
 
         if not type(exp) is BoolType:
@@ -196,6 +188,8 @@ class StaticChecker(BaseVisitor,Utils):
         checkRet = False
         for stmt in ast.sl:
             checkRet = self.visit(stmt, params) or checkRet
+        self.__currentInLoop -= 1
+        print("checkRet ", checkRet)
         return checkRet
 
 
@@ -217,23 +211,34 @@ class StaticChecker(BaseVisitor,Utils):
 
         if ast.expr is None:
             if type(self.__funcType) is not VoidType:
-                raise TypeMismatchInExpression(ast)
+                raise TypeMismatchInStatement(ast)
         else:
+            expr = self.visit(ast.expr, params)
             if type(self.__funcType) is VoidType:
-                return TypeMismatchInExpression(ast)
-            if type(self.__funcType) is ArrayType:
+                return TypeMismatchInStatement(ast)
+            if type(self.__funcType) is ArrayType or type(self.__funcType) is ArrayPointerType:
                 if type(ast.expr) is Id:
                     for i in params:
-                        res = self.lookup(ast.expr.name, i)
+                        res = self.lookup(ast.expr.name, i, lambda  x:x.name)
                         if res:
                             typeRes = res.mtype
                             typeFunc = self.__funcType
-                            if type(typeRes) is ArrayType and type(typeRes.eleType) == type(typeFunc.eleType):
+                            if (type(expr) is ArrayType or type(expr) is ArrayPointerType) and type(typeRes.eleType) == type(typeFunc.eleType):
+                                return True
+                            else:
+                                raise TypeMismatchInStatement(ast)
+                elif type(ast.expr) is CallExpr:
+                    for i in params:
+                        res = self.lookup(ast.expr.method.name, i, lambda  x:x.name)
+                        if res:
+                            typeRes = res.mtype
+                            typeFunc = self.__funcType
+                            if (type(expr) is ArrayType or type(expr) is ArrayPointerType) and type(typeRes.rettype.eleType) is type(typeFunc.eleType):
                                 break
                             else:
-                                raise TypeMismatchInExpression(ast)
+                                raise TypeMismatchInStatement(ast)
                 else:
-                    raise TypeMismatchInExpression(ast)
+                    raise TypeMismatchInStatement(ast)
             returnExprType = type(self.visit(ast.expr, params[:]))
             if returnExprType == type(self.__funcType):
                 pass
@@ -258,8 +263,9 @@ class StaticChecker(BaseVisitor,Utils):
             if checkId:
                 if type(checkId.mtype) is MType:
                     if len(paramList) == len(checkId.mtype.partype):
-                        for j in range(len(paramList)):
-                            if type(paramList[j]) == type(checkId.mtype.partype[j]):
+                        for j in range(0,len(paramList)):
+                            if type(paramList[j]) is type(checkId.mtype.partype[j]):
+
                                 if type(paramList[j]) is ArrayPointerType:
                                     if type(paramList[j].eleType) == type(checkId.mtype.partype[j].eleType):
                                         pass
@@ -277,10 +283,13 @@ class StaticChecker(BaseVisitor,Utils):
                         raise TypeMismatchInExpression(ast)
                 else:
                     raise TypeMismatchInExpression(ast)
-        if not checkId:
+        if checkId is None:
             raise Undeclared(Function(), ast.method.name)
-        if (self.__curTypeFunc.name != checkId.name):
-            checkId.value = True
+        # if (self.__curTypeFunc.name != checkId.name):
+        #     checkId.value = True
+        if (self.__currentFunction != checkId.name):
+            checkId.value = 0
+
         return checkId.mtype.rettype
 
 
@@ -293,55 +302,57 @@ class StaticChecker(BaseVisitor,Utils):
              raise NotLeftValue(ast.left)
 
         if type(left) != type(right):
-            if type(left) is IntType and type(right) is FloatType:
-                left, right = right, left
-            elif type(left) is FloatType and type(right) is IntType: pass
-            else:
+            if (ast.op in ["+", "-", "*", "/", ">", "<", ">=", "<="]):
+                if type(left) is IntType and type(right) is FloatType:
+                    left, right = right, left
+                elif type(left) is FloatType and type(right) is IntType:
+                    pass
+                else:
+                    raise TypeMismatchInExpression(ast)
+        if type(left) == type(right) or (type(left) is FloatType and type(right) is IntType):
+            if type(left) is BoolType:
+                if ast.op in ("==", "!=", "&&", "||", "="):
+                    return BoolType()
                 raise TypeMismatchInExpression(ast)
-        if type(left) is BoolType:
-            if ast.op in ("==", "!=", "&&", "||", "="):
-                return BoolType()
-            raise TypeMismatchInExpression(ast)
 
-        if type(left) is IntType:
+            if type(left) is IntType:
+                if ast.op == "/":
+                    return FloatType()
+                if ast.op in ("+", "-", "*", "%", "="):
+                    if type(right) is FloatType:
+                        raise TypeMismatchInExpression(ast)
+                    if type(right) is IntType:
+                        return IntType()
+                if ast.op in ("<", "<=", ">", ">=", "==", "!="):
+                    return BoolType()
+                raise TypeMismatchInExpression(ast)
 
-            if ast.op == "/":
-                return FloatType()
-            if ast.op in ("+", "-", "*", "%", "="):
-                return IntType()
-            if ast.op in ("<", "<=", ">", ">=", "==", "!="):
-                return BoolType()
-            raise TypeMismatchInExpression(ast)
+            if type(left) is FloatType:
+                if ast.op in ("+", "-", "*", "/", "=", "*"):
+                    return FloatType()
+                if ast.op in ("<", "<=", ">", ">="):
+                    return BoolType()
+                raise TypeMismatchInExpression(ast)
 
-        if type(left) is FloatType:
-            if ast.op in ("+", "-", "*", "/", "="):
-                return IntType()
-            if ast.op in ("<", "<=", ">", ">="):
-                return BoolType()
+            if type(left) is StringType:
+                if ast.op == "=":
+                    return StringType()
+                raise TypeMismatchInExpression(ast)
             raise TypeMismatchInExpression(ast)
-
-        if type(left) is StringType:
-            if ast.op == "=":
-                return StringType()
-            raise TypeMismatchInExpression(ast)
-        raise TypeMismatchInExpression(ast)
 
     def visitUnaryOp(self, ast, enviroment):
         exp = self.visit(ast.body, enviroment)
         if (ast.op == "!" and type(exp) is BoolType)\
             or (ast.op == "-" and type(exp) in (IntType, FloatType)):
             return exp
-        raise TypeMismatchInExpression
+        raise TypeMismatchInExpression(ast)
 
 
     # type ast is symbol
     def visitId(self, ast, enviroment):
         for i in enviroment:
-            # checkId = self.findSymbol(ast.name, i)
             checkId = self.lookup(ast.name, i,lambda x: x.name )
-            if checkId.mtype is MType:
-                return checkId.mtype.rettype
-            else:
+            if checkId:
                 return checkId.mtype
         raise Undeclared(Identifier(), ast.name)
 
@@ -351,12 +362,18 @@ class StaticChecker(BaseVisitor,Utils):
         if not type(index) is IntType:
             raise TypeMismatchInExpression(ast)
         if not type(array) is ArrayType and not type(array) is ArrayPointerType:
-            raise TypeMismatchInStatement(ast)
+            raise TypeMismatchInExpression(ast)
         return array.eleType
 
     def visitBlock(self, ast, enviroment):
-        [self.visit(x, enviroment) for x in ast.member]
-        return None
+        checkRet = False
+        enviroment = [[]] + enviroment
+        for x in ast.member:
+            if type(x) is VarDecl:
+                enviroment[0] += [self.visit(x, enviroment)]
+            else:
+                checkRet = self.visit(x, enviroment) or checkRet
+        return checkRet
 
     ##############
     # visit Type #

@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(printf),[StringLiteral(Value of variable j is: %d),Id(j)])
+Unreachable Function: printf

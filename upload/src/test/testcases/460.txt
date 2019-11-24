@@ -1,21 +1,21 @@
 
-        int[] foo() {
-            int arr[10];
-            return arr;
-        }
-        int[] main(int x, int y)
-        {
-            int tmp;
-            tmp = 0;
-            tmp = x;
-            x = y;
-            y = tmp;
-            return foo();
-        }
+	        int[] foo() {
+	            int arr[10];
+	            return arr;
+	        }
+	        int[] main(int x, int y)
+	        {
+	            int tmp;
+	            tmp = 0;
+	            tmp = x;
+	            x = y;
+	            y = tmp;
+	            return foo();
+	        }
 
-        void printRes(float var1, float var2, int num) {
-            putFloat(var1);
-            putFloat(var2);
-            printRes(0.e25,999,3);
-        }
-        
+	        void printRes(float var1, float var2, int num) {
+	            putFloat(var1);
+	            putFloat(var2);
+	            printRes(0.e25,999,3);
+	        }
+	        

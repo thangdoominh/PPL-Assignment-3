@@ -25,7 +25,8 @@
         void printf(string str, string num) {
             putString(str);
             pointer();
-        }
+            } 
+        
 
         int pointer() {
             int tmp;

@@ -1,1 +1,1 @@
-Type Mismatch In Expression: CallExpr(Id(compare_strings),[Id(a),Id(b)])
+Unreachable Function: compare_strings
