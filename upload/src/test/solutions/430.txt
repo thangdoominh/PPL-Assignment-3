@@ -1,1 +1,1 @@
-Unreachable Function: BTS
+Type Mismatch In Expression: ArrayCell(CallExpr(Id(BTS),[Id(argv),Id(argc)]),Id(error_idx))

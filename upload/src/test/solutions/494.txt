@@ -1,1 +1,1 @@
-Unreachable Function: PPL
+Not Left Value: BinaryOp(+,ArrayCell(Id(PPL_test),IntLiteral(10)),ArrayCell(Id(Array),ArrayCell(Id(PPL_test),IntLiteral(0))))

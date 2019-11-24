@@ -1,1 +1,1 @@
-Unreachable Function: printf
+Type Mismatch In Statement: Dowhile([Block([CallExpr(Id(printf),[StringLiteral(Value of variable j is: %d),Id(j)]),BinaryOp(=,Id(j),BinaryOp(+,Id(j),IntLiteral(1)))])],CallExpr(Id(printf),[StringLiteral(Error here),IntLiteral(1)]))

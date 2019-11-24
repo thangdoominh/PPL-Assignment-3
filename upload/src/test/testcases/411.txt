@@ -1,9 +1,9 @@
 string BTS[7];
-        void main(int global, int main) {
-            global = pow(BTS,7);
-        }
-        int pow(string idol[], int no){
-            putString(idol[7]);
-            return no*_well_known;
-        }
-        
+	        void main(int global, int main) {
+	            global = pow(BTS,7);
+	        }
+	        int pow(string idol[], int no){
+	            putString(idol[7]);
+	            return no*_well_known;
+	        }
+	        

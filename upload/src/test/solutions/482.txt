@@ -1,1 +1,1 @@
-Unreachable Function: foo
+Type Mismatch In Statement: Return(CallExpr(Id(redundance),[CallExpr(Id(random_num_list),[IntLiteral(44),IntLiteral(99)])]))

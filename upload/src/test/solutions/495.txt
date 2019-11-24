@@ -1,1 +1,1 @@
-Unreachable Function: PPL
+Type Mismatch In Statement: Return(Id(Mana))

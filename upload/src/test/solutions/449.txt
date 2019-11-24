@@ -1,1 +1,1 @@
-Unreachable Function: test
+Type Mismatch In Expression: CallExpr(Id(test),[Id(bool_arr)])

@@ -1,1 +1,1 @@
-Unreachable Function: greater
+Type Mismatch In Statement: Return(ArrayCell(Id(arr),Id(idx)))

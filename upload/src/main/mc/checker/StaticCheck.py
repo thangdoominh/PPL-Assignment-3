@@ -44,19 +44,7 @@ class StaticChecker(BaseVisitor,Utils):
     def __init__(self,ast):
         self.ast = ast
 
-    #default return None.
-    #If it has exists, return Symbol of the sepecified name in the environment.
-    # name: String
-    # env: List or tuple of Symbol
-    def findSymbol(self, name, env):
-        result = None
-        if type(env) is tuple or list:
-            for i in env:
-                if result is None:
-                    result = self.lookup(name, i, lambda x: x.name)
-        else:
-            result = self.lookup(name, env, lambda x: x.name)
-        return result
+
 
     def check(self):
         return self.visit(self.ast,StaticChecker.global_envi[:])
@@ -86,7 +74,7 @@ class StaticChecker(BaseVisitor,Utils):
             else:
                 if self.lookup(x.name,g[0], lambda x: x.name):
                     raise Redeclared(Function(), x.name.name)
-                g[0] += [Symbol(x.name.name, MType([j.varType for j in x.param], x.returnType))]
+                g[0] += [Symbol(x.name.name, MType([j.varType for j in x.param], x.returnType), 0)]
 
         for i in g[0]:
             if type(i.mtype) is MType:
@@ -106,6 +94,10 @@ class StaticChecker(BaseVisitor,Utils):
             if type(x) is FuncDecl:
                 self.visit(x, g)
 
+        __currentFunction = None
+        __funcType = None
+        __curTypeFunc = None
+        __currentInLoop = None
         return None
 
     # param is a list of list
@@ -151,14 +143,14 @@ class StaticChecker(BaseVisitor,Utils):
     def visitIf(self, ast, params):
         exprIf = self.visit(ast.expr, params)
         if type(exprIf) is not BoolType:
-            raise TypeMismatchInStatement(ast.expr.name)
+            raise TypeMismatchInStatement(ast)
         checkThen = False
         checkElse = False
         checkThen = self.visit(ast.thenStmt, params) or checkThen
-        print("check Then", checkThen)
+        # print("check Then", checkThen)
         if ast.elseStmt is not None:
             checkElse = self.visit(ast.elseStmt, params) or checkElse
-            print("check Else", checkElse)
+            # print("check Else", checkElse)
             if checkElse is True and checkThen is True:
                 return True
             else:
@@ -189,7 +181,7 @@ class StaticChecker(BaseVisitor,Utils):
         for stmt in ast.sl:
             checkRet = self.visit(stmt, params) or checkRet
         self.__currentInLoop -= 1
-        print("checkRet ", checkRet)
+        # print("checkRet ", checkRet)
         return checkRet
 
 
