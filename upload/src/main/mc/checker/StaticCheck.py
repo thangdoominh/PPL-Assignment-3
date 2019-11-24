@@ -72,7 +72,7 @@ class StaticChecker(BaseVisitor,Utils):
             if type(x) is VarDecl:
                 g[0] += [self.visit(x, g)]
             else:
-                if self.lookup(x.name,g[0], lambda x: x.name):
+                if self.lookup(x.name,g[0], lambda x: x.name) is not None:
                     raise Redeclared(Function(), x.name.name)
                 g[0] += [Symbol(x.name.name, MType([j.varType for j in x.param], x.returnType), 0)]
 
@@ -303,7 +303,7 @@ class StaticChecker(BaseVisitor,Utils):
                     raise TypeMismatchInExpression(ast)
         if type(left) == type(right) or (type(left) is FloatType and type(right) is IntType):
             if type(left) is BoolType:
-                if ast.op in ("==", "!=", "&&", "||", "="):
+                if ast.op in ("!=", "&&", "||", "="):
                     return BoolType()
                 raise TypeMismatchInExpression(ast)
 

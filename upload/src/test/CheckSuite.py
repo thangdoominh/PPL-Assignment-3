@@ -59,17 +59,7 @@ class CheckSuite(unittest.TestCase):
 		expect = ""
 		self.assertTrue(TestChecker.test(input, expect, 404))
 
-	def test_redeclared_func(self):
-		input = """int global, scope[100];
-        void main() {
-            // Do nothing in here
-        }
-        int main(float var1, float var_arr[]) {
-            var1 = var_arr[0];
-            return 1+0-1;
-        }"""
-		expect = "Redeclared Function: main"
-		self.assertTrue(TestChecker.test(input, expect, 405))
+
 
 	def test_redeclared_func_with_local_var_name(self):
 		input = """int global;

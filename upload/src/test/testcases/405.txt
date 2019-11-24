@@ -1,8 +1,8 @@
 int global, scope[100];
-        void main() {
-            // Do nothing in here
-        }
-        int main(float var1, float var_arr[]) {
-            var1 = var_arr[0];
-            return 1+0-1;
-        }
+	        void main() {
+	            // Do nothing in here
+	        }
+	        int main(float var1, float var_arr[]) {
+	            var1 = var_arr[0];
+	            return 1+0-1;
+	        }
