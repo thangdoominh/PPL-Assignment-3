@@ -37,7 +37,8 @@ class StaticChecker(BaseVisitor,Utils):
 
     # list of name function unreachable
     unreached = []
-    __currentFunction = None
+    __currentFunction = 0
+    __funcType = None
 
     def __init__(self,ast):
         self.ast = ast
@@ -114,25 +115,11 @@ class StaticChecker(BaseVisitor,Utils):
     # param: list of parameter type in current function
     def visitFuncDecl(self, ast, params):
 
-        check = self.findSymbol(ast.name.name, params[0])
         localEnvironment = [[]] + params
-        # params[0] = [self.visit(x, (localEnvironment, Parameter())).mtype for x in ast.param]
         for i in ast.param:
             if self.findSymbol(i.variable, localEnvironment[0]):
                 raise Redeclared(Parameter(), i.variable)
             localEnvironment[0] += [Symbol(i.variable, i.varType)]
-
-        # if check is None:
-        #     res = Symbol(ast.name.name, MType(param, ast.returnType))
-        #     params[0].append(res)
-        #     if res.name != 'main' and type(res.mtype) is MType: StaticChecker.unreached.append(res)
-        #     return res
-
-        # elif params[1] is 'FuncDecl':
-        #     self.__currentFunction = ast.name.name
-        #
-        #     # print(ast.name.name)
-        #     checkReturn = self.visitAndGetReturnType(ast.body.member, (params[0], ast.returnType, None))
         checkReturn = False
         for i in ast.body.member:
             if type(i) is VarDecl:
@@ -240,21 +227,35 @@ class StaticChecker(BaseVisitor,Utils):
     #################################################
 
     def visitCallExpr(self, ast, enviroment):
-        method = self.findSymbol(ast.method.name, enviroment[0])
-        if (method is None):
-            if type(method.mtype) != MType:
-                raise TypeMismatchInExpression(ast)
-            # nested function
+        callParam = []
 
-        def_parameter = method.mtype.partype
-        use_parameter = [self.visit(x, enviroment) for x in ast.param]
-        if len(def_parameter) != len(use_parameter):
-            raise TypeMismatchInExpression(ast)
+        for i in ast.param:
+            callParam += [self.visit(i, enviroment[:])]
 
-        for index in range(0, len(def_parameter)):
-            if self.typeCheck(def_parameter[index], use_parameter[index]) is None:
-                raise TypeMismatchInExpression(ast)
-        return method.mtype.rettype
+        for i in enviroment:
+            res = self.findSymbol(ast.method.name, i)
+            if res:
+                if type(res.mtype) is MType:
+                    if len(callParam) != len(ast.mtype.partype):
+                        raise TypeMismatchInExpression(ast)
+                    Pairs = list(zip(callParam, ast.mtype.partype))
+                    for pair in Pairs:
+                        if type(pair[0]) != type(pair[1]):
+                            if type(pair[0]) is IntType and type(pair[1]) is FloatType:
+                                pass
+                            else:
+                                raise TypeMismatchInExpression(ast)
+                        else:
+                            if type(pair[0]) is ArrayType:
+                                if type(pair[0].eleType) == type(pair[1].eleType)
+                                    pass
+                                else:
+                                    raise TypeMismatchInExpression(ast)
+                    return res.mtype.rettype
+
+                else:
+                    raise TypeMismatchInExpression(ast)
+        raise Undeclared(Function(), ast.method.name)
 
 
 
