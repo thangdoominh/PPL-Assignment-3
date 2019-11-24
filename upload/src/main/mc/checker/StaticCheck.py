@@ -212,15 +212,36 @@ class StaticChecker(BaseVisitor,Utils):
         return False
 
     def visitReturn(self, ast, params):
+
         if ast.expr is None:
-            if not type(params[1]) is VoidType:
-                raise TypeMismatchInStatement(ast)
-            return None
+            if type(self.__funcType) is not VoidType:
+                raise TypeMismatchInExpression(ast)
         else:
-            exp = self.visit(ast.expr, params[0])
-            if self.typeCheck(params[1], exp) is None:
+            if type(self.__funcType) is VoidType:
+                return TypeMismatchInExpression(ast)
+            if type(self.__funcType) is ArrayType:
+                if type(ast.expr) is Id:
+                    for i in params:
+                        res = self.findSymbol(ast.expr.name, i)
+                        if res:
+                            typeRes = res.mtype
+                            typeFunc = self.__funcType
+                            if type(typeRes.eleType) == type(typeFunc.eleType) and type(typeRes) is ArrayType:
+                                break
+                            else:
+                                raise TypeMismatchInExpression(ast)
+                else:
+                    raise TypeMismatchInExpression(ast)
+            returnExprType = type(self.visit(ast.expr, params[:]))
+            if returnExprType == type(self.__funcType):
+                pass
+            elif returnExprType is IntType and type(self.__funcType) is FloatType:
+                pass
+            else:
                 raise TypeMismatchInStatement(ast)
-            return exp
+        return True
+
+
 
     #################################################
     # Expressions only use params[0] as environment #
