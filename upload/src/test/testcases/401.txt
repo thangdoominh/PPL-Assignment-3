@@ -1,6 +1,7 @@
-
-            int a;
-            void main() {}
-            int a;
-            void foo(){}
+int global, scope[100];
+        void main() {
+            int global[10];
+            return ;
+            // Do nothing in here
+        }
         

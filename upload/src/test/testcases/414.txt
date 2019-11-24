@@ -1,8 +1,19 @@
 
-            void main(){}
-            int goo(){
-                boolean boo[5];
-                booo[3] = 2;
-            }
-
+        // Global scope here
+        string os_greets, str;
+        int arr[10];
+        int main(int global, int main) {
+            putString(os_greets);
+            global = exp(arr);
+            return global;
+        }
+        int exp(int array[]){
+            //Get value
+            int index;
+            index = getInt();
+            if (index < array[index]) 
+                return index;
+            else
+                return index + array[index];
+        }
         

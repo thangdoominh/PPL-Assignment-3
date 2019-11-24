@@ -1,12 +1,15 @@
 
-                int a;
-                void main(){
-                    if (check(3)) a = 1;
-                    else a = 0;
-                }
-                int check(int abc){
-                    if (false) return 1;
-                    return 0;
-                }
-
-            
+        boolean main(int argc, string argv[])
+        {
+            argv[0] = printf("Executing...", argc);
+            if (argc != 0)
+	            return true;
+            else
+                return 0;
+        }
+        string printf(string str, int elem) {
+            putString(str);
+            elem = getInt();
+            return "completed";
+        }
+        

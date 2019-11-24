@@ -1,8 +1,7 @@
 
-            int foo(){
-                return 3;
-            }
-            void main(){
-                return 3;
-            }
+        float arr[10];
+        void main(int argc, int argv[])
+        {
+            getInt(arr);
+        }
         

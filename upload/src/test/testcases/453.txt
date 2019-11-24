@@ -1,13 +1,35 @@
 
-            int main(){
-                {
-                    func()[a+3];
-                    return 1;
+        int arr;
+        int main()
+        {
+            int i, num; string odd_sum , even_sum;
+            i = num = -100;
+            odd_sum = even_sum = "number";
+            float _num;
+            _num =10;
+
+            do
+                printf("Enter the value of num", "0");
+                if (i % 2 == 0)
+                    {even_sum = even_sum; return 1;}
+                else {
+                    float t;
+                    t = 0.4499;
+                    for(i;994 == 234;i) 
+                        odd_sum = even_sum;
+                    return 0;
                 }
-            }
-            int a;
-            int[] func(){
-                int a[5];
-                return a;
-            }
+            while(false);
+        }
+
+        void printf(string str, string num) {
+            putString(str);
+            pointer();
+        }
+
+        int pointer() {
+            int tmp;
+            tmp = 10;
+            return tmp;
+        }
         

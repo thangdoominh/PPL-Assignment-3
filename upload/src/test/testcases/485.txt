@@ -1,15 +1,22 @@
 
-            int a,aa[5],b,bb[5];
-            float foo(){
-                do 
-                        a=30 ;
-                        if(true) a= bb[1];
-                        else b=aa[1]= 30;
-                        continue;
-                    while (a!=b) ;
-                return 3;
+        void main( int a[], int var )
+        {
+            int k, i, l, j;
+            i=j=99;
+            k=l=i-9*j;
+
+            for ( k = 0;k < var;k() )   //error here
+            {
+                for ( i = 0;i <= var;i )
+                {
+                    l = (a[ i ])-a[ k ];
+
+                    for ( j = 0;j <= var;j )
+                    {
+                        if ( i != k )
+                            a[j] = a[a[k]*a[j]-(l*a[k])];
+                    }
+                }
             }
-            void main(){
-                foo();
-            }
+        }
         

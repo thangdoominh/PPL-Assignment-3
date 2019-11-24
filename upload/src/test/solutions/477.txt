@@ -1,1 +1,1 @@
-Function foo Not Return 
+Type Mismatch In Statement: ArrayCell(Id(a),IntLiteral(0))

@@ -1,14 +1,8 @@
-
-            int a;
-            void main(){foo(a,a);}
-            int foo(int b, float c){
-                float var_check;
-                {
-                    b = 5;
-                    int var_check;
-                    var_check = 2;
-                    putInt(a);
-                }
-                return 3;
+int global, scope[100];
+        void main() {
+            // Do nothing in here
         }
-        
+        int main(float var1, float var_arr[]) {
+            var1 = var_arr[0];
+            return 1+0-1;
+        }

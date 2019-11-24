@@ -1,8 +1,30 @@
 
-            void main(){
-                foo(3);
-            }
-            float foo(int param){
-                return param;
-            }
+        void swap(int x, int y)
+        {
+            int tmp;
+            tmp = 0;
+            tmp = x;
+            x = y;
+            y = tmp;
+            printRes(x,y,2);
+        }
+
+        float global;
+        void main(int n)
+        {
+            swap(1,2);
+            int c, result;
+            result = 1;
+
+            for (c = 1; c <= n; c+1)
+                100 = result*c;
+
+            return ;
+        }
+
+        void printRes(float var1, float var2, int num) {
+            putFloat(var1);
+            putFloat(var2);
+            printRes(0.e25,999,3);
+        }
         

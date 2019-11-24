@@ -1,14 +1,17 @@
 
-            float main(){
-                int a;
-                foo3();
-                return 1.5;
-            }
-
-            void func1(int a1, int a2){}
-            int foo3(){
-                func11(5,2);
-                return 3;
-            }
-
+        int main()
+        {
+	        int j;
+            j=0;
+	        do
+	        {
+		        printf("Value of variable j is: %d", j);
+		        j = j+1;
+	        }while (j<=3);
+	        return 0;
+        }
+        void printf(string str, int elem) {
+            putString(str);
+            putInt(elem);
+        }
         

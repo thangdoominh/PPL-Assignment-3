@@ -1,10 +1,36 @@
 
-            int main(){
-                {
-                    int a[5];
-                    a[5] = 3;
-                    "abc"[5] = 3;
-                    return 1;
+        int arr;
+        void main()
+        {
+            int i, num; string odd_sum , even_sum;
+            i = num = -100;
+            odd_sum = even_sum = "number";
+            float _num;
+            _num =10;
+            printf("Enter the value of num", "0");
+
+            for (num*num; i <= 13.06e13; num+4)
+            {
+                if (i % 2 == 0)
+                    even_sum = even_sum;
+                else {
+                    float t;
+                    t = 0.4499;
+                    for(i;994 == 234;i) 
+                        odd_sum = even_sum;
                 }
             }
+        printf("Sum of all odd numbers  = %d\n", odd_sum);
+        printf("Sum of all even numbers = %d\n", even_sum);
+        }
+
+        void printf(string str, string num) {
+            putString(str);
+            pointer();
+        }
+
+        int pointer() {
+            int tmp;
+            tmp = 10;
+        }
         

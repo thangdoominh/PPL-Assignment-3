@@ -1,7 +1,21 @@
 
-            int main(){
-                int a[5];
-                a[5] = 3;
-                return 1;
+        int arr[10];
+        void main(int argc, int argv[])
+        {
+            test(arr); // OK
+            {
+                string greets[2];
+                test((pointer())); // OK
+                test(greets); // Fail
             }
+        }
+        string yeonjun;
+        void test(int arr[]) {
+            putInt(arr[0]);
+        }
+
+        int[] pointer() {
+            int tmp[10];
+            return tmp;
+        }
         

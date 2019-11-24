@@ -1,7 +1,5 @@
-
-            int a;
-            void main(){}
-            int foo(int b, float b){
-                return 3;
+int global, scope[100];
+        void main() {
+            // Do nothing in here
         }
-        
+        float main;

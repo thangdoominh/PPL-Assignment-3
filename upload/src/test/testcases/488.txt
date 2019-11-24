@@ -1,10 +1,9 @@
 
-            int var;
-            /*int main(){
-                foo(3);
-                return 2;
-            }*/
-            void foo(float arg){
-                //abcd
-            }
+        string a,b,x,__;
+        int main(string argv[], int argc) { do do {} while(isDone(__)); while(true); }
+        int minDistance(int dist[], int sptSet[]) { 
+            if (_) return dist[0];
+        } 
+        float b1, c, XXX, YYY, ___[343434343], hcmut, edu;
+        boolean _b, c2, X0XX, YY8Y, _3__[343434343], h6cmut, ed2u;
         

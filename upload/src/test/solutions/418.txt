@@ -1,1 +1,1 @@
-Unreachable Function: foo
+Type Mismatch In Statement: For(BinaryOp(=,Id(i),IntLiteral(1));Id(i);BinaryOp(+,IntLiteral(1),Id(i));Block([CallExpr(Id(putString),[StringLiteral(%d i)])]))

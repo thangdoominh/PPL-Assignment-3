@@ -1,23 +1,16 @@
 
-                boolean condition(){
-                    return true;
-                }
-                int a;
-                void main(){
-                    for (a;condition();3){
-                        {
-                            if (true){
-                                if(condition()){
-                                    if(false) a = 1;
-                                }
-                                else a = 2;
-                            }
-                        }
-                    }
-                }
-                int check(int abc){
-                    if (abc) return 1;
-                    return 0;
-                }
+        float base;
+        float[] main(int argc, int argv[])
+        {
 
-            
+            return greater(argv, argc);
+        }
+        int[] greater(int arr[], int idx) {
+            if (arr[idx] >= base)
+                return arr;
+            else {
+                int tmp[10];
+                return tmp;  
+            }          
+        }
+        

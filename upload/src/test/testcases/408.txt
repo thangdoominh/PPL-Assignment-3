@@ -1,7 +1,7 @@
-
-            void check(){}
-            void main(){
-                check();
-            }
-            int check(){return3;}
+int global, scope[100];
+        int main(int BTS, string BTS[]) {
+           int a;
+           a = 10;
+           return a; 
+        }
         

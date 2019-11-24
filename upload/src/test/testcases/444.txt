@@ -1,18 +1,9 @@
 
-            int[] func(){
-                int a[5];
-                return a;
-            }
-            void func1(int param1[], int param2){
-                coerCheck();
-            }
-            int aa;
-            float coerCheck(){
-                return "abc";
-            }
-            int main(){
-                func();
-                func1(func(), 2);
-                return 1;
-            }
+        float arr[10];
+        void main(int argc, int argv[])
+        {
+            boolean b;
+            b = arr[0] >= 1 || true;
+            -b;
+        }
         

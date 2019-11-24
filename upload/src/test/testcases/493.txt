@@ -1,7 +1,8 @@
 
-            int x;
-            void main(){
-                x + 1 = 2;
-            }
-
+        int a;
+        void main(string c[]) {
+            int b;
+            b = a;
+            a = b + 1;
+        }
         

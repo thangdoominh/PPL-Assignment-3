@@ -1,6 +1,14 @@
+string FourIV;
+        int main(int global, int main) {
+            putInt(exp);
+            global = (getInt()*7);
+            return global;
+        }
+        int exp;
+        void factor(int a, int b) {
+            a=b=exp;
+            print(a+b);
+            return ;
+        }
 
-            int foo(int a){return 1;}
-            void main(){
-                foo(c);
-            }
         

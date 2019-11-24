@@ -1,14 +1,7 @@
 
-            int foo(){
-                    do 
-                        a=30 ;
-                        if(true) a= bb[1];
-                        else b=aa[1]= 30;
-                    while (a!=b) ;
-                return 3;
-            }
-            void main(){
-                foo();
-            }
-            int a, aa[5], b, bb[5];
+        int arr[10];
+        void main(int argc, int argv[])
+        {
+            arr[1] + "string";
+        }
         

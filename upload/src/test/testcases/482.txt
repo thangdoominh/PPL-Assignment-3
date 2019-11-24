@@ -1,9 +1,24 @@
 
-            int main(){
-                int i;
-                for (1; i <= 5; i+1){
-                    if (i == 3) {break;}
-                }
-                return 2;
-            }
+        void foo() {
+            // do this, so that
+        }
+
+        int[] random_num_list(int a, int b) {
+            int lst[2];
+            lst[0] = a;
+            lst[1] = a - b;
+            return lst;
+        }
+
+        boolean main() {
+            foo();
+            return redundance(random_num_list(44,99)); // Error here
+        }
+
+        int redundance(int list[]) {
+            if (list[0] != 0)
+                return 0;
+            else
+                return -(list[0]-list[1]);
+        } 
         

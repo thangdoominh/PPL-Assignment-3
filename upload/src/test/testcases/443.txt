@@ -1,10 +1,9 @@
 
-            int arr[555];
-            void foo(){
-                return arr;
-            }
-            void main(){
-                foo();
-                return;
-            }
+        float arr[10];
+        void main(int argc, int argv[])
+        {
+            boolean b;
+            b = arr[0] >= 1 || true;
+            b && 1;
+        }
         

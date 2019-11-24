@@ -1,12 +1,11 @@
 
-            int var;
-            int main(){
-                foo(3);
-                return 2;
+        int main() {
+            int i;
+            i = 10;
+            for (getFloat()*1-getInt(); i < 11; 1+i)
+            {
+                putString("%d i");
             }
-            void foo(float arg){
-                putInt(var);
-                //abcd
-            }
-
+            return 0;
+        }
         

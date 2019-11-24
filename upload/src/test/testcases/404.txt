@@ -1,9 +1,7 @@
-
-            int a;
-            void main(){}
-            int foo(int b, float c){
-                float b;
-                {}
-                return 3;
+int global, scope[100];
+        void main() {
+            boolean main[100];
+            int bts, yoongi;
+            // Do nothing in here
         }
-        
+        float arr[10];

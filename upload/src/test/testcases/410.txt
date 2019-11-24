@@ -1,12 +1,8 @@
-
-            int var;
-            int main(){
-                foo(3);
-                return 2;
+int JIN, SUGA;
+        void main(int global, int main) {
+            {
+                SUGA + JIN > SUGA - JIN;
             }
-            void foo(float arg){
-                //abcd
-            }
-            float var;
-
+            RM = "leader";
+        }
         

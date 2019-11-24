@@ -1,8 +1,5 @@
 
-            float foo(){
-                return 3.5;
-            }
-            void main(){
-                break;
-            }
+        void main(boolean a[]) {
+            a[1] = true = a[2] = false;
+        }
         

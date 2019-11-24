@@ -1,7 +1,21 @@
 
-            boolean a;
-            void main(){
-                !a = 2;
-            }
+        string Exp, Mana, mana[1]; 
+        int Array[10], PPL_test[100];
+        int main(string argv[], int argc) { 
+            string tmp[2];
+            PPL(tmp);
+            if (PPL_test[4] > 0)
+                return Array[007]*0;
+            return 0;
+        }
+        string[] PPL(string s[]) {
+            do 
+                mana[Array[PPL_test[0]]] = "Go go go!!!"; 
+            while (CSE[1]);
+            return Mana;    // Error here
+        }
+        boolean HCMUT, CSE[2], VNU;
+        string FourIV;
+        float _01,Finish,_;
 
         

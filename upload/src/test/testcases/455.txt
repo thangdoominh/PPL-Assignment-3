@@ -1,8 +1,23 @@
 
-            int inta;
-            int intb;
-            void main(){
-                int c;
-                c = inta && intb; 
-            }
-            
+        string arr[2];
+        string[] main()
+        {
+            printf("Input desired number", arr[0]);
+            factorial(num);
+            return arr;
+        }
+
+        void printf(string str, string num) {
+            putString(str);
+            num = "input nunmber";
+        }
+        int num;
+        int factorial(int n) {
+            if (n <= 1)
+                return 1;
+            else {
+                break;
+                return n*factorial(n-1);  
+            }           
+        }
+        

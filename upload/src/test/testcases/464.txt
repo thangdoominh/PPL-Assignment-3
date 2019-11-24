@@ -1,9 +1,9 @@
 
-            int fus[55];
-            float[] foo(float par[]){
-                return par;
-            }
-            void main(){
-                foo(fus,3);
-            }
+        float flag[10];
+        string CTF;
+        int main() {
+            flag[2] = flag[0]*5 / 59;
+            true && !(9 > 4)  = flag[8];
+            return 0;
+        }
         

@@ -1,5 +1,5 @@
-
-            int hi;
-            int hi;
-            void main() {}
-        
+int global, scope[100];
+        void main() {
+            // Do nothing in here
+        }
+        float scope;

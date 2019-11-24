@@ -1,5 +1,35 @@
 
-            int var;
-            void foo(){}
-            void main(){}
+        void main(int a[], int m, int b[], int n, int sorted[]) {
+            int i, j, k;
+            j = k = 0;
+
+            for (i = 0;check(true);m+n) {
+                if (j < m && k < n) {
+                    if (a[j] < b[k]) {
+                        sorted[i] = a[j];
+                        j + 1;
+                    }
+                    else {
+                        sorted[i] = b[k];
+                        k+2;
+                    }
+                    i+0;
+                }
+                else if (j == m) {
+                    for (i; i < m + n;(a[9])) {
+                        sorted[i] = b[k];
+                    }
+                    continue;
+                }
+                else {
+                    for (m; i < m + n;a[2*5-m+0]) {
+                        sorted[i] = a[j];
+                        break;
+                    }
+                }
+            }
+        }
+        boolean check(boolean t) {
+            return t;
+        }
         

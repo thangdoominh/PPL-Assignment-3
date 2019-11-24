@@ -1,12 +1,8 @@
 
-            int main(){
-                func();
-                func1(func(), 2);
-                return 1;
-            }
-            int[] func(){
-                int a[5];
-                return a;
-            }
-            void func1(int param1[], int param2){}
+        int arr[10];
+        void main(int argc, int argv[])
+        {
+            boolean b;
+            b = false || true && (1==1) || !(2>=4);
+        }
         

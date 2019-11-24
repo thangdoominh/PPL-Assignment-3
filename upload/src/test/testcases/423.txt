@@ -1,9 +1,11 @@
 
-            float fus[55];
-            float[] foo(float par[]){
-                return par;
-            }
-            void main(){
-                foo2(fus);
-            }
+        void main(int argc)
+        {
+            printf("What to do?", argc);
+	        return ;
+        }
+        void printf(string str, int elem) {
+            putString(str);
+            putInt(elem);
+        }
         

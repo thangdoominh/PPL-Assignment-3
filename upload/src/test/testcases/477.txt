@@ -1,6 +1,5 @@
 
-            float foo(){
-
-            }
-            void main(){}
+        void main(float a[]) {
+            a[0] = a[1] = 5 = 2;
+        }
         

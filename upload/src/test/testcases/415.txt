@@ -1,15 +1,15 @@
 
-            float main(){
-                int a;
-                foo3();
-                return 1.5;
-            }
-
-            void func1(int a1, int a2){}
-            int foo3(){
-                a = 2*5+3;
-                func11(5,2);
-                return 3;
-            }
-
+        int main(int global, int main) {
+            putString("Hello World");
+            exp(130613);
+            return global;
+        }
+        void exp(int i){
+            //Get value
+            int index;
+            index = random[0] = getInt();
+            if (getFloat()) 
+                return ;
+        }
+        int random[1]; 
         

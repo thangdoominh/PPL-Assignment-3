@@ -1,14 +1,8 @@
 
-            int check(boolean abc){
-                if (abc) return 1;
-                return 0;
-            }
-            void main(){
-                return check2();
-            }
-            int check2(){
-                string s;
-                s = "check(3)/4+3;";
-                return check(true);
-            }
+        float arr[10],x,y;
+        boolean BTS, TXT;
+        void main(int argc, int argv[])
+        {
+            putString(true);
+        }
         

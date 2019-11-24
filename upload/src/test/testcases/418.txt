@@ -1,11 +1,10 @@
 
-            void foo(){
-                foo();
+        int main() {
+            int i;
+            for (i = 1; ((i)); 1+i)
+            {
+                putString("%d i");
             }
-
-            void main(){
-                int goo;
-                foo();
-            }
-
+            return 0;
+        }
         

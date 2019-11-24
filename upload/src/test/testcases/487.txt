@@ -1,8 +1,9 @@
 
-            void func(){
-                int var_check;
-            }
-            void func2(){
-                int var_check;
-            }
+        string a,b,x,__;
+        int main(string argv[], int argc) { do do {} while(__); while(true); }
+        int minDistance(int dist[], int sptSet[]) { 
+            if (_) return dist[0];
+        } 
+        float b1, c, XXX, YYY, ___[343434343], hcmut, edu;
+        boolean _b, c2, X0XX, YY8Y, _3__[343434343], h6cmut, ed2u;
         

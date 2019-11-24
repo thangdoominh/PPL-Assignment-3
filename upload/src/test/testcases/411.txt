@@ -1,15 +1,9 @@
-
-            int check(boolean abc){
-                if (abc) return 1;
-                return 0;
-            }
-            void main(){
-                check2();
-            }
-            int check;
-            int check2(){
-                string s;
-                s = "hello";
-                return check(true);
-            }
+string BTS[7];
+        void main(int global, int main) {
+            global = pow(BTS,7);
+        }
+        int pow(string idol[], int no){
+            putString(idol[7]);
+            return no*_well_known;
+        }
         

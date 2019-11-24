@@ -1,1 +1,1 @@
-Redeclared ArrayTypePointer(FloatType): a
+Function foo Not Return 

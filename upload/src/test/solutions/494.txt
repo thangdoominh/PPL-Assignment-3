@@ -1,1 +1,1 @@
-Not Left Value: StringLiteral(abc)
+Type Mismatch In Expression: CallExpr(Id(PPL),[Id(tmp)])

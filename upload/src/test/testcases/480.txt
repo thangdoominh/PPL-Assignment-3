@@ -1,8 +1,7 @@
 
-            float foo(){
-                return 3.5;
-            }
-            void main(){
-                continue;
-            }
+        int a,x,b,XXX, YYY, __[99],d;
+        float ate[000], youtube;
+        boolean facebool, twitter[2], yahoo_yayayayay;
+        string _name_, _id_;
+        string JLPT, _____[1999];
         

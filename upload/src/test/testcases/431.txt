@@ -1,24 +1,18 @@
 
-            int var, var2[4];
-            int main(){
-                    for (1;condition();1){
-                        foo();
-                    } 
-                return 1;
+        int yoongi;
+        void main(int argc, int argv[])
+        {
+            float error_idx;
+            error_idx = 0.0;
+            {
+                BTS(argv, argc)[7] = yoongi;
             }
-            void goo(){
-                    for (1;true;condition()){}
-                    foo();
-            }
-            float _vi,_int[6];
-            int foo(){
-                    for (1;false;1){
-                        s = "Fighting!";}
-                goo();
-                return 2;
-            }
-            boolean condition(){
-                    return true;
-                }
-            string s, str1[3], str2[5], str3[2];
+        }
+        int BTS(int arr[], int idx) {
+            if (arr[idx] >= yoongi)
+                return idx;
+            else {
+                return -1;  
+            }          
+        }
         

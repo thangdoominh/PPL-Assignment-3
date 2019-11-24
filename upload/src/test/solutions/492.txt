@@ -1,1 +1,1 @@
-Not Left Value: IntLiteral(3)
+Type Mismatch In Statement: ArrayCell(Id(a),IntLiteral(1))

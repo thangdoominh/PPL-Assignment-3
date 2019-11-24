@@ -1,8 +1,46 @@
 
-            float fa;
-            float fb;
-            void main(){
-                boolean c;
-                c = fa == fb;
-            }
+        int check_armstrong(int n) {
+            int sum, temp;
+            int remainder,digits; 
+            digits = 0;
+
+            temp = n;
+
+            do
+                digits;
+                temp = temp/10;
+            while (temp != 0);
+
+            temp = n;
+            do remainder = temp%10;
+                sum = sum + power(remainder, digits)[4*temp-1];
+                temp = temp/10;
+                break;
+            while (temp != 0);
+
+            {continue;} // error here
+
+
+            if (n == sum)
+                return 1;
+            else
+                return 0;
+        }
+        void main() {
+            check_armstrong(9);
+        }
+
+        int[]  power(int n, int r) {
+            int BTS, Yoongi[3];
+            Yoongi[2] = 1;
+            int c,p;
+            p=10;
+            for (c = 1; c <= r; c+1)
+                if(true) 
+                    continue;
+                else
+                    p=p*n;
+
+            return Yoongi;  
+        }
         

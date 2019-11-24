@@ -1,9 +1,7 @@
 
-            int fus[55];
-            float[] foo(float par[]){
-                return par;
-            }
-            void main(){
-                foo();
-            }
+        void foo() {
+            foo();
+        }
+        void main() {
+        }
         

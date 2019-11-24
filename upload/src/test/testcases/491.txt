@@ -1,10 +1,5 @@
 
-            int foo(){
-                main();
-                foo();
-                return 1;
-            }
-            void main(){
-
-            }
+        void main(string a[]) {
+            a[1] = "abxcf" + "csdfg";
+        }
         

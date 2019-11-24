@@ -1,15 +1,5 @@
-
-            float main(){
-                int a;
-                foo3();
-                return 1.5;
-            }
-
-            void func11(int a1, int a2){}
-            int foo3(){
-                func11(5,2);
-                return 3;
-            }
-            float func11(){}
-
+int global, scope[100];
+        void main(int global, int main) {
+            // Do nothing in here
+        }
         

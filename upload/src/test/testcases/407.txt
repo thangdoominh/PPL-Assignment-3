@@ -1,20 +1,8 @@
-
-            int a;
-            void main(){
-                func(a);
-                func2();
-            }
-            void func(int hello){
-                int var;
-                {
-                    {
-                        {
-                            int hello;
-                        }
-                    }
-                }
-            }
-            void func2(){
-                int var;
-            }
-        
+int global, scope[100];
+        void main() {
+            // Do nothing in here
+        }
+        float scope(string message) {
+            putString(message);
+            return getFloat();
+        }

@@ -1,8 +1,14 @@
 
-            boolean foo(int param){return true;}
-            int a_var,m,n,b[13],a[13];
-            int main(){
-                foo(a[3]) = 3;
-                return 0;
+        int main(string argv[], int argc) { return 0;  }
+        float solve_for_y(float a, float b, float c)
+        {
+            float Y;
+            if(a <= 0) {
+                putStringLn("Value of Y cannot be predicted");
             }
+            else {
+                Y = -(b + c) / a;
+            }
+            return Y;
+        }
         

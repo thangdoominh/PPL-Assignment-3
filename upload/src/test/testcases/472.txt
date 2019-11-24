@@ -1,15 +1,5 @@
 
-            int a;
-            int main(){
-                for (a;true;3){
-                    {
-                        if (true){
-                            return 0;
-                        }
-                        else{
-                            return 1;
-                        }
-                    }
-                }
-            }
+        void main(int a[]) {
+            a[1] = 2;
+        }
         

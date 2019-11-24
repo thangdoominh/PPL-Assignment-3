@@ -1,5 +1,10 @@
 
-            void main(){
-                for (1;true;1){{{{{}}}}}
-		    }
+        int global;
+        void main(int argc, int argv[])
+        {
+            int x,y,z;
+            float a;
+            a = 1;
+            x = a;
+        }
         

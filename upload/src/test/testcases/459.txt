@@ -1,8 +1,21 @@
 
-            void main(){
-                float f1;
-                float f2;
-                int res;
-                res = f1/f2;
-            }
+        int[] foo() {
+            int arr[10];
+            return arr;
+        }
+        void main(int x, int y)
+        {
+            int tmp;
+            tmp = 0;
+            tmp = x;
+            x = y;
+            y = tmp;
+            printRes(x,y,2);
+        }
+
+        void printRes(float var1, float var2, int num) {
+            putFloat(var1);
+            putFloat(var2);
+            main(0,999);
+        }
         

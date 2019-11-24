@@ -1,14 +1,7 @@
 
-            int a,b,c;
-            float[] foo(){
-                int a[5];
-                return a;
-            }
-            int func1(float param1[], int param2){
-                return a*2+3;
-            }
-            void main(){
-                foo();
-                func1(foo(), 2);
-            }
+        int arr[10];
+        void main(int argc, int argv[])
+        {
+            2 || arr[9];
+        }
         

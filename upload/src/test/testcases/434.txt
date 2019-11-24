@@ -1,9 +1,14 @@
 
-            void main(){
-                for (1;true;1){{{{{func();}}}}}
-            }
-            int[] func(){
-                int a[5];
-                return a;
-            }
+        int global;
+        string swap(int a, int b) {
+            int t;
+            t = a;
+            a = b; b= t;
+            return "Done";
+        }
+        int main(string argv)
+        {
+            swap = argv;
+            return 0;
+        }
         

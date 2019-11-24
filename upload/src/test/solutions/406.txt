@@ -1,1 +1,1 @@
-Redeclared VoidType: var_check
+Type Mismatch In Expression: CallExpr(Id(scope),[StringLiteral(Born Coder :>)])

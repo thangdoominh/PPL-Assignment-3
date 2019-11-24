@@ -1,6 +1,8 @@
 
-            void main(){
-                3 = 2;
-            }
-
+        string foo(string a) {
+            return a;
+        }
+        void main(string a[]) {
+            a[1] = foo("abc") + foo("abc");
+        }
         

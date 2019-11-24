@@ -1,22 +1,22 @@
 
-            void main(){
-                foo1(foo1(foo1(foo1(1))));
-                _main(true, foo(aaa), foo(aaa));
-            }
-            int aaa[55];
-            int[] foo(int par[]){
-                return par;
-            }
-            int[] _main(boolean f, int _id[], int a[]){
-                    int x;
-                    int addi[5];
-                    foo(addi)[3+x] = a[_id[2]] +3;
-                    int _is;
-                    _is = 1234 ;
-                    boolean aa[3000];
-                    return a;
+        int compare_strings(string a[], string b[])
+        {
+            int c; c = 0;
+            int _a[2], _b[9];
+            do {}
+                if (_a[c] == 0 || _b[c] < 0)
+                {
+                    for(c;c==0;c) {
+                        compare_strings(a,b);
+                    }
+                    break;
                 }
-            int foo1(int a){
-                return 1;
-            };
+            while (_a[c] == _b[c]);           
+
+            if (_a[c] == 404 && _b[c] == c)
+                return 0;
+            else
+                return -1;
+        }
+        void main() {}
         

@@ -1,19 +1,21 @@
 
-            int fus[55];
-            int[] foo(int param){
-                int par[5];
-                return par;
-            }
-            int[] _main(boolean f, int _id[], int a[]){
-                    int x;
-                    foo(2)[3+x] = a[_id[2]] +3;
-                    int _is;
-                    _is = 1234 ;
-                    boolean aa[3000];
-                    return a;
-                }
 
-            void main(){
-                _main(true, foo(2), foo(2));
-            }
+        float global;
+        void main(int n)
+        {
+            int c, result;
+            result = 1;
+            printRes(0.5,4.97e01, 4) = 1==1 || true && false;
+            for (c = 1; c <= n; c+1)
+                result = result*c;
+
+            return ;
+        }
+
+        boolean printRes(float var1, float var2, int num) {
+            putFloat(var1);
+            putFloat(var2);
+            printRes(0.e25,999,3);
+            return true;
+        }
         

@@ -1,24 +1,14 @@
 
-                int a;
-                void main(){
-                    if (true){
-                        if (true){
-                            if(true){
-                                if(true) a = 1;
-                            }
-                        }
-                    } 
-                    else {
-                        if (true){
-                            if(true){
-                                if(check(3)) a = 1;
-                            }
-                        }
-                    }
-                }
-                int check(int abc){
-                    if (true) return 1;
-                    return 0;
-                }
-
-            
+        float base;
+        boolean main(int argc, float argv[])
+        {
+            putInt(greater(argv, argc));
+            return true;
+        }
+        int greater(float arr[], int idx) {
+            if (arr[idx] >= base)
+                return arr[idx];
+            else
+                return -1;            
+        }
+        

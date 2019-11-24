@@ -1,13 +1,5 @@
 
-            int a;
-            int main(){
-                if (true){
-                    {
-                        {{{return a;}}}
-                    }
-                }
-                else{
-                    return 1;
-                }
-            }
+        void main(float a[]) {
+            a[0] = a[1] + 1 - a[2] / a[3] * 4 / 5;
+        }
         

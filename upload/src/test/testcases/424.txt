@@ -1,14 +1,12 @@
 
-            int check(int abc){
-                if (abc) return 1;
-                return 0;
-            }
-            void main(){
-                check2();
-            }
-            int check2(){
-                string s;
-                s = "hello";
-                return check(3);
-            }
+        int main(int argc, string argv[])
+        {
+            argv[0] = printf("What to do?", argc);
+	        return 0;
+        }
+        string printf(string str, int elem) {
+            putString(str);
+            putInt(elem);
+            return ;
+        }
         

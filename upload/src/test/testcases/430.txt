@@ -1,24 +1,19 @@
 
-            int a,b[5],c;
-            float _vi,_int[6];
-            string s, str1[3], str2[5], str3[2];
-            int main(){
-                    for (1;condition();1)
-                        s = "Fighting!";
-                    main1();
-                return 1;
+        int yoongi;
+        void main(int argc, int argv[])
+        {
+            float error_idx;
+            error_idx = 0.0;
+            {
+                BTS(argv, argc)[error_idx] = yoongi;
             }
-            void main1(){
-                    for ("1";true;1)
-                        s = "Fighting!";
-                    main2();
-            }
-            int main2(){
-                    for (1;false;1)
-                        s = "Fighting!";
-                    return 2;
-            }
-            boolean condition(){
-                    return true;
-                }
+        }
+        int[] BTS(int arr[], int idx) {
+            if (arr[idx] >= yoongi)
+                return arr;
+            else {
+                int tmp[10];
+                return tmp;  
+            }          
+        }
         

@@ -1,12 +1,11 @@
+int global;
 
-            void main(){
-                func();
-                func2();
-            }
-            void func(){
-                int var_check;
-            }
-            void func2(){
-                int var_check;
-            }
-        
+        void main() {
+            // Do nothing in here
+            scope("Born Coder :>");
+            {int scope;}
+        }
+        float scope(string message) {
+            putString(message);
+            return getFloat();
+        }

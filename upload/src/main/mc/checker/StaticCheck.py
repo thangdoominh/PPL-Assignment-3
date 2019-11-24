@@ -49,7 +49,7 @@ class StaticChecker(BaseVisitor,Utils):
     # env: List or tuple of Symbol
     def findSymbol(self, name, env):
         result = None
-        if type(env) is tuple:
+        if type(env) is tuple or list:
             for i in env:
                 if result is None:
                     result = self.lookup(name, i, lambda x: x.name)
@@ -83,9 +83,10 @@ class StaticChecker(BaseVisitor,Utils):
             if type(x) is VarDecl:
                 g[0] += [self.visit(x, g)]
             else:
-                if self.findSymbol(x, g):
+                if self.lookup(x.name,g[0], lambda x: x.name):
+                # if self.findSymbol(x, g):
                     raise Redeclared(Function(), x.name.name)
-                g[0] += [Symbol(x.name.name, MType([j for j in x.partype], x.rettype),False)]
+                g[0] += [Symbol(x.name.name, MType([j for j in x.param], x.returnType),False)]
 
         # mainFunc = self.findSymbol('main', g)
         # if mainFunc is None or (type(mainFunc.mtype) != MType):
@@ -94,7 +95,7 @@ class StaticChecker(BaseVisitor,Utils):
         for x in ast.decl:
             if type(x) is FuncDecl:
                 self.visit(x, g)
-        mainFunc = self.findSymbol('main', g)
+        mainFunc = self.lookup('main', g, lambda x: x.name)
         if mainFunc is None or (type(mainFunc.mtype) != MType):
             raise NoEntryPoint();
         if len(self.unreached) > 0:
@@ -105,7 +106,7 @@ class StaticChecker(BaseVisitor,Utils):
     # param[0] is the environment
     def visitVarDecl(self, ast, params):
         res = Symbol(ast.variable, ast.varType)
-        check = self.findSymbol(ast.variable, params[0])
+        check = self.lookup(ast.variable, params[0], lambda x: x.name)
         if check is None:
             params[0].append(res)
             return res
@@ -117,9 +118,10 @@ class StaticChecker(BaseVisitor,Utils):
 
         localEnvironment = [[]] + params
         for i in ast.param:
-            if self.findSymbol(i.variable, localEnvironment[0]):
+            if self.lookup(i.variable, localEnvironment[0], lambda x: x.name):
                 raise Redeclared(Parameter(), i.variable)
             localEnvironment[0] += [Symbol(i.variable, i.varType)]
+        self.__funcType = ast.returnType
         checkReturn = False
         for i in ast.body.member:
             if type(i) is VarDecl:
@@ -222,11 +224,11 @@ class StaticChecker(BaseVisitor,Utils):
             if type(self.__funcType) is ArrayType:
                 if type(ast.expr) is Id:
                     for i in params:
-                        res = self.findSymbol(ast.expr.name, i)
+                        res = self.lookup(ast.expr.name, i)
                         if res:
                             typeRes = res.mtype
                             typeFunc = self.__funcType
-                            if type(typeRes.eleType) == type(typeFunc.eleType) and type(typeRes) is ArrayType:
+                            if type(typeRes) is ArrayType and type(typeRes.eleType) == type(typeFunc.eleType):
                                 break
                             else:
                                 raise TypeMismatchInExpression(ast)
@@ -247,36 +249,39 @@ class StaticChecker(BaseVisitor,Utils):
     # Expressions only use params[0] as environment #
     #################################################
 
-    def visitCallExpr(self, ast, enviroment):
-        callParam = []
-
+    def visitCallExpr(self, ast, c):
+        paramList = []
         for i in ast.param:
-            callParam += [self.visit(i, enviroment[:])]
-
-        for i in enviroment:
-            res = self.findSymbol(ast.method.name, i)
-            if res:
-                if type(res.mtype) is MType:
-                    if len(callParam) != len(ast.mtype.partype):
-                        raise TypeMismatchInExpression(ast)
-                    Pairs = list(zip(callParam, ast.mtype.partype))
-                    for pair in Pairs:
-                        if type(pair[0]) != type(pair[1]):
-                            if type(pair[0]) is IntType and type(pair[1]) is FloatType:
+            paramList += [self.visit(i, c)]
+        for i in c:
+            checkId = self.lookup(ast.method.name, i, lambda x: x.name)
+            if checkId:
+                if type(checkId.mtype) is MType:
+                    if len(paramList) == len(checkId.mtype.partype):
+                        for j in range(len(paramList)):
+                            if type(paramList[j]) == type(checkId.mtype.partype[j]):
+                                if type(paramList[j]) is ArrayPointerType:
+                                    if type(paramList[j].eleType) == type(checkId.mtype.partype[j].eleType):
+                                        pass
+                                    else:
+                                        raise TypeMismatchInExpression(ast)
+                                else:
+                                    pass
+                            elif type(paramList[j]) is IntType and type(checkId.mtype.partype[j]) is FloatType:
+                                pass
+                            elif type(paramList[j]) is ArrayType and type(checkId.mtype.partype[j]) is ArrayPointerType and type(paramList[j].eleType) == type(checkId.mtype.partype[j].eleType):
                                 pass
                             else:
                                 raise TypeMismatchInExpression(ast)
-                        else:
-                            if type(pair[0]) is ArrayType:
-                                if type(pair[0].eleType) == type(pair[1].eleType)
-                                    pass
-                                else:
-                                    raise TypeMismatchInExpression(ast)
-                    return res.mtype.rettype
-
+                    else:
+                        raise TypeMismatchInExpression(ast)
                 else:
                     raise TypeMismatchInExpression(ast)
-        raise Undeclared(Function(), ast.method.name)
+        if not checkId:
+            raise Undeclared(Function(), ast.method.name)
+        if (self.__curTypeFunc.name != checkId.name):
+            checkId.value = True
+        return checkId.mtype.rettype
 
 
 
@@ -331,9 +336,9 @@ class StaticChecker(BaseVisitor,Utils):
 
     # type ast is symbol
     def visitId(self, ast, enviroment):
-        print(enviroment)
         for i in enviroment:
-            checkId = self.findSymbol(ast.name, i)
+            # checkId = self.findSymbol(ast.name, i)
+            checkId = self.lookup(ast.name, i,lambda x: x.name )
             if checkId.mtype is MType:
                 return checkId.mtype.rettype
             else:
@@ -341,14 +346,13 @@ class StaticChecker(BaseVisitor,Utils):
         raise Undeclared(Identifier(), ast.name)
 
     def visitArrayCell(self, ast, enviroment):
+        array = self.visit(ast.arr, enviroment)
         index = self.visit(ast.idx, enviroment)
         if not type(index) is IntType:
             raise TypeMismatchInExpression(ast)
-        array = self.visit(ast.arr, enviroment)
-        if not type(array) is ArrayType:
+        if not type(array) is ArrayType and not type(array) is ArrayPointerType:
             raise TypeMismatchInStatement(ast)
-        else:
-            return array.eleType
+        return array.eleType
 
     def visitBlock(self, ast, enviroment):
         [self.visit(x, enviroment) for x in ast.member]

@@ -1,8 +1,22 @@
 
-            int main(){
-                int a[5];
-                a[5] = 3;
-                a[2.5] = 3;
-                return 1;
+        int arr;
+        void main(int argc, int argv[])
+        {
+            test(arr); // OK
+            {
+                boolean bool_arr[10];
+                test((pointer())); // OK
+                test(bool_arr); // Fail
             }
+        }
+
+        void test(float arr) {
+            putInt(arr);
+        }
+
+        int pointer() {
+            int tmp;
+            tmp = 10;
+            return tmp;
+        }
         

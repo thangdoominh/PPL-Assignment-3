@@ -1,6 +1,6 @@
-
-            int foo;
-            void main() {}
-            int a;
-            void foo(){}
+int global, scope[100];
+        void main() {
+            int a,b;
+            float x,y,a[10], t;
+        }
         

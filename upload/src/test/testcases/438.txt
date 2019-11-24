@@ -1,14 +1,9 @@
 
-            void main(){
-                foo();
-            }
-            int a, aa[5], b, bb[5];
-            int foo(){
-                    do 
-                        a=30 ;
-                        if(true) a= bb[1];
-                        else b=aa[1]= 30;
-                    while (1) ;
-                return 3;
-            }
+        int arr[10];
+        void main(int argc, int argv[])
+        {
+            boolean b;
+            b = false;
+            arr[1] + b;
+        }
         

@@ -1,9 +1,14 @@
 
-                void foo(){}
-
-                void main(){
-                    int foo;
-                    foo();
-                }
-
-            
+        float base;
+        boolean main(int argc, float argv[])
+        {
+            putFloat(greater(argv, argc));
+            return true;
+        }
+        float greater(float arr[], int idx) {
+            if (arr[idx] >= base)
+                return idx;
+            else
+                return -1;            
+        }
+        

@@ -1,12 +1,10 @@
 
-            void foo(int foo){
-                int goo;
-                foo();
+        int arr[10];
+        void main(int argc, int argv[])
+        {
+            int main[1];
+            {
+                arr = main;
             }
-
-            void main(){
-                int foo1;
-                foo();
-            }
-
+        }
         

@@ -1,9 +1,35 @@
 
-            int fus[55];
-            float[] foo(int par[]){
-                return par;
+        void swap(int x, int y)
+        {
+            int tmp;
+            tmp = 0;
+            tmp = x;
+            x = y;
+            y = tmp;
+            printRes(x,y,test)[9] = !true || (25*x<=0.5-y); 
+        }
+        boolean test[2];
+        float global;
+        void main(int n)
+        {
+            int c, result;
+            result = 1;
+            string t;
+            t = "string here";
+            for (c = 1; c <= n; c+1)
+            {
+                result = result*c;
+                swap(c, result);
             }
-            void main(){
-                foo(fus);
-            }
+
+            return ;
+        }
+
+        boolean[] printRes(float var1, float var2, boolean num[]) {
+            putFloat(var1);
+            putFloat(var2);
+            printRes(0.e25,999,test);
+
+            return num;
+        }
         
