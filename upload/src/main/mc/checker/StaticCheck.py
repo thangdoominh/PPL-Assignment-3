@@ -24,22 +24,23 @@ class StaticChecker(BaseVisitor,Utils):
     global_envi = [
 
     #Built in Function
-        Symbol("getInt", MType([], IntType()), 0),
-        Symbol("putInt", MType([IntType()], VoidType()),0),
-        Symbol("putIntLn", MType([IntType()], VoidType()), 0),
-        Symbol("getFloat", MType([], FloatType()), 0),
-        Symbol("putFloat", MType([FloatType()], VoidType()), 0),
-        Symbol("putFloatLn",MType([FloatType()], VoidType()), 0),
-        Symbol("putBool", MType([BoolType()], VoidType()), 0),
-        Symbol("putBoolLn", MType([BoolType()], VoidType()), 0),
-        Symbol("putString", MType([StringType()], VoidType()), 0)
+        Symbol("getInt", MType([], IntType()), True),
+        Symbol("putInt", MType([IntType()], VoidType()), True),
+        Symbol("putIntLn", MType([IntType()], VoidType()), True),
+        Symbol("getFloat", MType([], FloatType()), True),
+        Symbol("putFloat", MType([FloatType()], VoidType()), True),
+        Symbol("putFloatLn",MType([FloatType()], VoidType()), True),
+        Symbol("putBool", MType([BoolType()], VoidType()), True),
+        Symbol("putBoolLn", MType([BoolType()], VoidType()), True),
+        Symbol("putString", MType([StringType()], VoidType()),True),
+        Symbol("putStringLn", MType([StringType()], VoidType()), True),
+        Symbol("putLn", MType([], VoidType()), True)
     ]
 
     # list of name function unreachable
     unreached = []
     __currentFunction = None
     __funcType = None
-    __curTypeFunc = None
     __currentInLoop = 0
     def __init__(self,ast):
         self.ast = ast
@@ -74,7 +75,7 @@ class StaticChecker(BaseVisitor,Utils):
             else:
                 if self.lookup(x.name,g[0], lambda x: x.name) is not None:
                     raise Redeclared(Function(), x.name.name)
-                g[0] += [Symbol(x.name.name, MType([j.varType for j in x.param], x.returnType), 0)]
+                g[0] += [Symbol(x.name.name, MType([j.varType for j in x.param], x.returnType), False)]
 
         for i in g[0]:
             if type(i.mtype) is MType:
@@ -94,9 +95,17 @@ class StaticChecker(BaseVisitor,Utils):
             if type(x) is FuncDecl:
                 self.visit(x, g)
 
+        for i in ast.decl:
+            if type(i) is FuncDecl:
+                if i.name.name != "main":
+                    check = self.lookup(i.name.name, g[-1], lambda x: x.name)
+                    if check.value is True:
+                        pass
+                    else:
+                        raise UnreachableFunction(check.name)
+
         __currentFunction = None
         __funcType = None
-        __curTypeFunc = None
         __currentInLoop = None
         return None
 
@@ -120,8 +129,7 @@ class StaticChecker(BaseVisitor,Utils):
                 raise Redeclared(Parameter(), i.variable)
             localEnvironment[0] += [self.visit(i, localEnvironment)]
         self.__funcType = ast.returnType
-        self.__currentFunction = ast.name.name
-        self.__curTypeFunc = Symbol(ast.name.name, MType([ast.param], ast.returnType),False)
+        self.__currentFunction = Symbol(ast.name.name, MType([ast.param],ast.returnType), False)
         checkReturn = False
         for i in ast.body.member:
             if type(i) is VarDecl:
@@ -277,60 +285,55 @@ class StaticChecker(BaseVisitor,Utils):
                     raise TypeMismatchInExpression(ast)
         if checkId is None:
             raise Undeclared(Function(), ast.method.name)
-        # if (self.__curTypeFunc.name != checkId.name):
-        #     checkId.value = True
-        if (self.__currentFunction != checkId.name):
-            checkId.value = 0
 
+        if self.__currentFunction.name != checkId.name:
+            checkId.value = True
         return checkId.mtype.rettype
 
 
 
-    def visitBinaryOp(self, ast, enviroment):
-
-        left = self.visit(ast.left, enviroment)
-        right = self.visit(ast.right, enviroment)
-        if type(ast.left) not in (Id, ArrayCell) and ast.op == "=":
-             raise NotLeftValue(ast.left)
-
-        if type(left) != type(right):
-            if (ast.op in ["+", "-", "*", "/", ">", "<", ">=", "<="]):
-                if type(left) is IntType and type(right) is FloatType:
-                    left, right = right, left
-                elif type(left) is FloatType and type(right) is IntType:
-                    pass
+    def visitBinaryOp(self, ast, c):
+        left = self.visit(ast.left, c)
+        right = self.visit(ast.right, c)
+        if type(left) is IntType and type(right) is FloatType:
+            if ast.op in ["+", "-", "*", "/", ">", "<", "<=", ">="]:
+                temp = left
+                left = right
+                right = temp
+        if ast.op is "=":
+            if type(ast.left) is not Id and type(ast.left) is not ArrayCell:
+                raise NotLeftValue(ast.left)
+            if type(left) is VoidType or type(left) is ArrayPointerType or type(left) is ArrayType:
+                raise TypeMismatchInExpression(ast)
+        if type(left) is type(right) or (type(left) is FloatType and type(right) is IntType):
+            if type(left) is BoolType:
+                if ast.op in ["||" , "&&" , "==" , "!=", "="]:
+                    return BoolType()
                 else:
                     raise TypeMismatchInExpression(ast)
-        if type(left) == type(right) or (type(left) is FloatType and type(right) is IntType):
-            if type(left) is BoolType:
-                if ast.op in ("!=", "&&", "||", "="):
-                    return BoolType()
-                raise TypeMismatchInExpression(ast)
-
             if type(left) is IntType:
-                if ast.op == "/":
-                    return FloatType()
-                if ast.op in ("+", "-", "*", "%", "="):
-                    if type(right) is FloatType:
-                        raise TypeMismatchInExpression(ast)
-                    if type(right) is IntType:
-                        return IntType()
-                if ast.op in ("<", "<=", ">", ">=", "==", "!="):
+                if ast.op in ["+" , "-", "*" , "/", "%", "="]:
+                    return IntType()
+                elif ast.op in ["==" , "!=" , ">" , "<" , ">=" , "<="]:
                     return BoolType()
-                raise TypeMismatchInExpression(ast)
-
+                else:
+                    raise TypeMismatchInExpression(ast)
             if type(left) is FloatType:
-                if ast.op in ("+", "-", "*", "/", "=", "*"):
+                if ast.op in ["+" , "-" ,"*" ,"/", "="]:
                     return FloatType()
-                if ast.op in ("<", "<=", ">", ">="):
+                elif ast.op in [">=", ">" , "<" , "<="]:
                     return BoolType()
-                raise TypeMismatchInExpression(ast)
-
+                else:
+                    raise TypeMismatchInExpression(ast)
             if type(left) is StringType:
                 if ast.op == "=":
                     return StringType()
-                raise TypeMismatchInExpression(ast)
+                else:
+                    raise TypeMismatchInExpression(ast)
+        else:
             raise TypeMismatchInExpression(ast)
+        raise TypeMismatchInExpression(ast)
+
 
     def visitUnaryOp(self, ast, enviroment):
         exp = self.visit(ast.body, enviroment)

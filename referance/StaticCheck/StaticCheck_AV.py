@@ -303,3 +303,132 @@ class StaticChecker(BaseVisitor,Utils):
 
 	# def visitArrayType(self,ast,env):
 		# return None
+
+	if ast.op == '=':
+		if (type(ast.left) is not Id) and (type(ast.left) is not ArrayCell):
+			raise NotLeftValue(ast.left)
+		left = self.visit(ast.left, c)
+		right = self.visit(ast.right, c)
+		if type(left) in [VoidType, ArrayType, ArrayPointerType]:
+			raise TypeMismatchInExpression(ast)
+		if (type(left) == type(right)) or ((type(left), type(right)) is (FloatType, IntType)):
+			if type(left) is IntType:
+				return IntType()
+			if type(left) is FloatType:
+				return FloatType()
+			if type(left) is BoolType:
+				return BoolType()
+			if type(left) is StringType:
+				return StringType()
+		else:
+			raise TypeMismatchInExpression(ast)
+	lstexp = [(FloatType, IntType), (IntType, FloatType)]
+	left = self.visit(ast.left, c)
+	right = self.visit(ast.right, c)
+	if type(left) != type(right):
+		if (type(left), type(right)) in lstexp:
+			pass
+		else:
+			raise TypeMismatchInExpression(ast)
+
+	if ast.op in ['||', '&&']:
+		if type(left) is not BoolType:
+			raise TypeMismatchInExpression(ast)
+		else:
+			return BoolType()
+
+	if ast.op in ['==', '!=']:
+		if (type(left) is BoolType) or ((type(left), type(right)) is [(IntType, IntType)):
+			return BoolType()
+		else:
+		raise TypeMismatchInExpression(ast)
+
+
+if ast.op in ['+', '-', '*', '/']:
+	if (type(left), type(right)) in [(FloatType, IntType), (IntType, FloatType), (FloatType, FloatType)]:
+		return FloatType()
+	elif (type(left), type(right)) in [(IntType, IntType)]:
+		return IntType()
+
+	else:
+		raise TypeMismatchInExpression(ast)
+
+if ast.op == '%':
+	if (type(left), type(right)) in [(IntType, IntType)]:
+		return IntType()
+
+	else:
+		raise TypeMismatchInExpression(ast)
+
+if ast.op in ['<', '<=', '>', '>=']:
+	if type(left) in [FloatType, IntType]:
+		return BoolType()
+
+	else:
+		raise TypeMismatchInExpression(ast)
+
+	if ast.op == "=":
+		if type(ast.left) not in (Id, ArrayCell):
+			raise NotLeftValue(ast.left)
+
+		left = self.visit(ast.left, enviroment)
+		right = self.visit(ast.right, enviroment)
+
+		if type(left) in (VoidType, ArrayType, ArrayPointerType):
+			raise TypeMismatchInExpression(ast)
+
+		if (type(left) == type(right)) or ((type(left), type(right)) is (FloatType, IntType)):
+			if type(left) is IntType:
+				return IntType()
+			if type(left) is FloatType:
+				return FloatType()
+			if type(left) is BoolType:
+				return BoolType()
+			if type(left) is StringType:
+				return StringType()
+		else:
+			raise TypeMismatchInExpression(ast)
+
+		lstexp = [(FloatType, IntType), (IntType, FloatType)]
+		left = self.visit(ast.left, enviroment)
+		right = self.visit(ast.right, enviroment)
+		if type(left) != type(right):
+			if (type(left), type(right)) in lstexp:
+				pass
+			else:
+				raise TypeMismatchInExpression(ast)
+
+		if ast.op in ['||', '&&']:
+			if type(left) is not BoolType:
+				raise TypeMismatchInExpression(ast)
+			else:
+				return BoolType()
+
+		if ast.op in ['==', '!=']:
+			if (type(left) is BoolType) or ((type(left), type(right)) is (IntType, IntType)):
+				return BoolType()
+			else:
+				raise TypeMismatchInExpression(ast)
+
+		if ast.op in ['+', '-', '*', '/']:
+			if (type(left), type(right)) in [(FloatType, IntType), (IntType, FloatType), (FloatType, FloatType)]:
+				return FloatType()
+			elif (type(left), type(right)) in [(IntType, IntType)]:
+				return IntType()
+
+			else:
+				raise TypeMismatchInExpression(ast)
+
+		if ast.op == '%':
+			if (type(left), type(right)) in [(IntType, IntType)]:
+				return IntType()
+
+			else:
+				raise TypeMismatchInExpression(ast)
+
+		if ast.op in ['<', '<=', '>', '>=']:
+			if type(left) in [FloatType, IntType]:
+				return BoolType()
+
+			else:
+				raise TypeMismatchInExpression(ast)
